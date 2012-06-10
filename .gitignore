@@ -3,6 +3,9 @@
 *.tar.gz
 *.zip
 
+# Project
+.vagrant
+
 # Librarian/RVM/Bundler
 cookbooks/
 tmp/

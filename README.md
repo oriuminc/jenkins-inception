@@ -4,7 +4,11 @@ Inception
 * Source: https://github.com/myplanetdigital/inception
 
 This project aims to be a Drupal continuous integration infrastructure
-in a box.
+in a box. This will include:
+
+  - Jenkins
+  - Drush
+  - PHP
 
 **Inception is in active development at Myplanet Digital, and should be
 considered alpha code. Stability and full documentation not yet
@@ -26,6 +30,19 @@ Quickstart
     $ git clone https://github.com/myplanetdigital/inception.git
     $ cd inception
     $ bundle exec librarian-chef install
+
+The next steps vary based on how you'd like to launch the Inception
+stack.
+
+### Vagrant
+
+If you have Vagrant installed, you can test the setup on local virtual
+machines:
+
+    $ bundle exec vagrant up  # Spin up the VM
+    $ bundle exec vagrant ssh # SSH into the VM
+
+You can now view the Jenkins UI at: http://localhost:8080
 
 To Do
 -----

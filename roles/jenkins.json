@@ -1,0 +1,30 @@
+{
+  "name": "jenkins",
+  "default_attributes": {
+    "jenkins": {
+      "server": {
+        "plugins": [
+          "audit-trail",
+          "git",
+          "greenballs",
+          "jobConfigHistory"
+        ]
+      }
+    }
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+    "recipe[git]",
+    "recipe[php]",
+    "recipe[php::module_curl]",
+    "recipe[drush::utils]",
+    "recipe[drush::make]",
+    "recipe[jenkins]"
+  ],
+  "description": "The base role for setting up the jenkins master with appropriate initial settings.",
+  "chef_type": "role",
+  "override_attributes": {
+  }
+}

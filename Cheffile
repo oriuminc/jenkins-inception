@@ -3,4 +3,10 @@
 
 site 'http://community.opscode.com/api/v1'
 
+cookbook "apt"
+cookbook 'drush',
+  :git => 'https://github.com/patcon/chef-drush.git',
+  :ref => 'msonnabaum-GH-10'
+cookbook "git"
 cookbook "jenkins"
+cookbook "php"
