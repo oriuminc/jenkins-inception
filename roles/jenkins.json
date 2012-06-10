@@ -4,10 +4,10 @@
     "jenkins": {
       "server": {
         "plugins": [
-          "audit-trail",
           "git",
           "greenballs",
-          "jobConfigHistory"
+          "jobConfigHistory",
+          "ws-cleanup"
         ]
       }
     }
@@ -22,7 +22,8 @@
     "recipe[php::module_curl]",
     "recipe[drush::utils]",
     "recipe[drush::make]",
-    "recipe[jenkins]"
+    "recipe[jenkins]",
+    "recipe[inception]"
   ],
   "description": "The base role for setting up the jenkins master with appropriate initial settings.",
   "chef_type": "role",
