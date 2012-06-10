@@ -36,6 +36,12 @@ Vagrant::Config.run do |config|
   # folder, and the third is the path on the host to the actual folder.
   # config.vm.share_folder "v-data", "/vagrant_data", "../data"
 
+  # Update Chef in VM to specific version before running provisioner
+  config.vm.provision :shell do |shell|
+    shell.path = "misc/upgrade_chef.sh"
+    shell.args = "0.10.8" # Chef version
+  end
+
   # Enable provisioning with chef solo, specifying a cookbooks path, roles
   # path, and data_bags path (all relative to this Vagrantfile), and adding 
   # some recipes and/or roles.
