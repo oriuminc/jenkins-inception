@@ -1,7 +1,7 @@
 Inception
 =========
 
-* Source: https://github.com/myplanetdigital/inception
+  - Source: https://github.com/myplanetdigital/inception
 
 This project aims to be a Drupal continuous integration infrastructure
 in a box. This will include:
@@ -44,14 +44,20 @@ machines:
 
 You can now view the Jenkins UI at: http://localhost:8080
 
+Known Issues
+------------
+
+  - Seemed that any restart of the VM causes Jenkins to be unavailable
+    from the host, even though it's still running.
+
 To Do
 -----
 
-* Add a `Vagrantfile` so that the setup can be testing locally. (use
-  [Hatch][hatch-project]?)
-* Provide instructions on using with Opscode hosted Chef server?
-* Use watir-webdriver and rake to create an opscode hosted chef account
-  and/or create a new hosted chef organization.
+  - Add a `Vagrantfile` so that the setup can be testing locally. (use
+    [Hatch][hatch-project]?)
+  - Provide instructions on using with Opscode hosted Chef server?
+  - Use watir-webdriver and rake to create an opscode hosted chef
+    account and/or create a new hosted chef organization.
 
 <!-- Links -->
    [hatch-project]: http://xdissent.github.com/chef-hatch-repo/

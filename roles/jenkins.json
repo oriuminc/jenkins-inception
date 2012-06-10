@@ -3,7 +3,6 @@
   "default_attributes": {
     "jenkins": {
       "server": {
-        "url": "localhost",
         "plugins": [
           "audit-trail",
           "git",
