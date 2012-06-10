@@ -53,7 +53,28 @@ running:
     $ bundle exec jenkins configure --host=localhost --port=8080
     $ bundle exec jenkins --help
 
-### Opscode Platform
+### Cloud
+
+If you have an Amazon Web Services or Rackspace account, there are
+several ways to host Inception in the cloud (going from simplest to more
+complex):
+
+  - Provisioned as a standalone server with Chef Solo.
+  - Provisioned as part of a hosted Chef Server setup via Opscode
+    Platform.
+  - Provisioned as part of a self-hosted Chef Server setup.
+
+Keep in mind that you will need to self-host the Jenkins server
+regardless. It is only the Chef Server hosting that varies: none,
+hosted, or self-hosted. If you have no plans to expand your
+infrastructure, provisioning a server via Chef Solo should work fine,
+and there will be less overhead to worry about.
+
+#### Stand-alone Chef Solo
+
+Coming soon...
+
+#### Hosted via Opscode Platform
 
 Opscode platform is a hosted Chef server that is free for managing up to
 5 servers. This should be more than enough for each project-specific CI
@@ -66,10 +87,16 @@ webdriver to fill out web forms and perform simple setup tasks for you.
 You may view the available tasks from the project root by running `rake
 -D` (for full descriptions) or `rake -T` (for short descriptions)
 
+More coming soon...
+
+#### Self-hosted Chef Server
+
+Coming soon...
+
 Known Issues
 ------------
 
-  - Seemed that any restart of the VM causes Jenkins to be unavailable
+  - Seems that any restart of the VM causes Jenkins to be unavailable
     from the host, even though it's still running.
 
 To Do
@@ -81,7 +108,7 @@ To Do
   - Use watir-webdriver and rake to create an opscode hosted chef
     account and/or create a new hosted chef organization.
   - Include a base Drupal install profile to show file structure and
-    bare minimum script expectations.
+    bare minimum scripting expectations.
   - Add [spiceweasel][spiceweasel-project] support for launching into
     the cloud.
 
