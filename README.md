@@ -47,6 +47,19 @@ machines:
 
 You can now view the Jenkins UI at: http://localhost:8080
 
+### Opscode Platform
+
+Opscode platform is a hosted Chef server that is free for managing up to
+5 servers. This should be more than enough for each project-specific CI
+setup.
+
+We'll be including various Rake tasks to automate the setup process as
+much as possible. These rake tasks will attempt to use a browser
+webdriver to fill out web forms and perform simple setup tasks for you.
+
+You may view the available tasks from the project root by running `rake
+-D` (for full descriptions) or `rake -T` (for short descriptions)
+
 Known Issues
 ------------
 
