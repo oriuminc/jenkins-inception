@@ -22,6 +22,7 @@ SITE
       mysql (>= 0.0.0)
       xml (>= 0.0.0)
     runit (0.15.0)
+    vim (1.0.2)
     windows (1.3.0)
       chef_handler (>= 0.0.0)
     xml (1.0.2)
@@ -41,4 +42,5 @@ DEPENDENCIES
   git (>= 0)
   jenkins (>= 0)
   php (>= 0)
+  vim (>= 0)
 

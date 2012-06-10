@@ -3,6 +3,7 @@
   "default_attributes": {
     "jenkins": {
       "server": {
+        "url": "localhost",
         "plugins": [
           "audit-trail",
           "git",
@@ -16,6 +17,7 @@
   "env_run_lists": {
   },
   "run_list": [
+    "recipe[vim]",
     "recipe[git]",
     "recipe[php]",
     "recipe[php::module_curl]",

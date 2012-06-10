@@ -10,3 +10,4 @@ cookbook 'drush',
 cookbook "git"
 cookbook "jenkins"
 cookbook "php"
+cookbook "vim"
