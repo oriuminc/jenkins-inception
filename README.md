@@ -47,6 +47,12 @@ machines:
 
 You can now view the Jenkins UI at: http://localhost:8080
 
+You can also access this virtual jenkins through the command-line by
+running:
+
+    $ bundle exec jenkins configure --host=localhost --port=8080
+    $ bundle exec jenkins --help
+
 ### Opscode Platform
 
 Opscode platform is a hosted Chef server that is free for managing up to
