@@ -1,0 +1,9 @@
+# General system
+.DS_Store
+*.tar.gz
+*.zip
+
+# Librarian/RVM/Bundler
+cookbooks/
+tmp/
+.bundle/
