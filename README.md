@@ -76,6 +76,9 @@ To Do
     account and/or create a new hosted chef organization.
   - Include a base Drupal install profile to show file structure and
     bare minimum script expectations.
+  - Add [spiceweasel][spiceweasel-project] support for launching into
+    the cloud.
 
 <!-- Links -->
-   [hatch-project]: http://xdissent.github.com/chef-hatch-repo/
+   [hatch-project]:       http://xdissent.github.com/chef-hatch-repo/
+   [spiceweasel-project]: http://wiki.opscode.com/display/chef/Spiceweasel 
