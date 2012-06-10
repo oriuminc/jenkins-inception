@@ -50,6 +50,8 @@ To Do
 * Add a `Vagrantfile` so that the setup can be testing locally. (use
   [Hatch][hatch-project]?)
 * Provide instructions on using with Opscode hosted Chef server?
+* Use watir-webdriver and rake to create an opscode hosted chef account
+  and/or create a new hosted chef organization.
 
 <!-- Links -->
    [hatch-project]: http://xdissent.github.com/chef-hatch-repo/
