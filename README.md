@@ -77,7 +77,10 @@ running Ubuntu Lucid (IP and root password), run these commands:
 
     $ bundle exec ssh-forever root@<IP_ADDRESS> -i /path/to/ssh_key.pub -n jenkins-PROJECT
     $ # Enter root password when prompted.
-    $ ssh jenkins-PROJECT "curl -L http://www.opscode.com/chef/install.sh | sudo bash"
+    $ ssh jenkins-PROJECT "curl -L http://www.opscode.com/chef/install.sh | bash /dev/stdin -v 0.10.8-3"
+    $ ssh jenkins-PROJECT "apt-get install rsync"
+    $ rsync -avz cookbooks data_bags cookbooks-override roles misc jenkins-PROJECT:/tmp/chef-solo/
+    $ ssh jenkins-test "chef-solo -c /tmp/chef-solo/misc/solo.rb -j /tmp/chef-solo/misc/solo-dna.json"
 
 More coming soon...
 
@@ -105,6 +108,10 @@ Known Issues
 
   - Seems that any restart of the VM causes Jenkins to be unavailable
     from the host, even though it's still running.
+  - Jenkins package repository having issues for the past 2 days (as of
+    June 11, 2012), where it's pointing to [a package that doesn't
+    exist](http://mirrors.jenkins-ci.org/debian/jenkins_1.469_all.deb).
+    Should be resolved soon.
 
 To Do
 -----
@@ -118,6 +125,9 @@ To Do
     bare minimum scripting expectations.
   - Add [spiceweasel][spiceweasel-project] support for launching into
     the cloud.
+  - Convert `jenkins.json` role to `jenkins.rb`, so that we can load
+    `config.yml` as part of it, and simplify `solo-dna.json`.
+  - Convert chef-solo provisioning steps to rake task.
 
 <!-- Links -->
    [hatch-project]:       http://xdissent.github.com/chef-hatch-repo/
