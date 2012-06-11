@@ -132,6 +132,8 @@ To Do
   - Convert chef-solo provisioning steps to rake task.
   - Add `user` cookbook and example databag to load server with
     authorized users for SSH access.
+  - Use `cap` instead of ssh-forever. (For one, ssh-forever doesn't
+    allow for turning of StrictHostKeyChecking.)
 
 <!-- Links -->
    [hatch-project]:       http://xdissent.github.com/chef-hatch-repo/
