@@ -3,8 +3,8 @@ Inception
 
   - Source: https://github.com/myplanetdigital/inception
 
-This project aims to be a Drupal continuous integration infrastructure
-in a box. This currently includes:
+A Drupal continuous integration infrastructure in a box. This currently
+includes:
 
   - Jenkins
   - Drush
@@ -72,7 +72,14 @@ and there will be less overhead to worry about.
 
 #### Stand-alone Chef Solo
 
-Coming soon...
+Assuming you have received credentials for a fresh Rackspace server
+running Ubuntu Lucid (IP and root password), run these commands:
+
+    $ bundle exec ssh-forever root@<IP_ADDRESS> -i /path/to/ssh_key.pub -n jenkins-PROJECT
+    $ # Enter root password when prompted.
+    $ ssh jenkins-PROJECT "curl -L http://www.opscode.com/chef/install.sh | sudo bash"
+
+More coming soon...
 
 #### Hosted via Opscode Platform
 
