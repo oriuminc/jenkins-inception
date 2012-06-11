@@ -72,8 +72,9 @@ and there will be less overhead to worry about.
 
 #### Stand-alone Chef Solo
 
-Assuming you have received credentials for a fresh Rackspace server
-running Ubuntu Lucid (IP and root password), run these commands:
+Assuming you have received credentials (root password and IP address)
+for a fresh server running Ubuntu Lucid, run these commands substituting
+an appropriate PROJECT name:
 
     $ bundle exec ssh-forever root@<IP_ADDRESS> -i /path/to/ssh_key.pub -n jenkins-PROJECT
     $ # Enter root password when prompted.
@@ -128,6 +129,8 @@ To Do
   - Convert `jenkins.json` role to `jenkins.rb`, so that we can load
     `config.yml` as part of it, and simplify `solo-dna.json`.
   - Convert chef-solo provisioning steps to rake task.
+  - Add `user` cookbook and example databag to load server with
+    authorized users for SSH access.
 
 <!-- Links -->
    [hatch-project]:       http://xdissent.github.com/chef-hatch-repo/
