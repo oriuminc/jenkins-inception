@@ -76,6 +76,7 @@ Assuming you have received credentials (root password and IP address)
 for a fresh server running Ubuntu Lucid, run these commands substituting
 an appropriate PROJECT name:
 
+    $ echo -e "Host IP_ADDRESS\n  StrictHostKeyChecking no" >> ~/.ssh/config
     $ bundle exec ssh-forever root@<IP_ADDRESS> -i /path/to/ssh_key.pub -n jenkins-PROJECT
     $ # Enter root password when prompted.
     $ ssh jenkins-PROJECT "curl -L http://www.opscode.com/chef/install.sh | bash /dev/stdin -v 0.10.8-3"
