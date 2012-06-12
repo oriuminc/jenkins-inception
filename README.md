@@ -132,7 +132,7 @@ Known Issues
   - Jenkins package repository having issues for the past 2 days (as of
     June 11, 2012), where it's pointing to [a package that doesn't
     exist](http://mirrors.jenkins-ci.org/debian/jenkins_1.469_all.deb).
-    Should be resolved soon.
+    Jenkins maintainer says should be resolved by Wed, June 13, 2012.
 
 To Do
 -----
