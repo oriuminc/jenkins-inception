@@ -29,6 +29,13 @@ SITE
     yum (0.6.0)
 
 GIT
+  remote: https://github.com/myplanetdigital/chef-solo-search.git
+  ref: master
+  sha: 743a0d2c6bbfd6d595b8088457b6a7fecb3a6729
+  specs:
+    chef-solo-search (0.4.0)
+
+GIT
   remote: https://github.com/patcon/chef-drush.git
   ref: msonnabaum-GH-10
   sha: 28d9d06fa3498b681dc4187e24321b71e14df406
@@ -38,6 +45,7 @@ GIT
 
 DEPENDENCIES
   apt (>= 0)
+  chef-solo-search (>= 0)
   drush (>= 0)
   git (>= 0)
   jenkins (>= 0)

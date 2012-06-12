@@ -84,6 +84,11 @@ an appropriate PROJECT name:
     $ rsync -avz cookbooks data_bags cookbooks-override roles misc jenkins-PROJECT:/tmp/chef-solo/
     $ ssh jenkins-test "chef-solo -c /tmp/chef-solo/misc/solo.rb -j /tmp/chef-solo/misc/solo-dna.json"
 
+**Notes:** The [chef-solo-search][chef-solo-search] cookbook is simply a
+container for a library that allows for chef-server search functions
+that are not available in native chef-solo. See that project's README
+for documentation.
+
 More coming soon...
 
 #### Hosted via Opscode Platform
@@ -138,3 +143,4 @@ To Do
 <!-- Links -->
    [hatch-project]:       http://xdissent.github.com/chef-hatch-repo/
    [spiceweasel-project]: http://wiki.opscode.com/display/chef/Spiceweasel 
+   [chef-solo=search]:    https://github.com/edelight/chef-solo-search#readme
