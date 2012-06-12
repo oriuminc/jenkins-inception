@@ -10,6 +10,13 @@
           "ws-cleanup"
         ]
       }
+    },
+    "ohmyzsh": {
+      "theme": "robbyrussell"
+    },
+    "user": {
+      "default_shell": "/bin/zsh",
+      "ssh_keygen": "false"
     }
   },
   "json_class": "Chef::Role",
@@ -17,8 +24,11 @@
   },
   "run_list": [
     "recipe[apt]",
-    "recipe[vim]",
     "recipe[git]",
+    "recipe[zsh]",
+    "recipe[user::data_bag]",
+    "recipe[oh-my-zsh::shared]",
+    "recipe[vim]",
     "recipe[php]",
     "recipe[php::module_curl]",
     "recipe[drush::utils]",

@@ -11,5 +11,8 @@ cookbook 'drush',
   :ref => 'msonnabaum-GH-10'
 cookbook "git"
 cookbook "jenkins"
+cookbook "oh-my-zsh"
 cookbook "php"
+cookbook "user"
 cookbook "vim"
+cookbook "zsh"

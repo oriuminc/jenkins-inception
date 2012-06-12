@@ -52,6 +52,7 @@ Vagrant::Config.run do |config|
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = [ "cookbooks", "cookbooks-override" ]
     chef.roles_path = "roles"
+    chef.data_bags_path = "data_bags"
     chef.add_role "jenkins"
 
     # You may also specify custom JSON attributes:
@@ -60,7 +61,8 @@ Vagrant::Config.run do |config|
         :repo => yml['repo'],
         :branch => yml['branch'],
         :auth_token => yml['auth_token'],
-      }
+      },
+      :users => ["patcon"]
     }
   end
 

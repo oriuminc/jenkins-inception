@@ -32,7 +32,16 @@ Quickstart
     $ cd inception
     $ bundle exec librarian-chef install
 
-Be sure to configure the settings in `misc/config.yml`.
+### Configuration
+
+While the default demo stack will boot without any custom configuration, you'll
+likely want to tailor it to your needs.
+
+  - Configure the build job settings in `misc/config.yml`.
+  - Customize the `data_bags/users` entries, which will be used by the
+    [`user` cookbook][user-cookbook] to set up linux users with SSH
+keys.  A sample entry `patcon.json` is provided, but please see the
+cookbook documentation for more advanced configuration.
 
 The next steps vary based on how you'd like to launch the Inception
 stack.
@@ -144,3 +153,4 @@ To Do
    [hatch-project]:       http://xdissent.github.com/chef-hatch-repo/
    [spiceweasel-project]: http://wiki.opscode.com/display/chef/Spiceweasel 
    [chef-solo=search]:    https://github.com/edelight/chef-solo-search#readme
+   [user-cookbook]:       https://github.com/fnichol/chef-user#readme
