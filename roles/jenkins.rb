@@ -9,6 +9,8 @@
           "github",
           "greenballs",
           "jobConfigHistory",
+          "pegdown-formatter",
+          "project-description-setter",
           "ws-cleanup"
         ]
       }

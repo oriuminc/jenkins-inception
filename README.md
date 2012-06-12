@@ -91,7 +91,7 @@ an appropriate PROJECT name:
     $ ssh jenkins-PROJECT "curl -L http://www.opscode.com/chef/install.sh | bash /dev/stdin -v 0.10.8-3"
     $ ssh jenkins-PROJECT "apt-get install rsync"
     $ rsync -avz cookbooks data_bags cookbooks-override roles misc jenkins-PROJECT:/tmp/chef-solo/
-    $ ssh jenkins-test "chef-solo -c /tmp/chef-solo/misc/solo.rb -j /tmp/chef-solo/misc/solo-dna.json"
+    $ ssh jenkins-PROJECT "chef-solo -c /tmp/chef-solo/misc/solo.rb -j /tmp/chef-solo/misc/solo-dna.json"
 
 **Notes:** The [chef-solo-search][chef-solo-search] cookbook is simply a
 container for a library that allows for chef-server search functions
@@ -149,11 +149,10 @@ To Do
   - Convert `jenkins.json` role to `jenkins.rb`, so that we can load
     `config.yml` as part of it, and simplify `solo-dna.json`.
   - Convert chef-solo provisioning steps to rake task.
-  - Add `user` cookbook and example databag to load server with
-    authorized users for SSH access.
   - Use `cap` instead of ssh-forever. (For one, ssh-forever doesn't
     allow for turning of StrictHostKeyChecking.)
-  - Add color to console outputs (git, rsync, remote drush?).
+  - Set Jenkins timezone in `/etc/default/jenkins`.
+  - Change format from HTML to markdown in global Jenkins `config.xml`.
 
 <!-- Links -->
    [hatch-project]:       http://xdissent.github.com/chef-hatch-repo/

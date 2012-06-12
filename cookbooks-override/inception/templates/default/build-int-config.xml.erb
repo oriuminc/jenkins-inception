@@ -67,5 +67,9 @@ bash $WORKSPACE/profile/tmp/scripts/deploy-acquia-dev.sh</command>
     <hudson.plugins.ansicolor.AnsiColorBuildWrapper> 
       <colorMapName>xterm</colorMapName>
     </hudson.plugins.ansicolor.AnsiColorBuildWrapper>
+    <org.jenkinsCi.plugins.projectDescriptionSetter.DescriptionSetterWrapper>
+      <charset>US-ASCII</charset>
+      <projectDescriptionFilename>profile/tmp/docs/${ENV,var=&quot;JOB_NAME&quot;}-build-description.md</projectDescriptionFilename>
+    </org.jenkinsCi.plugins.projectDescriptionSetter.DescriptionSetterWrapper>
   </buildWrappers>
 </project>

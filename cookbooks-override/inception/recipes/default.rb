@@ -40,7 +40,7 @@ template job_config do
   source "build-int-config.xml.erb"
   variables({
     :repo => repo,
-    :github_url = github_url,
+    :github_url => github_url,
     :branch => node['inception']['branch'],
     :auth_token => node['inception']['auth_token'],
   })
