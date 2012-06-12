@@ -1,9 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# Import configs from YAML file.
-yml = YAML.load_file "misc/config.yml"
-
 Vagrant::Config.run do |config|
   # All Vagrant configuration is done here. The most common configuration
   # options are documented and commented below. For a complete reference,
@@ -57,12 +54,6 @@ Vagrant::Config.run do |config|
 
     # You may also specify custom JSON attributes:
     chef.json = {
-      :inception => {
-        :repo => yml['repo'],
-        :branch => yml['branch'],
-        :auth_token => yml['auth_token'],
-      },
-      :users => ["patcon"]
     }
   end
 

@@ -2,3 +2,4 @@
 repo: git@github.com:myplanetdigital/drupal-project-profile.git
 branch: develop
 auth_token: sekret
+users: [patcon]
