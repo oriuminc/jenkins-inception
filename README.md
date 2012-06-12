@@ -119,6 +119,11 @@ More coming soon...
 
 Coming soon...
 
+Features
+--------
+
+  - Jenkins integration with Github project via commit links.
+
 Known Issues
 ------------
 
@@ -148,6 +153,7 @@ To Do
     authorized users for SSH access.
   - Use `cap` instead of ssh-forever. (For one, ssh-forever doesn't
     allow for turning of StrictHostKeyChecking.)
+  - Add color to console outputs (git, rsync, remote drush?).
 
 <!-- Links -->
    [hatch-project]:       http://xdissent.github.com/chef-hatch-repo/

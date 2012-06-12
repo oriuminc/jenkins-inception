@@ -33,10 +33,14 @@ jenkins_job job_name do
   config job_config
 end
 
+repo = node['inception']['repo']
+github_url = "http://github.com/#{repo.sub(/^git@github.com:(.*).git$/, '\\1')}"
+
 template job_config do
   source "build-int-config.xml.erb"
   variables({
-    :repo => node['inception']['repo'],
+    :repo => repo,
+    :github_url = github_url,
     :branch => node['inception']['branch'],
     :auth_token => node['inception']['auth_token'],
   })

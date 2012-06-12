@@ -6,6 +6,7 @@
         "plugins": [
           "ansicolor",
           "git",
+          "github",
           "greenballs",
           "jobConfigHistory",
           "ws-cleanup"
