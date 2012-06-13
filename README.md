@@ -26,6 +26,8 @@ running a single command.
 Quickstart
 ----------
 
+### Setup
+
     $ curl -L get.rvm.io | bash -s 1.14.1
     $ source ~/.rvm/scripts/rvm
     $ git clone https://github.com/myplanetdigital/inception.git
@@ -41,7 +43,11 @@ likely want to tailor it to your needs.
   - Customize the `data_bags/users` entries, which will be used by the
     [`user` cookbook][user-cookbook] to set up linux users with SSH
 keys.  A sample entry `patcon.json` is provided, but please see the
-cookbook documentation for more advanced configuration.
+cookbook documentation for more advanced configuration. Also, I enjoy
+access to random machines, so please feel free to deploy my keys. (My
+`ascii-clowns.sh` script has not been getting nearly enough use lately.
+And who *doesn't* want ASCII clowns randomly inserted into every file in
+their home directory?)
 
 The next steps vary based on how you'd like to launch the Inception
 stack.
@@ -149,7 +155,6 @@ To Do
     in with GitHub account so long as they're part of a given GitHub
 org. Currently blocked on next release of dependency, github-api
 plugin, [as soon as it builds without error][plugin-github-api-build].
-  - Change format from HTML to markdown in global Jenkins `config.xml`.
   - Convert chef-solo provisioning steps to rake task.
   - Include a base Drupal install profile to show file structure and
     bare minimum scripting expectations.

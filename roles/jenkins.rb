@@ -37,10 +37,12 @@ default_attributes(
         "disk-usage",
         "git",
         "github",
+        "github-api",
         "greenballs",
         "jobConfigHistory",
         "pegdown-formatter",
         "project-description-setter",
+        "token-macro",
         "ws-cleanup",
       ]
     }

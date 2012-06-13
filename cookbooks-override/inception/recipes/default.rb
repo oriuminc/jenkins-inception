@@ -30,6 +30,14 @@ file "/etc/timezone" do
   notifies :restart, "service[jenkins]"
 end
 
+template "#{node['jenkins']['server']['home']}/config.xml" do
+  source "jenkins-config.xml.erb"
+  owner node['jenkins']['server']['user']
+  group node['jenkins']['server']['group']
+  mode "0644"
+  notifies :restart, "service[jenkins]"
+end
+
 job_name = "build-int"
 
 job_config = File.join(node['jenkins']['node']['home'], "#{job_name}-config.xml")
