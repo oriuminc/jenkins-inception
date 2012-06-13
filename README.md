@@ -133,6 +133,8 @@ Known Issues
     June 11, 2012), where it's pointing to [a package that doesn't
     exist](http://mirrors.jenkins-ci.org/debian/jenkins_1.469_all.deb).
     Jenkins maintainer says should be resolved by Wed, June 13, 2012.
+  - Current timezone is hardcoded for `America/Toronto` in
+    `/etc/timezone`.
 
 To Do
 -----
@@ -151,7 +153,6 @@ To Do
   - Convert chef-solo provisioning steps to rake task.
   - Use `cap` instead of ssh-forever. (For one, ssh-forever doesn't
     allow for turning of StrictHostKeyChecking.)
-  - Set Jenkins timezone in `/etc/default/jenkins`.
   - Change format from HTML to markdown in global Jenkins `config.xml`.
 
 <!-- Links -->

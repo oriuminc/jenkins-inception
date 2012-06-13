@@ -19,6 +19,17 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 
+# Simplest, but perhaps not ideal (might need system reboot too)
+# Ref: https://wiki.jenkins-ci.org/display/JENKINS/Change+time+zone
+file "/etc/timezone" do
+  owner "root"
+  group "root"
+  mode "0644"
+  backup false
+  content "America/Toronto"
+  notifies :restart, "service[jenkins]"
+end
+
 job_name = "build-int"
 
 job_config = File.join(node['jenkins']['node']['home'], "#{job_name}-config.xml")
