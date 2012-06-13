@@ -145,6 +145,11 @@ chef-solo:
 To Do
 -----
 
+  - Add and config disk-usage plugin to see how bloated jobs get.
+  - Add [github-oauth plugin][plugin-github-oauth] so that devs can log
+    in with GitHub account so long as they're part of a given GitHub
+org. Currently blocked on next release of dependency, github-api
+plugin, [as soon as it builds without error][plugin-github-api-build].
   - Change format from HTML to markdown in global Jenkins `config.xml`.
   - Convert chef-solo provisioning steps to rake task.
   - Include a base Drupal install profile to show file structure and
@@ -160,7 +165,9 @@ To Do
     [Hatch][hatch-project]?)
 
 <!-- Links -->
-   [hatch-project]:       http://xdissent.github.com/chef-hatch-repo/
-   [spiceweasel-project]: http://wiki.opscode.com/display/chef/Spiceweasel 
-   [chef-solo=search]:    https://github.com/edelight/chef-solo-search#readme
-   [user-cookbook]:       https://github.com/fnichol/chef-user#readme
+   [hatch-project]:            http://xdissent.github.com/chef-hatch-repo/
+   [spiceweasel-project]:      http://wiki.opscode.com/display/chef/Spiceweasel
+   [chef-solo-search]:         https://github.com/edelight/chef-solo-search#readme
+   [user-cookbook]:            https://github.com/fnichol/chef-user#readme
+   [plugin-github-oauth]:      https://wiki.jenkins-ci.org/display/JENKINS/Github+OAuth+Plugin
+   [plugin-github-api-status]: https://jenkins.ci.cloudbees.com/job/plugins/job/github-api/
