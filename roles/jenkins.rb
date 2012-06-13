@@ -22,7 +22,6 @@ default_attributes(
   "inception" => {
     "repo" => yml['repo'],
     "branch" => yml['branch'],
-    "auth_token" => yml['auth_token'],
   },
   "jenkins" => {
     "server" => {

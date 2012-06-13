@@ -42,7 +42,6 @@ template job_config do
     :repo => repo,
     :github_url => github_url,
     :branch => node['inception']['branch'],
-    :auth_token => node['inception']['auth_token'],
   })
   notifies :update, resources(:jenkins_job => job_name), :immediately
 end

@@ -1,6 +1,7 @@
 # General system
 .DS_Store
 *.tar.gz
+*.tgz
 *.zip
 
 # Project
