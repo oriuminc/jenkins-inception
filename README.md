@@ -27,9 +27,9 @@ Features
 --------
 
   - Jenkins integration with Github project via commit links.
-  - Authentications via GitHub credentials. Anyone in a specified GitHub
-    organization will be given access to the Jenkins UI. **This will not
-    work locally on Vagrant.**
+  - [Authentications via GitHub credentials.][plugin-github-oauth]
+    Anyone in a specified GitHub organization will be given access to
+    the Jenkins UI. **This will not work locally on Vagrant.**
 
 Quickstart
 ----------
@@ -143,16 +143,6 @@ Known Issues
   - Seems that any restart of the VM causes Jenkins to be unavailable
     from the host, even though it's still running. This is not an issue
     when deployed to an actual server.
-  - Jenkins package repository having issues for the past few days (as
-    of June 11, 2012), where it's pointing to a package whose checksums
-    are off. Jenkins maintainer says should be resolved by Wed, June 13,
-    2012. Until this is fixed, can ssh in and run this prior to running
-    chef-solo:
-
-        ```
-        curl -Lo http://mirrors.jenkins-ci.org/debian/jenkins_1.469_all.deb /tmp/jenkins.deb
-        dpkg --install /tmp/jenkins.deb
-        ```
   - Current timezone is hardcoded for `America/Toronto` in
     `/etc/timezone`. Perhaps better to set a JAVA_ARG in
     `/etc/default/jenkins`.
@@ -174,7 +164,7 @@ To Do
   - Use `cap` instead of ssh-forever. (For one, ssh-forever doesn't
     allow for turning of StrictHostKeyChecking.)
   - Add [spiceweasel][spiceweasel-project] support for launching into
-    the cloud.
+    the cloud when using chef-server.
   - Provide instructions on using with Opscode hosted Chef server?
   - Use watir-webdriver and rake to create an opscode hosted chef
     account and/or create a new hosted chef organization.
@@ -187,4 +177,3 @@ To Do
    [chef-solo-search]:         https://github.com/edelight/chef-solo-search#readme
    [user-cookbook]:            https://github.com/fnichol/chef-user#readme
    [plugin-github-oauth]:      https://wiki.jenkins-ci.org/display/JENKINS/Github+OAuth+Plugin
-   [plugin-github-api-status]: https://jenkins.ci.cloudbees.com/job/plugins/job/github-api/
