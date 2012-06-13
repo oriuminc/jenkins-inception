@@ -156,6 +156,8 @@ Known Issues
 To Do
 -----
 
+  - Get Vagrant instance working, as Jenkins isn't even working on first
+    VM boot.
   - Convert chef-solo provisioning steps to rake task.
   - Include a base Drupal install profile to show file structure and
     bare minimum scripting expectations.
