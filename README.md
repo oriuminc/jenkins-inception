@@ -139,21 +139,19 @@ Known Issues
 To Do
 -----
 
-  - Create a chef server as a multi-VM Vagrant environment (or use
-    [Hatch][hatch-project]?)
+  - Change format from HTML to markdown in global Jenkins `config.xml`.
+  - Convert chef-solo provisioning steps to rake task.
+  - Include a base Drupal install profile to show file structure and
+    bare minimum scripting expectations.
+  - Use `cap` instead of ssh-forever. (For one, ssh-forever doesn't
+    allow for turning of StrictHostKeyChecking.)
+  - Add [spiceweasel][spiceweasel-project] support for launching into
+    the cloud.
   - Provide instructions on using with Opscode hosted Chef server?
   - Use watir-webdriver and rake to create an opscode hosted chef
     account and/or create a new hosted chef organization.
-  - Include a base Drupal install profile to show file structure and
-    bare minimum scripting expectations.
-  - Add [spiceweasel][spiceweasel-project] support for launching into
-    the cloud.
-  - Convert `jenkins.json` role to `jenkins.rb`, so that we can load
-    `config.yml` as part of it, and simplify `solo-dna.json`.
-  - Convert chef-solo provisioning steps to rake task.
-  - Use `cap` instead of ssh-forever. (For one, ssh-forever doesn't
-    allow for turning of StrictHostKeyChecking.)
-  - Change format from HTML to markdown in global Jenkins `config.xml`.
+  - Create a chef server as a multi-VM Vagrant environment (or use
+    [Hatch][hatch-project]?)
 
 <!-- Links -->
    [hatch-project]:       http://xdissent.github.com/chef-hatch-repo/
