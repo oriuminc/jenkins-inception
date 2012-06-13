@@ -9,7 +9,7 @@ includes:
   - Jenkins
   - Drush
   - PHP
-  - a simple build job (configured via `misc/config.yml`)
+  - a simple build job (configured via `roles/config.yml`)
 
 **Inception is in active development at Myplanet Digital, and should be
 considered alpha code. Stability and full documentation not yet
@@ -47,7 +47,7 @@ Quickstart
 While the default demo stack will boot without any custom configuration, you'll
 likely want to tailor it to your needs.
 
-  - Configure the build job settings in `misc/config.yml`. You'll need
+  - Configure the build job settings in `roles/config.yml`. You'll need
     to register a GitHub application in order to enter credentials.
   - Customize the `data_bags/users` entries, which will be used by the
     [`user` cookbook][user-cookbook] to set up linux users with SSH
