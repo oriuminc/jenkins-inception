@@ -1,10 +1,33 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <hudson>
   <useSecurity>true</useSecurity>
+  <% if node['inception']['github']['client_id'].nil? || node['inception']['github']['secret'].nil? -%>
   <authorizationStrategy class="hudson.security.FullControlOnceLoggedInAuthorizationStrategy"/>
   <securityRealm class="hudson.security.HudsonPrivateSecurityRealm">
     <disableSignup>false</disableSignup>
     <enableCaptcha>false</enableCaptcha>
+  <% else -%>
+  <authorizationStrategy class="org.jenkinsci.plugins.GithubAuthorizationStrategy">
+    <rootACL>
+      <organizationNameList class="linked-list">
+        <string><%= node['inception']['github']['organization'] %></string>
+      </organizationNameList>
+      <adminUserNameList class="linked-list">
+        <% node['users'].each do |user| -%>
+        <string><%= user %></string>
+        <% end -%>
+      </adminUserNameList>
+      <authenticatedUserReadPermission>false</authenticatedUserReadPermission>
+      <allowGithubWebHookPermission>true</allowGithubWebHookPermission>
+      <allowCcTrayPermission>false</allowCcTrayPermission>
+      <allowAnonymousReadPermission>false</allowAnonymousReadPermission>
+    </rootACL>
+  </authorizationStrategy>
+  <securityRealm class="org.jenkinsci.plugins.GithubSecurityRealm">
+    <githubUri>https://github.com</githubUri>
+    <clientID><%= node['inception']['github']['client_id'] %></clientID>
+    <clientSecret><%= node['inception']['github']['secret'] %></clientSecret>
+  <% end -%>
   </securityRealm>
   <markupFormatter class="org.jenkins_ci.plugins.pegdown_formatter.PegDownFormatter">
     <flags>458996</flags>

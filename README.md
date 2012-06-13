@@ -23,6 +23,14 @@ because it's hard to know where to start. We'd like to make it as simple
 as entering your cloud provider credentials (Rackspace/AWS/whatever) and
 running a single command.
 
+Features
+--------
+
+  - Jenkins integration with Github project via commit links.
+  - Authentications via GitHub credentials. Anyone in a specified GitHub
+    organization will be given access to the Jenkins UI. **This will not
+    work locally on Vagrant.**
+
 Quickstart
 ----------
 
@@ -39,7 +47,8 @@ Quickstart
 While the default demo stack will boot without any custom configuration, you'll
 likely want to tailor it to your needs.
 
-  - Configure the build job settings in `misc/config.yml`.
+  - Configure the build job settings in `misc/config.yml`. You'll need
+    to register a GitHub application in order to enter credentials.
   - Customize the `data_bags/users` entries, which will be used by the
     [`user` cookbook][user-cookbook] to set up linux users with SSH
 keys.  A sample entry `patcon.json` is provided, but please see the
@@ -128,11 +137,6 @@ More coming soon...
 
 Coming soon...
 
-Features
---------
-
-  - Jenkins integration with Github project via commit links.
-
 Known Issues
 ------------
 
@@ -152,8 +156,9 @@ Known Issues
   - Current timezone is hardcoded for `America/Toronto` in
     `/etc/timezone`. Perhaps better to set a JAVA_ARG in
     `/etc/default/jenkins`.
-  - With current setup, free-for-all signups are enabled. You'll want to signup your
-    first admin user, and then lock it down:
+  - When GitHub authentication isn't set up, default security allows
+    free-for-all signups with immediate access. You'll want to signup
+    your first admin user, and then lock down Jenkins:
 
     Manage Jenkins > Configure System > Security Realm >
     Jenkin's own user database > Allow users to sign up (UNCHECK)
@@ -161,10 +166,6 @@ Known Issues
 To Do
 -----
 
-  - Add [github-oauth plugin][plugin-github-oauth] so that devs can log
-    in with GitHub account so long as they're part of a given GitHub
-org. Currently blocked on next release of dependency, github-api
-plugin, [as soon as it builds without error][plugin-github-api-build].
   - Convert chef-solo provisioning steps to rake task.
   - Include a base Drupal install profile to show file structure and
     bare minimum scripting expectations.

@@ -4,3 +4,11 @@ branch: develop
 # Only the entries below in the `users` database will be acted on.
 # Each user created will be given passwordless sudo access.
 users: [patcon]
+github:
+  organization: myplanetdigital
+  # In order to use GitHub authentication, you'll need to register an app
+  # See: https://github.com/settings/applications
+  # Leaving these blank will use Jenkins database for authentication.
+  # (Do not try GitHub authentication on Vagrant as it will break Jenkins.)
+  client_id:
+  secret:

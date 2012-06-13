@@ -26,10 +26,8 @@ default_attributes(
       "users" => yml['users'],
     }
   },
-  "inception" => {
-    "repo" => yml['repo'],
-    "branch" => yml['branch'],
-  },
+  # Import YAML config array directly into node object.
+  "inception" => yml,
   "jenkins" => {
     "server" => {
       "plugins" => [
@@ -38,6 +36,7 @@ default_attributes(
         "git",
         "github",
         "github-api",
+        "github-oauth",
         "greenballs",
         "jobConfigHistory",
         "pegdown-formatter",
