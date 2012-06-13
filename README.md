@@ -145,7 +145,6 @@ chef-solo:
 To Do
 -----
 
-  - Add and config disk-usage plugin to see how bloated jobs get.
   - Add [github-oauth plugin][plugin-github-oauth] so that devs can log
     in with GitHub account so long as they're part of a given GitHub
 org. Currently blocked on next release of dependency, github-api

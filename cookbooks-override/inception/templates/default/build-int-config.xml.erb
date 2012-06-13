@@ -1,9 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>This job will be triggered on EVERY commit to GitHub, rebuilding the <%= @branch %> branch&#xd;
-and pushing changes to the Acquia repo. (It is a limitation of GitHub service hooks&#xd;
-that job is triggered on every commit for every branch.)</description>
+  <description>This job description will be auto-generated from project repo on first run.</description>
+  <logRotator>
+    <numToKeep>50</numToKeep>
+  </logRotator>
   <keepDependencies>false</keepDependencies>
   <properties>
     <com.coravy.hudson.plugins.github.GithubProjectProperty>

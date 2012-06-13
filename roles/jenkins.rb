@@ -34,6 +34,7 @@ default_attributes(
     "server" => {
       "plugins" => [
         "ansicolor",
+        "disk-usage",
         "git",
         "github",
         "greenballs",
