@@ -62,6 +62,9 @@ machines:
 
 You can now view the Jenkins UI at: http://localhost:8080
 
+Please see the [known issue](#known-issues) below regarding problems
+with Jenkins when restarting the VM with `vagrant reload`.
+
 You can also access this virtual jenkins through the command-line by
 running:
 
@@ -134,19 +137,26 @@ Known Issues
 ------------
 
   - Seems that any restart of the VM causes Jenkins to be unavailable
-    from the host, even though it's still running.
+    from the host, even though it's still running. This is not an issue
+    when deployed to an actual server.
   - Jenkins package repository having issues for the past few days (as
     of June 11, 2012), where it's pointing to a package whose checksums
-are off. Jenkins maintainer says should be resolved by Wed, June 13,
-2012. Until this is fixed, can ssh in and run this prior to running
-chef-solo:
+    are off. Jenkins maintainer says should be resolved by Wed, June 13,
+    2012. Until this is fixed, can ssh in and run this prior to running
+    chef-solo:
 
         ```
         curl -Lo http://mirrors.jenkins-ci.org/debian/jenkins_1.469_all.deb /tmp/jenkins.deb
         dpkg --install /tmp/jenkins.deb
         ```
   - Current timezone is hardcoded for `America/Toronto` in
-    `/etc/timezone`.
+    `/etc/timezone`. Perhaps better to set a JAVA_ARG in
+    `/etc/default/jenkins`.
+  - With current setup, free-for-all signups are enabled. You'll want to signup your
+    first admin user, and then lock it down:
+
+    Manage Jenkins > Configure System > Security Realm >
+    Jenkin's own user database > Allow users to sign up (UNCHECK)
 
 To Do
 -----
@@ -158,6 +168,8 @@ plugin, [as soon as it builds without error][plugin-github-api-build].
   - Convert chef-solo provisioning steps to rake task.
   - Include a base Drupal install profile to show file structure and
     bare minimum scripting expectations.
+  - Figure out why jenkins in VM can't be restarted. Maybe add apache
+    webserver to solve?
   - Use `cap` instead of ssh-forever. (For one, ssh-forever doesn't
     allow for turning of StrictHostKeyChecking.)
   - Add [spiceweasel][spiceweasel-project] support for launching into
