@@ -6,6 +6,7 @@ name "jenkins"
 description "The base role for setting up the jenkins master with appropriate initial settings."
 run_list(
   "recipe[apt]",
+  "recipe[sudo]",
   "recipe[git]",
   "recipe[zsh]",
   "recipe[user::data_bag]",
@@ -19,6 +20,12 @@ run_list(
   "recipe[inception]"
 )
 default_attributes(
+  "authorization" => {
+    "sudo" => {
+      "passwordless" => true,
+      "users" => yml['users'],
+    }
+  },
   "inception" => {
     "repo" => yml['repo'],
     "branch" => yml['branch'],
@@ -42,7 +49,7 @@ default_attributes(
   },
   "user" => {
     "default_shell" => "/bin/zsh",
-    "ssh_keygen" => "false",
+    "ssh_keygen" => false,
   },
   "users" => yml['users']
 )

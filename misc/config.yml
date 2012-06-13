@@ -1,4 +1,6 @@
 # `repo` expects a GitHub repo in the `git@` format.
 repo: git@github.com:myplanetdigital/drupal-project-profile.git
 branch: develop
+# Only the entries below in the `users` database will be acted on.
+# Each user created will be given passwordless sudo access.
 users: [patcon]
