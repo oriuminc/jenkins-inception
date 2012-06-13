@@ -129,10 +129,16 @@ Known Issues
 
   - Seems that any restart of the VM causes Jenkins to be unavailable
     from the host, even though it's still running.
-  - Jenkins package repository having issues for the past 2 days (as of
-    June 11, 2012), where it's pointing to [a package that doesn't
-    exist](http://mirrors.jenkins-ci.org/debian/jenkins_1.469_all.deb).
-    Jenkins maintainer says should be resolved by Wed, June 13, 2012.
+  - Jenkins package repository having issues for the past few days (as
+    of June 11, 2012), where it's pointing to a package whose checksums
+are off. Jenkins maintainer says should be resolved by Wed, June 13,
+2012. Until this is fixed, can ssh in and run this prior to running
+chef-solo:
+
+        ```
+        curl -Lo http://mirrors.jenkins-ci.org/debian/jenkins_1.469_all.deb /tmp/jenkins.deb
+        dpkg --install /tmp/jenkins.deb
+        ```
   - Current timezone is hardcoded for `America/Toronto` in
     `/etc/timezone`.
 
