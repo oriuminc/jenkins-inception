@@ -140,9 +140,14 @@ Coming soon...
 Known Issues
 ------------
 
-  - Seems that any restart of the VM causes Jenkins to be unavailable
-    from the host, even though it's still running. This is not an issue
-    when deployed to an actual server.
+  - Seems that any restart of Jenkins in a VM causes it to be
+    unavailable from the host, even though it's still running. This is
+    not an issue when deployed to an actual server. Since chef can't
+    programmatically restart Jenkins in order to load some initial
+    configuration, we'll need to do this manually through the UI after boot:
+
+    Manage Jenkins > Reload Configuration from Disk
+
   - Current timezone is hardcoded for `America/Toronto` in
     `/etc/timezone`. Perhaps better to set a JAVA_ARG in
     `/etc/default/jenkins`.
