@@ -156,6 +156,7 @@ To Do
   - Include a base Drupal install profile to show file structure and
     bare minimum scripting expectations.
   - Create rake task for chef-solo setup steps?
+  - replace ssh-forever with straighy-up rake task or cap?
   - Make timezone in `/etc/default/jenkins` configurable.
   - Add [spiceweasel][spiceweasel-project] support for launching into
     the cloud when using chef-server.
