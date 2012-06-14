@@ -19,11 +19,6 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 
-template "/etc/default/jenkins" do
-  cookbook "jenkins"
-  notifies :restart, "service[jenkins]"
-end
-
 template "#{node['jenkins']['server']['home']}/config.xml" do
   source "jenkins-config.xml.erb"
   owner node['jenkins']['server']['user']

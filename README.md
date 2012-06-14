@@ -143,14 +143,6 @@ Coming soon...
 Known Issues
 ------------
 
-  - Seems that any restart of Jenkins in a VM causes it to be
-    unavailable from the host, even though it's still running. This is
-    not an issue when deployed to an actual server. Since chef can't
-    programmatically restart Jenkins in order to load some initial
-    configuration, we'll need to do this manually through the UI after boot:
-
-    Manage Jenkins > Reload Configuration from Disk
-
   - When GitHub authentication isn't set up, default security allows
     free-for-all signups with immediate access. You'll want to signup
     your first admin user, and then lock down Jenkins:
