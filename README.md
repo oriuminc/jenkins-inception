@@ -30,6 +30,10 @@ Features
   - [Authentications via GitHub credentials.][plugin-github-oauth]
     Anyone in a specified GitHub organization will be given access to
     the Jenkins UI. **This will not work locally on Vagrant.**
+  - Various rake tasks for helping with everything from fixing Vagrant
+    networking issues to automating the webform signup for Opscode
+    Platform. Type `bundle exec rake -D` or `bundle exec rake -T` to see
+    available tasks.
 
 Quickstart
 ----------
@@ -108,8 +112,7 @@ an appropriate PROJECT name:
     $ # Enter root password when prompted.
     $ ssh jenkins-PROJECT "curl -L http://www.opscode.com/chef/install.sh | bash /dev/stdin -v 0.10.8-3"
     $ ssh jenkins-PROJECT "apt-get install rsync"
-    $ rsync -avz cookbooks data_bags cookbooks-override roles misc jenkins-PROJECT:/tmp/chef-solo/
-    $ ssh jenkins-PROJECT "chef-solo -c /tmp/chef-solo/misc/solo.rb -j /tmp/chef-solo/misc/solo-dna.json"
+    $ bundle exec rake "chef_solo:remote_run[jenkins-PROJECT]"
 
 **Notes:** The [chef-solo-search][chef-solo-search] cookbook is simply a
 container for a library that allows for chef-server search functions
@@ -160,10 +163,9 @@ Known Issues
 To Do
 -----
 
-  - Add rake task for vagrant networking reset.
-  - Convert chef-solo provisioning steps to rake task.
   - Include a base Drupal install profile to show file structure and
     bare minimum scripting expectations.
+  - Create rake task for chef-solo setup steps?
   - Make timezone in `/etc/default/jenkins` configurable.
   - Add [spiceweasel][spiceweasel-project] support for launching into
     the cloud when using chef-server.
