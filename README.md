@@ -149,8 +149,6 @@ Known Issues
 
     Manage Jenkins > Configure System > Security Realm >
     Jenkin's own user database > Allow users to sign up (UNCHECK)
-  - Current timezone is hardcoded for `America/Toronto` in
-    `/etc/default/jenkins`.
 
 To Do
 -----

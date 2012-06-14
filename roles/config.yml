@@ -1,9 +1,14 @@
 # `repo` expects a GitHub repo in the `git@` format.
 repo: git@github.com:myplanetdigital/drupal-project-profile.git
 branch: develop
+
+# For timestamps in Jenkins UI
+timezone: America/Toronto
+
 # Only the entries below in the `users` database will be acted on.
 # Each user created will be given passwordless sudo access.
 users: [patcon]
+
 github:
   organization: myplanetdigital
   # In order to use GitHub authentication, you'll need to register an app
