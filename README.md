@@ -148,9 +148,6 @@ Known Issues
 
     Manage Jenkins > Reload Configuration from Disk
 
-  - Current timezone is hardcoded for `America/Toronto` in
-    `/etc/timezone`. Perhaps better to set a JAVA_ARG in
-    `/etc/default/jenkins`.
   - When GitHub authentication isn't set up, default security allows
     free-for-all signups with immediate access. You'll want to signup
     your first admin user, and then lock down Jenkins:

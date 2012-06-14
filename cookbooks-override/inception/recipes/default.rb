@@ -19,16 +19,6 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 
-# Simplest, but perhaps not ideal (might need system reboot too)
-# Ref: https://wiki.jenkins-ci.org/display/JENKINS/Change+time+zone
-file "/etc/timezone" do
-  owner "root"
-  group "root"
-  mode "0644"
-  backup false
-  content "America/Toronto"
-end
-
 template "#{node['jenkins']['server']['home']}/config.xml" do
   source "jenkins-config.xml.erb"
   owner node['jenkins']['server']['user']
