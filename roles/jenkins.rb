@@ -48,7 +48,7 @@ default_attributes(
     }
   },
   "ohmyzsh" => {
-    "theme" => "robbyrussell",
+    "theme" => "afowler",
   },
   "user" => {
     "default_shell" => "/bin/zsh",
