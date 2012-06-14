@@ -56,13 +56,20 @@ Vagrant::Config.run do |config|
     chef.add_role "jenkins"
 
     # Keeping Vagrant-specific attributes to a minimum (most are in the roles,
-    # derived from YAML config file). These exceptions are here to ensure that
-    # the vagrant user never gets locked out.
+    # derived from YAML config file). These exceptions are here for
+    # vagrant-only config.
     chef.json = {
+      # Ensure that vagrant user never locked out.
       :authorization => {
         :sudo => {
           :passwordless => true,
           :users => yml['users'] + ["vagrant"],
+        }
+      },
+      # node['fqdn'] not appropriate default host on vagrant.
+      :jenkins => {
+        :server => {
+          :host => "0.0.0.0",
         }
       }
     }

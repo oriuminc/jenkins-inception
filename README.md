@@ -154,17 +154,17 @@ Known Issues
 
     Manage Jenkins > Configure System > Security Realm >
     Jenkin's own user database > Allow users to sign up (UNCHECK)
+  - Current timezone is hardcoded for `America/Toronto` in
+    `/etc/default/jenkins`.
 
 To Do
 -----
 
+  - Add rake task for vagrant networking reset.
   - Convert chef-solo provisioning steps to rake task.
   - Include a base Drupal install profile to show file structure and
     bare minimum scripting expectations.
-  - Figure out why jenkins in VM can't be restarted. Maybe add apache
-    webserver to solve?
-  - Use `cap` instead of ssh-forever. (For one, ssh-forever doesn't
-    allow for turning of StrictHostKeyChecking.)
+  - Make timezone in `/etc/default/jenkins` configurable.
   - Add [spiceweasel][spiceweasel-project] support for launching into
     the cloud when using chef-server.
   - Provide instructions on using with Opscode hosted Chef server?
