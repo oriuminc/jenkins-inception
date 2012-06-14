@@ -22,6 +22,7 @@ run_list(
 default_attributes(
   "authorization" => {
     "sudo" => {
+      # Note: Overridden in Vagrantfile so vagrant user never locked out.
       "passwordless" => true,
       "users" => yml['users'],
     }

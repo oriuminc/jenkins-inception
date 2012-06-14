@@ -1,6 +1,9 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+# Import configs from YAML file.
+yml = YAML.load_file "roles/config.yml"
+
 Vagrant::Config.run do |config|
   # All Vagrant configuration is done here. The most common configuration
   # options are documented and commented below. For a complete reference,
@@ -52,8 +55,16 @@ Vagrant::Config.run do |config|
     chef.data_bags_path = "data_bags"
     chef.add_role "jenkins"
 
-    # You may also specify custom JSON attributes:
+    # Keeping Vagrant-specific attributes to a minimum (most are in the roles,
+    # derived from YAML config file). These exceptions are here to ensure that
+    # the vagrant user never gets locked out.
     chef.json = {
+      :authorization => {
+        :sudo => {
+          :passwordless => true,
+          :users => yml['users'] + ["vagrant"],
+        }
+      }
     }
   end
 
