@@ -27,7 +27,6 @@ file "/etc/timezone" do
   mode "0644"
   backup false
   content "America/Toronto"
-  notifies :restart, "service[jenkins]"
 end
 
 template "#{node['jenkins']['server']['home']}/config.xml" do
@@ -35,7 +34,6 @@ template "#{node['jenkins']['server']['home']}/config.xml" do
   owner node['jenkins']['server']['user']
   group node['jenkins']['server']['group']
   mode "0644"
-  notifies :restart, "service[jenkins]"
 end
 
 job_name = "build-int"
