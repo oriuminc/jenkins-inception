@@ -31,6 +31,7 @@ default_attributes(
   "inception" => yml,
   "jenkins" => {
     "server" => {
+      "host" => "0.0.0.0",
       "plugins" => [
         "ansicolor",
         "disk-usage",

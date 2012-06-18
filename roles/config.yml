@@ -7,6 +7,7 @@ timezone: America/Toronto
 
 # Only the entries below in the `users` database will be acted on.
 # Each user created will be given passwordless sudo access.
+# Example: [user1, user2]
 users: [patcon]
 
 github:

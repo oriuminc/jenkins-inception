@@ -65,12 +65,6 @@ Vagrant::Config.run do |config|
           :passwordless => true,
           :users => yml['users'] + ["vagrant"],
         }
-      },
-      # node['fqdn'] not appropriate default host on vagrant.
-      :jenkins => {
-        :server => {
-          :host => "0.0.0.0",
-        }
       }
     }
   end

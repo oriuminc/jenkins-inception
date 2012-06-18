@@ -42,7 +42,7 @@ Quickstart
 
     $ curl -L get.rvm.io | bash -s 1.14.1
     $ source ~/.rvm/scripts/rvm
-    $ git clone https://github.com/myplanetdigital/inception.git
+    $ git clone git@github.com:myplanetdigital/inception.git
     $ cd inception
     $ bundle exec librarian-chef install
 
@@ -149,12 +149,27 @@ Known Issues
 
     Manage Jenkins > Configure System > Security Realm >
     Jenkin's own user database > Allow users to sign up (UNCHECK)
+  - Currently, every entry in the `users` databag that uses `zsh` must
+    be enabled in the `users` entry of `config.yml`, or there will be an
+    ohmyzsh-related error during chef run.
 
 To Do
 -----
 
   - Include a base Drupal install profile to show file structure and
     bare minimum scripting expectations.
+  - Currently, oh-my-zsh cookbook fails if user databag entry exists
+    which is not "enabled". Submit a patch to account for the cases
+    where this is untrue.
+  - Look into better alternative to `0.0.0.0` for
+    `node['jenkins']['server']['host']`
+  - Add feature to create DNS a-record if DynDNS API credentials are
+    supplied in `config.yml`.
+  - Add recommendation for gcc-isntaller rather than xcode?
+  - Fix setup instructions like in ariadne (rvm reload?)
+  - Add note on port forwarding 8080. (:auto?)
+  - Figure out bundler issue in rvmrc by starting fresh (Yash's compy).
+    Might NOT work on Lion for now.
   - Create rake task for chef-solo setup steps?
   - replace ssh-forever with straighy-up rake task or cap?
   - Make timezone in `/etc/default/jenkins` configurable.
