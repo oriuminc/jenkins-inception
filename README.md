@@ -180,6 +180,8 @@ To Do
     account and/or create a new hosted chef organization.
   - Create a chef server as a multi-VM Vagrant environment (or use
     [Hatch][hatch-project]?)
+  - Investigate using [preSCMbuildstep plugin][plugin-preSCMbuildstep]
+    for running `jenkins-setup.sh`
 
 <!-- Links -->
    [hatch-project]:            http://xdissent.github.com/chef-hatch-repo/
@@ -187,3 +189,4 @@ To Do
    [chef-solo-search]:         https://github.com/edelight/chef-solo-search#readme
    [user-cookbook]:            https://github.com/fnichol/chef-user#readme
    [plugin-github-oauth]:      https://wiki.jenkins-ci.org/display/JENKINS/Github+OAuth+Plugin
+   [plugin-preSCMbuildstep]:   https://wiki.jenkins-ci.org/display/JENKINS/pre-scm-buildstep
