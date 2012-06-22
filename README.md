@@ -170,6 +170,7 @@ To Do
   - Add note on port forwarding 8080. (:auto?)
   - Figure out bundler issue in rvmrc by starting fresh (Yash's compy).
     Might NOT work on Lion for now.
+  - Investigate [knife-solo gem](https://github.com/matschaffer/knife-solo).
   - Create rake task for chef-solo setup steps?
   - replace ssh-forever with straighy-up rake task or cap?
   - Make timezone in `/etc/default/jenkins` configurable.
