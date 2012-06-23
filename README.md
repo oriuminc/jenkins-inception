@@ -156,6 +156,8 @@ Known Issues
 To Do
 -----
 
+  - In order to update jenkins jobs, must have a small recipe to
+    authenticate with the jenkins_cli resource.
   - Include a base Drupal install profile to show file structure and
     bare minimum scripting expectations.
   - Currently, oh-my-zsh cookbook fails if user databag entry exists
