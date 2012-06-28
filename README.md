@@ -40,7 +40,8 @@ Quickstart
 ### Setup
 
     $ curl -L get.rvm.io | bash -s 1.14.1
-    $ source ~/.rvm/scripts/rvm
+    $ exec $SHELL
+    $ rvm reload
     $ git clone git@github.com:myplanetdigital/inception.git
     $ cd inception
     $ librarian-chef install
@@ -167,14 +168,12 @@ To Do
   - Add feature to create DNS a-record if DynDNS API credentials are
     supplied in `config.yml`.
   - Add recommendation for gcc-isntaller rather than xcode?
-  - Fix setup instructions like in ariadne (rvm reload?)
   - Add note on port forwarding 8080. (:auto?)
   - Figure out bundler issue in rvmrc by starting fresh (Yash's compy).
     Might NOT work on Lion for now.
   - Investigate [knife-solo gem](https://github.com/matschaffer/knife-solo).
   - Create rake task for chef-solo setup steps?
   - replace ssh-forever with straighy-up rake task or cap?
-  - Make timezone in `/etc/default/jenkins` configurable.
   - Add [spiceweasel][spiceweasel-project] support for launching into
     the cloud when using chef-server.
   - Provide instructions on using with Opscode hosted Chef server?
