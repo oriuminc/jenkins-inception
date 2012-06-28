@@ -32,8 +32,7 @@ Features
     the Jenkins UI. **This will not work locally on Vagrant.**
   - Various rake tasks for helping with everything from fixing Vagrant
     networking issues to automating the webform signup for Opscode
-    Platform. Type `bundle exec rake -D` or `bundle exec rake -T` to see
-    available tasks.
+    Platform. Type `rake -D` or `rake -T` to see available tasks.
 
 Quickstart
 ----------
@@ -44,7 +43,7 @@ Quickstart
     $ source ~/.rvm/scripts/rvm
     $ git clone git@github.com:myplanetdigital/inception.git
     $ cd inception
-    $ bundle exec librarian-chef install
+    $ librarian-chef install
 
 ### Configuration
 
@@ -70,8 +69,8 @@ stack.
 If you have Vagrant installed, you can test the setup on local virtual
 machines:
 
-    $ bundle exec vagrant up  # Spin up the VM
-    $ bundle exec vagrant ssh # SSH into the VM
+    $ vagrant up  # Spin up the VM
+    $ vagrant ssh # SSH into the VM
 
 You can now view the Jenkins UI at: http://localhost:8080
 
@@ -81,8 +80,8 @@ with Jenkins when restarting the VM with `vagrant reload`.
 You can also access this virtual jenkins through the command-line by
 running:
 
-    $ bundle exec jenkins configure --host=localhost --port=8080
-    $ bundle exec jenkins --help
+    $ jenkins configure --host=localhost --port=8080
+    $ jenkins --help
 
 ### Cloud
 
@@ -108,11 +107,11 @@ for a fresh server running Ubuntu Lucid, run these commands substituting
 an appropriate PROJECT name:
 
     $ echo -e "Host IP_ADDRESS\n  StrictHostKeyChecking no" >> ~/.ssh/config
-    $ bundle exec ssh-forever root@<IP_ADDRESS> -i /path/to/ssh_key.pub -n jenkins-PROJECT
+    $ ssh-forever root@<IP_ADDRESS> -i /path/to/ssh_key.pub -n jenkins-PROJECT
     $ # Enter root password when prompted.
     $ ssh jenkins-PROJECT "curl -L http://www.opscode.com/chef/install.sh | bash /dev/stdin -v 0.10.8-3"
     $ ssh jenkins-PROJECT "apt-get install rsync"
-    $ bundle exec rake "chef_solo:remote_run[jenkins-PROJECT]"
+    $ rake "chef_solo:remote_run[jenkins-PROJECT]"
 
 **Notes:** The [chef-solo-search][chef-solo-search] cookbook is simply a
 container for a library that allows for chef-server search functions
