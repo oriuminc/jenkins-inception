@@ -191,6 +191,8 @@ To Do
     [Hatch][hatch-project]?)
   - Investigate using [preSCMbuildstep plugin][plugin-preSCMbuildstep]
     for running `jenkins-setup.sh`
+  - Put jenkins user under databag control.
+  - Investigate [hosted chef gem][hosted-chef-gem].
 
 <!-- Links -->
    [hatch-project]:            http://xdissent.github.com/chef-hatch-repo/
@@ -201,3 +203,4 @@ To Do
    [plugin-preSCMbuildstep]:   https://wiki.jenkins-ci.org/display/JENKINS/pre-scm-buildstep
    [about-rake]:               http://en.wikipedia.org/wiki/Rake_(software)
    [2ndleveldeep]:             https://github.com/myplanetdigital/2ndleveldeep#readme
+   [hosted-chef-gem]:          https://github.com/opscode/hosted-chef-gem#readme
