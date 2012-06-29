@@ -66,12 +66,10 @@ likely want to tailor it to your needs.
     to register a GitHub application in order to enter credentials.
   - Customize the `data_bags/users` entries, which will be used by the
     [`user` cookbook][user-cookbook] to set up linux users with SSH
-keys.  A sample entry `patcon.json` is provided, but please see the
-cookbook documentation for more advanced configuration. Also, I enjoy
-access to random machines, so please feel free to deploy my keys. (My
-`ascii-clowns.sh` script has not been getting nearly enough use lately.
-And who *doesn't* want ASCII clowns randomly inserted into every file in
-their home directory?)
+keys.  A sample entry `patcon.json` is provided. There is a rake task
+available to help you generate your own encrypted passwords. Please see
+the cookbook documentation for more advanced configuration. I enjoy
+access to random machines, so please feel free to deploy my keys.
 
 The next steps vary based on how you'd like to launch the Inception
 stack.
@@ -154,12 +152,11 @@ Coming soon...
 Known Issues
 ------------
 
-  - When GitHub authentication isn't set up, default security allows
-    free-for-all signups with immediate access. You'll want to signup
-    your first admin user, and then lock down Jenkins:
-
-    Manage Jenkins > Configure System > Security Realm >
-    Jenkin's own user database > Allow users to sign up (UNCHECK)
+  - When GitHub authentication isn't set up, Jenkins will use the Unix
+    user database from the server itself, which is set up based on the
+    `users` databag entries with passwords. Use the rake task provided to
+    encrypt your plaintext password. If you put the encrypted version in the
+    databag, then you'll be able to log into Jenkins with the plaintext one.
   - Currently, every entry in the `users` databag that uses `zsh` must
     be enabled in the `users` entry of `config.yml`, or there will be an
     ohmyzsh-related error during chef run.
@@ -194,7 +191,6 @@ To Do
     [Hatch][hatch-project]?)
   - Investigate using [preSCMbuildstep plugin][plugin-preSCMbuildstep]
     for running `jenkins-setup.sh`
-  - Move to linux user authentication as default.
 
 <!-- Links -->
    [hatch-project]:            http://xdissent.github.com/chef-hatch-repo/

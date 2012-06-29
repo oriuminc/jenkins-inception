@@ -5,6 +5,7 @@ yml = YAML.load_file "#{current_dir}/config.yml"
 name "jenkins"
 description "The base role for setting up the jenkins master with appropriate initial settings."
 run_list(
+  "recipe[chef_gem]",
   "recipe[apt]",
   "recipe[sudo]",
   "recipe[git]",

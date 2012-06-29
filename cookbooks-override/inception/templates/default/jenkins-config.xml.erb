@@ -3,9 +3,8 @@
   <useSecurity>true</useSecurity>
   <% if node['inception']['github']['client_id'].nil? || node['inception']['github']['secret'].nil? -%>
   <authorizationStrategy class="hudson.security.FullControlOnceLoggedInAuthorizationStrategy"/>
-  <securityRealm class="hudson.security.HudsonPrivateSecurityRealm">
-    <disableSignup>false</disableSignup>
-    <enableCaptcha>false</enableCaptcha>
+  <securityRealm class="hudson.security.PAMSecurityRealm">
+    <serviceName>sshd</serviceName>
   <% else -%>
   <authorizationStrategy class="org.jenkinsci.plugins.GithubAuthorizationStrategy">
     <rootACL>

@@ -19,6 +19,20 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 
+# Add so that we can set user passwords from databag
+package "make" do
+  action :nothing
+end.run_action(:install)
+
+chef_gem "ruby-shadow"
+
+group "shadow" do
+  members "jenkins"
+  append true
+  action :modify
+end
+
+# Set global Jenkins config
 template "#{node['jenkins']['server']['home']}/config.xml" do
   source "jenkins-config.xml.erb"
   owner node['jenkins']['server']['user']
@@ -27,6 +41,7 @@ template "#{node['jenkins']['server']['home']}/config.xml" do
   notifies :restart, "service[jenkins]"
 end
 
+# Prepare build-int job
 job_name = "build-int"
 
 job_config = File.join(node['jenkins']['node']['home'], "#{job_name}-config.xml")

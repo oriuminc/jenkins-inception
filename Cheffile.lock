@@ -3,6 +3,7 @@ SITE
   specs:
     apt (1.4.2)
     build-essential (1.0.2)
+    chef_gem (0.0.3)
     chef_handler (1.0.6)
     dmg (1.0.0)
     git (1.0.0)
@@ -53,6 +54,7 @@ GIT
 DEPENDENCIES
   apt (>= 0)
   chef-solo-search (>= 0)
+  chef_gem (>= 0)
   drush (>= 0)
   git (>= 0)
   jenkins (>= 0)
