@@ -42,7 +42,7 @@ jenkins_job job_name do
 end
 
 repo = node['inception']['repo']
-github_url = "http://github.com/#{repo.sub(/^git@github.com:(.*).git$/, '\\1')}"
+github_url = "http://github.com/#{repo.sub(/^.*[:\/](.*\/.*).git$/, '\\1')}"
 
 template job_config do
   source "build-int-config.xml.erb"

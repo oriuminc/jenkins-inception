@@ -23,6 +23,14 @@ because it's hard to know where to start. We'd like to make it as simple
 as entering your cloud provider credentials (Rackspace/AWS/whatever) and
 running a single command.
 
+We'll be building this out based on a set of assumptions regarding how
+to best build a Drupal site. This set of assumptions will take the form
+of the [2nd Level Deep][2ndleveldeep] install profile. The goal will be
+build a totally self-contained base profile, which other projects can
+use as a foundation. Ideally, only slight configurations of the Jenkins
+CI environment (ie. project name, and git repo URL) will be needed in
+order to build any project that uses the 2nd Level Deep install profile.
+
 Features
 --------
 
@@ -30,9 +38,12 @@ Features
   - [Authentications via GitHub credentials.][plugin-github-oauth]
     Anyone in a specified GitHub organization will be given access to
     the Jenkins UI. **This will not work locally on Vagrant.**
-  - Various rake tasks for helping with everything from fixing Vagrant
-    networking issues to automating the webform signup for Opscode
-    Platform. Type `rake -D` or `rake -T` to see available tasks.
+  - Various [rake][about-rake] tasks for helping with everything from
+    fixing Vagrant networking issues to automating the webform signup
+    for Opscode Platform. Type `rake -D` or `rake -T` to see available
+    tasks.
+  - Configured to boot the base demo of 2nd Level Deep install profile,
+    right off the bat.
 
 Quickstart
 ----------
@@ -183,6 +194,7 @@ To Do
     [Hatch][hatch-project]?)
   - Investigate using [preSCMbuildstep plugin][plugin-preSCMbuildstep]
     for running `jenkins-setup.sh`
+  - Move to linux user authentication as default.
 
 <!-- Links -->
    [hatch-project]:            http://xdissent.github.com/chef-hatch-repo/
@@ -191,3 +203,5 @@ To Do
    [user-cookbook]:            https://github.com/fnichol/chef-user#readme
    [plugin-github-oauth]:      https://wiki.jenkins-ci.org/display/JENKINS/Github+OAuth+Plugin
    [plugin-preSCMbuildstep]:   https://wiki.jenkins-ci.org/display/JENKINS/pre-scm-buildstep
+   [about-rake]:               http://en.wikipedia.org/wiki/Rake_(software)
+   [2ndleveldeep]:             https://github.com/myplanetdigital/2ndleveldeep#readme

@@ -1,5 +1,5 @@
-# `repo` expects a GitHub repo in the `git@` format.
-repo: git@github.com:myplanetdigital/drupal-project-profile.git
+# `repo` expects a GitHub repo.
+repo: https://github.com/myplanetdigital/2ndleveldeep.git
 branch: develop
 
 # For timestamps in Jenkins UI
