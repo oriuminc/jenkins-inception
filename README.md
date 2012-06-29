@@ -155,8 +155,9 @@ Known Issues
   - When GitHub authentication isn't set up, Jenkins will use the Unix
     user database from the server itself, which is set up based on the
     `users` databag entries with passwords. Use the rake task provided to
-    encrypt your plaintext password. If you put the encrypted version in the
-    databag, then you'll be able to log into Jenkins with the plaintext one.
+    encrypt your plaintext password. (My plaintext password is "sekret".) If
+    you put the encrypted version in the databag, then you'll be able to log
+    into Jenkins with the plaintext one.
   - Currently, every entry in the `users` databag that uses `zsh` must
     be enabled in the `users` entry of `config.yml`, or there will be an
     ohmyzsh-related error during chef run.
