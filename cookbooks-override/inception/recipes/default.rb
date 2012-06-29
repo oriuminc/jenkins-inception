@@ -67,4 +67,5 @@ template job_config do
     :branch => node['inception']['branch'],
   })
   notifies :update, resources(:jenkins_job => job_name), :immediately
+  notifies :build, resources(:jenkins_job => job_name), :immediately
 end
