@@ -73,7 +73,8 @@
     </hudson.plugins.ansicolor.AnsiColorBuildWrapper>
     <org.jenkinsCi.plugins.projectDescriptionSetter.DescriptionSetterWrapper>
       <charset>US-ASCII</charset>
-      <projectDescriptionFilename>profile/tmp/docs/${ENV,var=&quot;JOB_NAME&quot;}-build-description.md</projectDescriptionFilename>
+      <projectDescriptionFilename>profile/tmp/docs/build-description.md</projectDescriptionFilename>
+      <disableTokens>true</disableTokens>
     </org.jenkinsCi.plugins.projectDescriptionSetter.DescriptionSetterWrapper>
   </buildWrappers>
 </project>
