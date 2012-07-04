@@ -5,14 +5,7 @@ yml = YAML.load_file "#{current_dir}/config.yml"
 name "jenkins"
 description "The base role for setting up the jenkins master with appropriate initial settings."
 run_list(
-  "recipe[chef_gem]",
-  "recipe[apt]",
-  "recipe[sudo]",
-  "recipe[git]",
-  "recipe[zsh]",
-  "recipe[user::data_bag]",
-  "recipe[oh-my-zsh::shared]",
-  "recipe[vim]",
+  "role[base]",
   "recipe[php]",
   "recipe[php::module_curl]",
   "recipe[drush::utils]",
@@ -21,13 +14,6 @@ run_list(
   "recipe[inception]"
 )
 default_attributes(
-  "authorization" => {
-    "sudo" => {
-      # Note: Overridden in Vagrantfile so vagrant user never locked out.
-      "passwordless" => true,
-      "users" => yml['users'],
-    }
-  },
   "drush" => {
     "version" => "5.4.0",
   },
@@ -51,13 +37,5 @@ default_attributes(
         "ws-cleanup",
       ]
     }
-  },
-  "ohmyzsh" => {
-    "theme" => "afowler",
-  },
-  "user" => {
-    "default_shell" => "/bin/zsh",
-    "ssh_keygen" => false,
-  },
-  "users" => yml['users']
+  }
 )
