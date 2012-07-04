@@ -51,8 +51,24 @@ directory node['jenkins']['node']['home'] do
   group node['jenkins']['server']['group']
 end
 
+# In order to run authorized tasks (like updating job config), we need to
+# authorize as a Jenkins user. We have Jenkins set to authorize against the
+# unix user database, so we can use the `users` databag to build a URL and
+# therefore use HTTP basic auth.
+
+# Retrieve any one user that has a plaintext password of hashed password.
+authorized_user = search(:users, "password_plaintext:*").first
+
+# Build URL for HTTP basic auth
+auth_username = authorized_user['id']
+auth_pass = authorized_user['password_plaintext']
+server_host = node['jenkins']['server']['host']
+server_port = node['jenkins']['server']['port']
+server_url = "http://#{auth_username}:#{auth_pass}@#{server_host}:#{server_port}"
+
 jenkins_job job_name do
   action :nothing
+  url server_url
   config job_config
 end
 
@@ -66,6 +82,6 @@ template job_config do
     :github_url => github_url,
     :branch => node['inception']['branch'],
   })
-  notifies :update, resources(:jenkins_job => job_name), :immediately
-  notifies :build, resources(:jenkins_job => job_name), :immediately
+  notifies :update, "jenkins_job[#{job_name}]", :immediately
+  notifies :build, "jenkins_job[#{job_name}]", :immediately
 end

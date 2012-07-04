@@ -149,18 +149,30 @@ More coming soon...
 
 Coming soon...
 
-Known Issues
-------------
+Notes
+-----
 
   - When GitHub authentication isn't set up, Jenkins will use the Unix
     user database from the server itself, which is set up based on the
     `users` databag entries with passwords. Use the rake task provided to
-    encrypt your plaintext password. (My plaintext password is "sekret".) If
-    you put the encrypted version in the databag, then you'll be able to log
-    into Jenkins with the plaintext one.
+    encrypt your plaintext password. After you put the encrypted version in
+    the databag, then you'll be able to log into Jenkins with the plaintext
+    one.
+  - We also store the plaintext password in the databag as
+    `password_plaintext`. This is a bit of a hack, but without getting
+    into the details, you'll need at least one user that has this key, so
+    that Chef can use it to update build jobs.
+
+Known Issues
+------------
+
   - Currently, every entry in the `users` databag that uses `zsh` must
     be enabled in the `users` entry of `config.yml`, or there will be an
     ohmyzsh-related error during chef run.
+  - When using GitHub authorization, there is [an outstanding
+    issue][github-auth-issue] that prevents us from authorizing
+    programmatically, and therefore Chef cannot run authorized actions like
+    updating builds. GitHub auth not recommended until this is fixed.
 
 To Do
 -----
@@ -194,6 +206,9 @@ To Do
     for running `jenkins-setup.sh`
   - Put jenkins user under databag control.
   - Investigate [hosted chef gem][hosted-chef-gem].
+  - Add `admin` user, which will be used for authenticating Chef during
+    actions that require authorization.
+  - Test whether github auth can work with localhost.
 
 <!-- Links -->
    [hatch-project]:            http://xdissent.github.com/chef-hatch-repo/
@@ -205,3 +220,4 @@ To Do
    [about-rake]:               http://en.wikipedia.org/wiki/Rake_(software)
    [2ndleveldeep]:             https://github.com/myplanetdigital/2ndleveldeep#readme
    [hosted-chef-gem]:          https://github.com/opscode/hosted-chef-gem#readme
+   [github-auth-issue]:        https://github.com/mocleiri/github-oauth-plugin/issues/18
