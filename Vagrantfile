@@ -1,8 +1,9 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+current_dir = File.dirname(__FILE__)
 # Import configs from YAML file.
-yml = YAML.load_file "roles/config.yml"
+yml = YAML.load_file "#{current_dir}/roles/config.yml"
 
 Vagrant::Config.run do |config|
   # All Vagrant configuration is done here. The most common configuration
