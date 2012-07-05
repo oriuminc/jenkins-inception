@@ -6,6 +6,7 @@ name "jenkins"
 description "The base role for setting up the jenkins master with appropriate initial settings."
 run_list(
   "role[base]",
+  "role[mysql_server]",
   "recipe[php]",
   "recipe[php::module_curl]",
   "recipe[drush::utils]",

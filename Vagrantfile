@@ -61,11 +61,18 @@ Vagrant::Config.run do |config|
     # vagrant-only config.
     chef.json = {
       # Ensure that vagrant user never locked out.
-      :authorization => {
-        :sudo => {
-          :passwordless => true,
-          :users => yml['users'] + ["vagrant"],
+      "authorization" => {
+        "sudo" => {
+          "passwordless" => true,
+          "users" => yml['users'] + ["vagrant"],
         }
+      },
+      "mysql" => {
+        "allow_remote_root" => true,
+        "bind_address" => "0.0.0.0",
+        "server_debian_password" => "root",
+        "server_root_password"   => "root",
+        "server_repl_password"   => "root",
       }
     }
   end

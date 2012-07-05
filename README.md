@@ -173,6 +173,10 @@ Known Issues
     issue][github-auth-issue] that prevents us from authorizing
     programmatically, and therefore Chef cannot run authorized actions like
     updating builds. GitHub auth not recommended until this is fixed.
+  - Chef only defines MySQL passwords for the Vagrant VM, which means
+    that it's not yet ready to run on a cloud server. Removing
+    `role[mysql_server]` from the `roles/jenkins.rb` should negate the issue
+    in the meantime.
 
 To Do
 -----
@@ -209,6 +213,8 @@ To Do
   - Add `admin` user, which will be used for authenticating Chef during
     actions that require authorization.
   - Test whether github auth can work with localhost.
+  - Hack chef-user cookbook to allow for plaintext passwords, rather
+    than just shadow hash of password.
 
 <!-- Links -->
    [hatch-project]:            http://xdissent.github.com/chef-hatch-repo/
