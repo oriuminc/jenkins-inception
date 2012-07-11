@@ -177,6 +177,9 @@ Known Issues
     that it's not yet ready to run on a cloud server. Removing
     `role[mysql_server]` from the `roles/jenkins.rb` should negate the issue
     in the meantime.
+  - Every once in awhile, ruby 1.8.7 in the VM will throw a
+    segmentation fault while installing `libmysql-ruby` during the chef
+    run. It's sporadic, and reprovisioning should move past it.
 
 To Do
 -----
@@ -215,6 +218,7 @@ To Do
   - Test whether github auth can work with localhost.
   - Hack chef-user cookbook to allow for plaintext passwords, rather
     than just shadow hash of password.
+  - Create role hierarchy like in Ariadne.
 
 <!-- Links -->
    [hatch-project]:            http://xdissent.github.com/chef-hatch-repo/
