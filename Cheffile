@@ -3,6 +3,7 @@
 
 site 'http://community.opscode.com/api/v1'
 
+cookbook "apache2"
 cookbook "apt"
 cookbook "chef_gem"
 cookbook "chef-solo-search",
@@ -11,7 +12,9 @@ cookbook 'drush',
   :git => 'https://github.com/patcon/chef-drush.git',
   :ref => 'msonnabaum-GH-10'
 cookbook "git"
-cookbook "jenkins"
+cookbook "jenkins",
+  :git => "https://github.com/myplanetdigital/chef-jenkins.git",
+  :ref => "GH-11-basic-auth-opt"
 cookbook "oh-my-zsh"
 cookbook "php"
 cookbook "sudo"

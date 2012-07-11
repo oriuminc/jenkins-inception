@@ -12,6 +12,7 @@ run_list(
   "recipe[drush::utils]",
   "recipe[drush::make]",
   "recipe[jenkins]",
+  "recipe[jenkins::proxy_apache2]",
   "recipe[inception]"
 )
 default_attributes(
@@ -21,6 +22,11 @@ default_attributes(
   # Import YAML config array directly into node object.
   "inception" => yml,
   "jenkins" => {
+    "http_proxy" => {
+      "variant" => "apache2",
+      # Empty string disables http basic auth
+      "basic_auth_password" => "",
+    },
     "server" => {
       "host" => "0.0.0.0",
       "plugins" => [
