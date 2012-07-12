@@ -6,12 +6,10 @@ name "jenkins"
 description "The base role for setting up the jenkins master with appropriate initial settings."
 run_list(
   "role[base]",
+  "role[apache2_mod_php]",
   "role[mysql_server]",
   "recipe[php]",
-  "recipe[php::module_curl]",
-  "recipe[php::module_gd]",
-  "recipe[php::module_mysql]",
-  "recipe[php::module_apc]",
+  "role[drupal]",
   "recipe[php::module_memcache]",
   "recipe[php::module_memcached]",
   "recipe[php::write_inis]",

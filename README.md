@@ -84,6 +84,11 @@ machines:
 
 You can now view the Jenkins UI at: http://localhost:8080
 
+A built site can be viewed at: http://JOB_NAME.inception.dev:8080
+
+Currently, the latter requires adding entries to your host machine's
+`/etc/hosts` file. (ie. `127.0.0.1 build-int.inception.dev`)
+
 Please see the [known issue](#known-issues) below regarding problems
 with Jenkins when restarting the VM with `vagrant reload`.
 
@@ -219,6 +224,7 @@ To Do
   - Hack chef-user cookbook to allow for plaintext passwords, rather
     than just shadow hash of password.
   - Create role hierarchy like in Ariadne.
+  - Set up varnish.
 
 <!-- Links -->
    [hatch-project]:            http://xdissent.github.com/chef-hatch-repo/
