@@ -10,7 +10,7 @@ run_list(
   "role[mysql_server]",
   "recipe[php]",
   "role[drupal]",
-  "role[dev_tools]",
+  "recipe[postfix]",
   "recipe[php::module_memcache]",
   "recipe[php::module_memcached]",
   "recipe[php::write_inis]",
@@ -20,7 +20,7 @@ run_list(
   "recipe[jenkins::proxy_apache2]",
   "recipe[inception]"
 )
-default_attributes(
+default_attributes({
   "drush" => {
     "version" => "5.4.0",
   },
@@ -49,5 +49,8 @@ default_attributes(
         "ws-cleanup",
       ]
     }
-  }
-)
+  },
+  "postfix" => {
+    "mydomain" => "$myhostname",
+  },
+})
