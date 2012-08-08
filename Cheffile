@@ -8,16 +8,23 @@ cookbook "apt"
 cookbook "chef_gem"
 cookbook "chef-solo-search",
   :git => "https://github.com/myplanetdigital/chef-solo-search.git"
-cookbook 'drush',
-  :git => 'https://github.com/patcon/chef-drush.git',
-  :ref => 'msonnabaum-GH-10'
+cookbook "drush",
+  :git => "https://github.com/patcon/chef-drush.git",
+  :ref => "msonnabaum-GH-10"
 cookbook "git"
 cookbook "jenkins",
   :git => "https://github.com/myplanetdigital/chef-jenkins.git",
   :ref => "GH-11-basic-auth-opt"
 cookbook "oh-my-zsh"
+cookbook "postfix"
 cookbook "php"
+cookbook "phpunit",
+  :git => "https://github.com/myplanetdigital/chef-phpunit.git",
+  :ref => "GH-7-version-attr"
 cookbook "sudo"
 cookbook "user"
 cookbook "vim"
+cookbook "xdebug",
+  :git => "https://github.com/myplanetdigital/chef-xdebug.git",
+  :ref => "create-logfile"
 cookbook "zsh"

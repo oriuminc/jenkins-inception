@@ -10,6 +10,7 @@ run_list(
   "role[mysql_server]",
   "recipe[php]",
   "role[drupal]",
+  "role[dev_tools]",
   "recipe[php::module_memcache]",
   "recipe[php::module_memcached]",
   "recipe[php::write_inis]",

@@ -185,6 +185,8 @@ Known Issues
   - Every once in awhile, ruby 1.8.7 in the VM will throw a
     segmentation fault while installing `libmysql-ruby` during the chef
     run. It's sporadic, and reprovisioning should move past it.
+  - LogMeIn Hamachi is known to cause issues with making `pear.php.net`
+    unreachable, and so the environment won't build.
 
 To Do
 -----

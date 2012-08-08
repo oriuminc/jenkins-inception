@@ -24,6 +24,7 @@ SITE
       build-essential (>= 0.0.0)
       mysql (>= 0.0.0)
       xml (>= 0.0.0)
+    postfix (1.2.0)
     runit (0.15.0)
     sudo (1.1.0)
     user (0.2.12)
@@ -44,11 +45,27 @@ GIT
       runit (>= 0.0.0)
 
 GIT
+  remote: https://github.com/myplanetdigital/chef-phpunit.git
+  ref: GH-7-version-attr
+  sha: 8f4f9b1a5e256b458ec3cac3ab57984c8b196a2c
+  specs:
+    phpunit (0.9.1)
+      php (>= 0.0.0)
+
+GIT
   remote: https://github.com/myplanetdigital/chef-solo-search.git
   ref: master
   sha: 743a0d2c6bbfd6d595b8088457b6a7fecb3a6729
   specs:
     chef-solo-search (0.4.0)
+
+GIT
+  remote: https://github.com/myplanetdigital/chef-xdebug.git
+  ref: create-logfile
+  sha: cbdad80aaa9bee642d1772e945ed7c92745a2260
+  specs:
+    xdebug (0.0.1)
+      php (>= 0.0.0)
 
 GIT
   remote: https://github.com/patcon/chef-drush.git
@@ -68,8 +85,11 @@ DEPENDENCIES
   jenkins (>= 0)
   oh-my-zsh (>= 0)
   php (>= 0)
+  phpunit (>= 0)
+  postfix (>= 0)
   sudo (>= 0)
   user (>= 0)
   vim (>= 0)
+  xdebug (>= 0)
   zsh (>= 0)
 
