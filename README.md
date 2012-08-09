@@ -50,11 +50,12 @@ Quickstart
 
 ### Setup
 
-    $ curl -L get.rvm.io | bash -s 1.14.1
-    $ exec $SHELL
+    $ curl -L get.rvm.io | bash -s 1.14.12
+    $ source $HOME/.rvm/scripts/rvm
     $ rvm reload
     $ git clone git@github.com:myplanetdigital/inception.git
     $ cd inception
+    $ gem regenerate_binstubs
     $ librarian-chef install
 
 ### Configuration
@@ -187,6 +188,8 @@ Known Issues
     run. It's sporadic, and reprovisioning should move past it.
   - LogMeIn Hamachi is known to cause issues with making `pear.php.net`
     unreachable, and so the environment won't build.
+  - Generally, both ruby and its gems should be compiled using the same
+    version of Xcode. If you get odd errors, remove ruby and recompile.
 
 To Do
 -----
