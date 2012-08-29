@@ -189,7 +189,8 @@ Known Issues
   - LogMeIn Hamachi is known to cause issues with making `pear.php.net`
     unreachable, and so the environment won't build.
   - Generally, both ruby and its gems should be compiled using the same
-    version of Xcode. If you get odd errors, remove ruby and recompile.
+    version of Xcode. If you get odd errors, remove ruby and its gems
+    and recompile.
 
 To Do
 -----

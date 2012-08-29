@@ -2,7 +2,7 @@
 
 RUBY_VERS="1.9.3"
 RUBY_PATCH="p194"
-BUNDLER_VERS="1.1.4"
+BUNDLER_VERS="1.1.5"
 
 # Work whether rubies or gemsets are already installed
 rvm --install --create use ruby-${RUBY_VERS}-${RUBY_PATCH}@inception
