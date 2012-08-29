@@ -120,14 +120,14 @@ and there will be less overhead to worry about.
 
 Assuming you have received credentials (root password and IP address)
 for a fresh server running Ubuntu Lucid, run these commands substituting
-an appropriate PROJECT name:
+an appropriate PROJECT name and IP_ADDRESS:
 
-    $ echo -e "Host IP_ADDRESS\n  StrictHostKeyChecking no" >> ~/.ssh/config
-    $ ssh-forever root@<IP_ADDRESS> -i /path/to/ssh_key.pub -n jenkins-PROJECT
-    $ # Enter root password when prompted.
-    $ ssh jenkins-PROJECT "curl -L http://www.opscode.com/chef/install.sh | bash /dev/stdin -v 0.10.8-3"
-    $ ssh jenkins-PROJECT "apt-get install rsync"
-    $ rake "chef_solo:remote_run[jenkins-PROJECT]"
+    $ echo -e "\nHost jenkins-PROJECT\n  User root\n  HostName IP_ADDRESS" >> ~/.ssh/config
+    $ ssh-forever jenkins-PROJECT -i path/to/ssh_key.pub # Enter root password when prompted.
+    $ # Install Chef on the server
+    $ knife prepare jenkins-PROJECT
+    $ # Run chef-solo on jenkins-PROJECT server
+    $ knife cook jenkins-PROJECT nodes/jenkins.json --skip-syntax-check --skip-chef-check
 
 **Notes:** The [chef-solo-search][chef-solo-search] cookbook is simply a
 container for a library that allows for chef-server search functions

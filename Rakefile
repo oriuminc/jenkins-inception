@@ -22,17 +22,6 @@ namespace :vagrant do
   end
 end
 
-namespace :chef_solo do
-  desc "Rsync necessary files to remote server and kickstart chef-solo.
-
-  Any remote files present will be deleted if removed from corresponding local
-  locations."
-  task :remote_run, [:hostname] do |t, args|
-    system "rsync -avz --delete cookbooks data_bags cookbooks-override roles misc #{args.hostname}:/tmp/chef-solo/"
-    system "ssh #{args.hostname} 'chef-solo -c /tmp/chef-solo/misc/solo.rb -j /tmp/chef-solo/misc/solo-dna.json'"
-  end
-end
-
 namespace :opscode do
   desc "Programmatically sign up for a free Hosted Chef server with Opscode."
   task :platform_signup do
