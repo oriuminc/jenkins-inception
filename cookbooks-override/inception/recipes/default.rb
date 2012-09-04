@@ -71,6 +71,8 @@ server_host = node['jenkins']['server']['host']
 server_port = node['jenkins']['server']['port']
 server_url = "http://#{auth_username}:#{auth_pass}@#{server_host}:#{server_port}"
 
+jenkins_cli "login --username #{auth_username} --password #{auth_pass}"
+
 jenkins_job job_name do
   action :nothing
   url server_url

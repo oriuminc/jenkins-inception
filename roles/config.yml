@@ -10,6 +10,8 @@ timezone: America/Toronto
 # Example: [user1, user2]
 users: [patcon]
 
+# This domain name will be used to contruct URL's for viewing workspaces of
+# Jenkins jobs.
 domain: inception.dev
 
 github:
