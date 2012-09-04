@@ -1,5 +1,12 @@
 {
   "run_list": [
     "role[jenkins]"
-  ]
+  ],
+  "default_attributes": {
+    "mysqk": {
+      "server_debian_password": "root",
+      "server_root_password": "root",
+      "server_repl_password": "root"
+    }
+  }
 }
