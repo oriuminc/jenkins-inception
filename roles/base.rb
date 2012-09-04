@@ -5,7 +5,6 @@ yml = YAML.load_file "#{current_dir}/config.yml"
 name "base"
 description "The base role for servers."
 run_list(
-  "recipe[chef_gem]",
   "recipe[apt]",
   "recipe[sudo]",
   "recipe[git]",

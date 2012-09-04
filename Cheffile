@@ -1,11 +1,10 @@
 #!/usr/bin/env ruby
 #^syntax detection
 
-site 'http://community.opscode.com/api/v1'
+site "http://community.opscode.com/api/v1"
 
 cookbook "apache2"
 cookbook "apt"
-cookbook "chef_gem"
 cookbook "chef-solo-search",
   :git => "https://github.com/myplanetdigital/chef-solo-search.git"
 cookbook "drush",

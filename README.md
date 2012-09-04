@@ -125,7 +125,7 @@ an appropriate PROJECT name and IP_ADDRESS:
     $ echo -e "\nHost jenkins-PROJECT\n  User root\n  HostName IP_ADDRESS" >> ~/.ssh/config
     $ ssh-forever jenkins-PROJECT -i path/to/ssh_key.pub # Enter root password when prompted.
     $ # Install Chef on the server
-    $ knife prepare jenkins-PROJECT
+    $ knife prepare jenkins-PROJECT --omnibus-version 10.12.0-1
     $ # Run chef-solo on jenkins-PROJECT server
     $ knife cook jenkins-PROJECT nodes/jenkins.json --skip-syntax-check --skip-chef-check
 
