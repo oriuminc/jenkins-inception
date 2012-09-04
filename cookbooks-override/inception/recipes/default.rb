@@ -20,9 +20,14 @@
 #
 
 # Add so that we can set user passwords from databag
-package "make" do
-  action :nothing
-end.run_action(:install)
+%w{
+  make
+  gcc
+}.each do |pkg|
+  package pkg do
+    action :nothing
+  end.run_action(:install)
+end
 
 chef_gem "ruby-shadow"
 
