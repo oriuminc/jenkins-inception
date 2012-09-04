@@ -95,7 +95,7 @@ web_app job_name do
   template "site.conf.erb"
   port node['apache']['listen_ports'].to_a[0]
   server_name "#{job_name}.inception.dev"
-  server_aliases "*.#{job_name}.inception.dev"
+  server_aliases ["*.#{job_name}.inception.dev"]
   docroot "#{node['jenkins']['server']['home']}/jobs/#{job_name}/workspace/build"
   notifies :reload, "service[apache2]"
 end
