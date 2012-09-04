@@ -75,9 +75,6 @@ Vagrant::Config.run do |config|
       "mysql" => {
         "allow_remote_root" => true,
         "bind_address" => "0.0.0.0",
-        "server_debian_password" => "root",
-        "server_root_password"   => "root",
-        "server_repl_password"   => "root",
       }
     }
   end
