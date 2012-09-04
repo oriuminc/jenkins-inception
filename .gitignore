@@ -11,3 +11,6 @@
 cookbooks/
 tmp/
 .bundle/
+
+# knife-solo quirk
+nodes/jenkins-*.json

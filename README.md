@@ -231,6 +231,7 @@ To Do
     than just shadow hash of password.
   - Create role hierarchy like in Ariadne.
   - Set up varnish.
+  - Submit PR to knife-solo to prevent auto-creation of node.json.
 
 <!-- Links -->
    [hatch-project]:            http://xdissent.github.com/chef-hatch-repo/
