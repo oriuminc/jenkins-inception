@@ -22,7 +22,7 @@ run_list(
 )
 default_attributes({
   "drush" => {
-    "version" => "5.5.0",
+    "version" => "5.7.0",
   },
   # Import YAML config array directly into node object.
   "inception" => yml,
