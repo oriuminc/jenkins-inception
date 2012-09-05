@@ -149,7 +149,9 @@ container for a library that allows for chef-server search functions
 that are not available in native chef-solo. See that project's README
 for documentation.
 
-More coming soon...
+To have Jenkins work with GitHub via its GitHub plugin, you'll need to
+go to your GitHub repo admin page and add the "Service Hook" for
+"Jenkins (GitHub plugin)".
 
 #### Hosted via Opscode Platform
 
@@ -247,6 +249,8 @@ To Do
   - Create role hierarchy like in Ariadne.
   - Set up varnish.
   - Submit PR to knife-solo to prevent auto-creation of node.json.
+  - Determine public vs private git repo and change job git url
+    accordingly.
 
 <!-- Links -->
    [hatch-project]:            http://xdissent.github.com/chef-hatch-repo/
