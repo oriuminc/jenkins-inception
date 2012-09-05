@@ -31,6 +31,7 @@ default_attributes({
       "variant" => "apache2",
       # Empty string disables http basic auth
       "basic_auth_password" => "",
+      "host_name" => yml['domain'],
     },
     "server" => {
       "host" => "0.0.0.0",

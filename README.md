@@ -118,6 +118,21 @@ and there will be less overhead to worry about.
 
 #### Stand-alone Chef Solo
 
+The first thing you'll want to do is edit the `domain` key in the
+`roles/config.yml`. This is where Jenkins will be served, either by
+pointing a DNS A-record at the server, or by adding a line like this to
+your `/etc/hosts` file:
+
+    # <SERVER_IP_ADDRESS> <JENKINS_URL> <JOB1_DOCROOT_URL> ...
+    123.123.123.123 ci.example.com build-int.ci.example.com
+
+Jenkins will be available at `http://ci.example.com`, and the
+"build-int" Jenkins job docroot (the only one provided by default), will
+be served at `http://build-int.ci.example.com`. (If using an A-record,
+you'd likely want to create one for each of `ci.example.com` and
+`*.ci.example.com`, so any future job docroots would be served
+correctly.)
+
 Assuming you have received credentials (root password and IP address)
 for a fresh server running Ubuntu Lucid, run these commands substituting
 an appropriate PROJECT name and IP_ADDRESS:
