@@ -32,6 +32,14 @@ SITE
     zsh (0.7.0)
 
 GIT
+  remote: https://github.com/msonnabaum/chef-drush.git
+  ref: master
+  sha: ae0503ca017f923b363e727041d5aa749d45f89f
+  specs:
+    drush (0.10.0)
+      php (>= 0.0.0)
+
+GIT
   remote: https://github.com/myplanetdigital/chef-jenkins.git
   ref: GH-11-basic-auth-opt
   sha: c335e0dd27dd2650f0417d29ff223ec79fc1282a
@@ -61,14 +69,6 @@ GIT
   sha: cbdad80aaa9bee642d1772e945ed7c92745a2260
   specs:
     xdebug (0.0.1)
-      php (>= 0.0.0)
-
-GIT
-  remote: https://github.com/patcon/chef-drush.git
-  ref: msonnabaum-GH-10
-  sha: 28d9d06fa3498b681dc4187e24321b71e14df406
-  specs:
-    drush (0.10.0)
       php (>= 0.0.0)
 
 DEPENDENCIES
