@@ -9,6 +9,7 @@ run_list(
   "recipe[sudo]",
   "recipe[git]",
   "recipe[zsh]",
+  "recipe[openssh]",
   "recipe[user::data_bag]",
   "recipe[oh-my-zsh::shared]",
   "recipe[vim]"
@@ -23,6 +24,11 @@ default_attributes(
   },
   "ohmyzsh" => {
     "theme" => "afowler",
+  },
+  "openssh" => {
+    "server" => {
+      "password_authentication" => "no",
+    },
   },
   "user" => {
     "default_shell" => "/bin/zsh",

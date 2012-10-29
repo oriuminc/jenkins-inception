@@ -15,6 +15,7 @@ cookbook "jenkins",
   :git => "https://github.com/myplanetdigital/chef-jenkins.git",
   :ref => "GH-11-basic-auth-opt"
 cookbook "oh-my-zsh"
+cookbook "openssh"
 cookbook "postfix"
 cookbook "php"
 cookbook "phpunit",
