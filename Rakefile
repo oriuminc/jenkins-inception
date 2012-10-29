@@ -1,10 +1,5 @@
 require 'vagrant'
 
-desc "Enter a plaintext password to encrypt for the `users` databag."
-task :encrypt_password, [:password] do |t, args|
-  system "echo '#{args.password}' | openssl passwd -1 -stdin"
-end
-
 namespace :vagrant do
   desc "Restarts the network service inside the VM.
 

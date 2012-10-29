@@ -137,12 +137,16 @@ Assuming you have received credentials (root password and IP address)
 for a fresh server running Ubuntu Lucid, run these commands substituting
 an appropriate PROJECT name and IP_ADDRESS:
 
-    $ echo -e "\nHost jenkins-PROJECT\n  User root\n  HostName IP_ADDRESS" >> ~/.ssh/config
-    $ ssh-forever jenkins-PROJECT -i path/to/ssh_key.pub # Enter root password when prompted.
-    $ # Install Chef on the server
-    $ knife prepare jenkins-PROJECT --omnibus-version 10.12.0-1
-    $ # Run chef-solo on jenkins-PROJECT server
-    $ knife cook jenkins-PROJECT nodes/jenkins.json --skip-syntax-check --skip-chef-check
+```
+export PROJECT=projectname
+export IP_ADDRESS=123.45.67.89
+echo -e "\nHost jenkins-$PROJECT\n  User root\n  HostName $IP_ADDRESS" >> ~/.ssh/config
+ssh-forever jenkins-$PROJECT -i path/to/ssh_key.pub # Enter root password when prompted.
+# Install Chef on the server
+knife prepare jenkins-$PROJECT --omnibus-version 10.12.0-1
+# Run chef-solo on jenkins-$PROJECT server
+knife cook jenkins-$PROJECT nodes/jenkins.json --skip-syntax-check --skip-chef-check
+```
 
 **Notes:** The [chef-solo-search][chef-solo-search] cookbook is simply a
 container for a library that allows for chef-server search functions
@@ -180,14 +184,7 @@ Notes
 
   - When GitHub authentication isn't set up, Jenkins will use the Unix
     user database from the server itself, which is set up based on the
-    `users` databag entries with passwords. Use the rake task provided to
-    encrypt your plaintext password. After you put the encrypted version in
-    the databag, then you'll be able to log into Jenkins with the plaintext
-    one.
-  - We also store the plaintext password in the databag as
-    `password_plaintext`. This is a bit of a hack, but without getting
-    into the details, you'll need at least one user that has this key, so
-    that Chef can use it to update build jobs.
+    `users` databag entries with passwords.
 
 Known Issues
 ------------
@@ -254,6 +251,8 @@ To Do
   - Submit PR to knife-solo to prevent auto-creation of node.json.
   - Determine public vs private git repo and change job git url
     accordingly.
+  - Create rake task to build default config file so not in version
+    control.
 
 <!-- Links -->
    [hatch-project]:            http://xdissent.github.com/chef-hatch-repo/
