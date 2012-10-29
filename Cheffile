@@ -24,7 +24,7 @@ cookbook "sudo"
 cookbook "user",
   :git => "https://github.com/myplanetdigital/chef-user.git",
   # https://github.com/fnichol/chef-user/pull/23
-  :ref = > "23-plaintext-pwd"
+  :ref => "23-plaintext-pwd"
 cookbook "vim"
 cookbook "xdebug",
   :git => "https://github.com/myplanetdigital/chef-xdebug.git",

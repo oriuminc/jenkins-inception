@@ -25,7 +25,6 @@ SITE
     postfix (1.2.2)
     runit (0.15.0)
     sudo (1.1.0)
-    user (0.3.0)
     vim (1.0.2)
     xml (1.0.4)
     yum (0.8.0)
@@ -62,6 +61,13 @@ GIT
   sha: 743a0d2c6bbfd6d595b8088457b6a7fecb3a6729
   specs:
     chef-solo-search (0.4.0)
+
+GIT
+  remote: https://github.com/myplanetdigital/chef-user.git
+  ref: 23-plaintext-pwd
+  sha: ab1d6806d1547392349ac7c5149b07f9d32e8f17
+  specs:
+    user (0.3.1)
 
 GIT
   remote: https://github.com/myplanetdigital/chef-xdebug.git
