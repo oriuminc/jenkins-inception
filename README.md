@@ -196,17 +196,10 @@ Notes
 Known Issues
 ------------
 
-  - Currently, every entry in the `users` databag that uses `zsh` must
-    be enabled in the `users` entry of `config.yml`, or there will be an
-    ohmyzsh-related error during chef run.
   - When using GitHub authorization, there is [an outstanding
     issue][github-auth-issue] that prevents us from authorizing
     programmatically, and therefore Chef cannot run authorized actions like
     updating builds. GitHub auth not recommended until this is fixed.
-  - Chef only defines MySQL passwords for the Vagrant VM, which means
-    that it's not yet ready to run on a cloud server. Removing
-    `role[mysql_server]` from the `roles/jenkins.rb` should negate the issue
-    in the meantime.
   - Every once in awhile, ruby 1.8.7 in the VM will throw a
     segmentation fault while installing `libmysql-ruby` during the chef
     run. It's sporadic, and reprovisioning should move past it.
@@ -223,20 +216,13 @@ To Do
     authenticate with the jenkins_cli resource.
   - Include a base Drupal install profile to show file structure and
     bare minimum scripting expectations.
-  - Currently, oh-my-zsh cookbook fails if user databag entry exists
-    which is not "enabled". Submit a patch to account for the cases
-    where this is untrue.
   - Look into better alternative to `0.0.0.0` for
     `node['jenkins']['server']['host']`
   - Add feature to create DNS a-record if DynDNS API credentials are
     supplied in `config.yml`.
-  - Add recommendation for gcc-isntaller rather than xcode?
   - Add note on port forwarding 8080. (:auto?)
-  - Figure out bundler issue in rvmrc by starting fresh (Yash's compy).
-    Might NOT work on Lion for now.
   - Investigate [knife-solo gem](https://github.com/matschaffer/knife-solo).
   - Create rake task for chef-solo setup steps?
-  - replace ssh-forever with straighy-up rake task or cap?
   - Add [spiceweasel][spiceweasel-project] support for launching into
     the cloud when using chef-server.
   - Provide instructions on using with Opscode hosted Chef server?
@@ -246,20 +232,13 @@ To Do
     [Hatch][hatch-project]?)
   - Investigate using [preSCMbuildstep plugin][plugin-preSCMbuildstep]
     for running `jenkins-setup.sh`
-  - Put jenkins user under databag control.
   - Investigate [hosted chef gem][hosted-chef-gem].
-  - Add `admin` user, which will be used for authenticating Chef during
-    actions that require authorization.
   - Test whether github auth can work with localhost.
-  - Hack chef-user cookbook to allow for plaintext passwords, rather
-    than just shadow hash of password.
   - Create role hierarchy like in Ariadne.
   - Set up varnish.
   - Submit PR to knife-solo to prevent auto-creation of node.json.
   - Determine public vs private git repo and change job git url
     accordingly.
-  - Create rake task to build default config file so not in version
-    control.
 
 <!-- Links -->
    [hatch-project]:            http://xdissent.github.com/chef-hatch-repo/
