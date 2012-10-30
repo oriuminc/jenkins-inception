@@ -147,7 +147,7 @@ export INCEPTION_USER=patcon # Your username from the users data bag
 export INCEPTION_IP=123.45.67.89
 echo -e "\nHost $INCEPTION_PROJECT\n  User $INCEPTION_USER\n  HostName $INCEPTION_IP" >> ~/.ssh/config
 # Use root the first time, since user not yet created.
-knife prepare root@$INCEPTION_PROJECT --omnibus-version 10.12.0-1
+knife prepare root@$INCEPTION_PROJECT --omnibus-version 10.16.2-1
 # Run chef-solo on $INCEPTION_PROJECT server
 knife cook root@$INCEPTION_PROJECT nodes/jenkins.json --skip-chef-check
 
