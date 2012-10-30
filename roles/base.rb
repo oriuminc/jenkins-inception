@@ -30,6 +30,7 @@ default_attributes(
   "user" => {
     "default_shell" => "/bin/zsh",
     "ssh_keygen" => false,
+    "use_plaintext" => true,
   },
   "users" => yml['users']
 )
