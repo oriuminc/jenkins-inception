@@ -60,6 +60,8 @@ task :init do
         secret:
     EOF
     conf.close
+  else
+    p "config.yml already exists. Skipping write..."
   end
 end
 
