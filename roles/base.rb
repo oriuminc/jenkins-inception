@@ -24,6 +24,9 @@ default_attributes({
     },
   },
   "openssh" => {
+    "client" => {
+      "strict_host_key_checking" => "no",
+    },
     "server" => {
       "password_authentication" => "no",
       "permit_root_login" => "no",
