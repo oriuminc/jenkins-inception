@@ -71,7 +71,10 @@ server_host = node['jenkins']['server']['host']
 server_port = node['jenkins']['server']['port']
 server_url = "http://#{auth_username}:#{auth_pass}@#{server_host}:#{server_port}"
 
-#jenkins_cli "login --username #{auth_username} --password #{auth_pass}"
+# For some reason this is needed when running in Vagrant, but fails with knife-solo
+jenkins_cli "login --username #{auth_username} --password #{auth_pass}" do
+  only_if { node['vagrant'] }
+end
 
 jenkins_job job_name do
   action :nothing

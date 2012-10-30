@@ -208,6 +208,9 @@ Known Issues
   - Generally, both ruby and its gems should be compiled using the same
     version of Xcode. If you get odd errors, remove ruby and its gems
     and recompile.
+  - For some reason, jenkins_cli LWRP is needed for login on Vagrant VM,
+    but causes chef run failure when using knife-solo with rackspace. Have
+    workaround in place, but should probably investigate why this might be.
 
 To Do
 -----
