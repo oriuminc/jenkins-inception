@@ -1,7 +1,6 @@
 {
   "id": "patcon",
   "comment": "Patrick Connolly",
-  "shell": "/bin/zsh",
   "password": "sekret",
   "plaintext_password": "true",
   "ssh_keys": [

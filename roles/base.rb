@@ -11,7 +11,6 @@ run_list(
   "recipe[zsh]",
   "recipe[openssh]",
   "recipe[user::data_bag]",
-  "recipe[oh-my-zsh::shared]",
   "recipe[vim]"
 )
 default_attributes(
@@ -21,9 +20,6 @@ default_attributes(
       "passwordless" => true,
       "users" => yml['users'],
     }
-  },
-  "ohmyzsh" => {
-    "theme" => "afowler",
   },
   "openssh" => {
     "server" => {
