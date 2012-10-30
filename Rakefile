@@ -1,5 +1,15 @@
 require 'vagrant'
 
+class String
+  # Strip leading whitespace from each line that is the same as the
+  # amount of whitespace on the first line of the string
+  # Leaves _additional_ indentation on later lines intact
+  # SEE: http://stackoverflow.com/a/5638187/504018
+  def unindent
+    gsub /^#{self[/\A\s*/]}/, ''
+  end
+end
+
 namespace :vagrant do
   desc "Restarts the network service inside the VM.
 
@@ -14,6 +24,42 @@ namespace :vagrant do
 
       vm.channel.sudo("/etc/init.d/networking restart")
     end
+  end
+end
+
+desc "Initialize Inception Jenkins environment."
+task :init do
+  # Write the config file if doesn't exist.
+  unless File.exists?("roles/config.yml")
+    p "Creating roles/config.yml..."
+    conf = File.open("roles/config.yml", "w")
+    conf.puts <<-EOF.unindent
+      # `repo` expects a GitHub repo.
+      repo: https://github.com/myplanetdigital/myplanet.git
+      branch: develop
+
+      # For timestamps in Jenkins UI
+      timezone: America/Toronto
+
+      # Only the entries below in the `users` database will be acted on.
+      # Each user created will be given passwordless sudo access.
+      # Example: [user1, user2]
+      users: [patcon]
+
+      # This domain name will be used to contruct URL's for viewing workspaces of
+      # Jenkins jobs.
+      domain: inception.dev
+
+      github:
+        organization: myplanetdigital
+        # In order to use GitHub authentication, you'll need to register an app
+        # See: https://github.com/settings/applications
+        # Leaving these blank will use Jenkins database for authentication.
+        # (Do not try GitHub authentication on Vagrant as it will break Jenkins.)
+        client_id:
+        secret:
+    EOF
+    conf.close
   end
 end
 

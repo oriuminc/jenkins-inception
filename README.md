@@ -60,6 +60,10 @@ Quickstart
 
 ### Configuration
 
+The first thing you'll want to do is generate a `config.yml` template:
+
+    rake init
+
 While the default demo stack will boot without any custom configuration, you'll
 likely want to tailor it to your needs.
 

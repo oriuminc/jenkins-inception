@@ -16,3 +16,4 @@ tmp/
 nodes/jenkins-*.json
 data_bags/users/*
 !data_bags/users/patcon.json
+roles/config.yml
