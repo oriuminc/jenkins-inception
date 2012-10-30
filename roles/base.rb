@@ -2,6 +2,8 @@ current_dir = File.dirname(__FILE__)
 # Import configs from YAML file.
 yml = YAML.load_file "#{current_dir}/config.yml"
 
+::Chef::Role.send(:include, Chef::Mixin::Language)
+
 name "base"
 description "The base role for servers."
 run_list(
@@ -13,13 +15,13 @@ run_list(
   "recipe[user::data_bag]",
   "recipe[vim]"
 )
-default_attributes(
+default_attributes({
   "authorization" => {
     "sudo" => {
       # Note: Overridden in Vagrantfile so vagrant user never locked out.
       "passwordless" => true,
-      "users" => yml['users'],
-    }
+      "users" => data_bag("users"),
+    },
   },
   "openssh" => {
     "server" => {
@@ -32,5 +34,5 @@ default_attributes(
     "ssh_keygen" => false,
     "use_plaintext" => true,
   },
-  "users" => yml['users']
-)
+  "users" => data_bag("users"),
+})

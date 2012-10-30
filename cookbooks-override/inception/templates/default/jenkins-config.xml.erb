@@ -12,7 +12,7 @@
         <string><%= node['inception']['github']['organization'] %></string>
       </organizationNameList>
       <adminUserNameList class="linked-list">
-        <% node['users'].each do |user| -%>
+        <% data_bag("users").each do |user| -%>
         <string><%= user %></string>
         <% end -%>
       </adminUserNameList>

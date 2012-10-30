@@ -41,11 +41,6 @@ task :init do
       # For timestamps in Jenkins UI
       timezone: America/Toronto
 
-      # Only the entries below in the `users` database will be acted on.
-      # Each user created will be given passwordless sudo access.
-      # Example: [user1, user2]
-      users: [patcon]
-
       # This domain name will be used to contruct URL's for viewing workspaces of
       # Jenkins jobs.
       domain: inception.dev

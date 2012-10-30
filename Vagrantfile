@@ -63,8 +63,8 @@ Vagrant::Config.run do |config|
       # Ensure that vagrant user never locked out.
       "authorization" => {
         "sudo" => {
-          "passwordless" => true,
-          "users" => yml['users'] + ["vagrant"],
+          # Only vagrant user gets sudo on VM.
+          "users" => ["vagrant"],
         }
       },
       "jenkins" => {
