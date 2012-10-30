@@ -138,14 +138,17 @@ for a fresh server running Ubuntu Lucid, run these commands substituting
 an appropriate PROJECT name and IP_ADDRESS:
 
 ```
-export PROJECT=projectname
-export IP_ADDRESS=123.45.67.89
-echo -e "\nHost jenkins-$PROJECT\n  User root\n  HostName $IP_ADDRESS" >> ~/.ssh/config
-ssh-forever jenkins-$PROJECT -i path/to/ssh_key.pub # Enter root password when prompted.
-# Install Chef on the server
-knife prepare jenkins-$PROJECT --omnibus-version 10.12.0-1
-# Run chef-solo on jenkins-$PROJECT server
-knife cook jenkins-$PROJECT nodes/jenkins.json --skip-syntax-check --skip-chef-check
+export INCEPTION_PROJECT=projectname
+export INCEPTION_USER=patcon # Your username from the users data bag
+export INCEPTION_IP=123.45.67.89
+echo -e "\nHost $INCEPTION_PROJECT\n  User $INCEPTION_USER\n  HostName $INCEPTION_IP" >> ~/.ssh/config
+# Use root the first time, since user not yet created.
+knife prepare root@$INCEPTION_PROJECT --omnibus-version 10.12.0-1
+# Run chef-solo on $INCEPTION_PROJECT server
+knife cook root@$INCEPTION_PROJECT nodes/jenkins.json --skip-chef-check
+
+# Subsequent chef-solo runs will employ user.
+knife cook $INCEPTION_PROJECT nodes/jenkins.json --skip-chef-check
 ```
 
 **Notes:** The [chef-solo-search][chef-solo-search] cookbook is simply a

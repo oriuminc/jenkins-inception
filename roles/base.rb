@@ -28,6 +28,7 @@ default_attributes(
   "openssh" => {
     "server" => {
       "password_authentication" => "no",
+      "permit_root_login" => "no",
     },
   },
   "user" => {
