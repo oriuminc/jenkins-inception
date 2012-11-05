@@ -13,7 +13,8 @@ tmp/
 .bundle/
 
 # knife-solo quirk
-nodes/jenkins-*.json
+nodes/*
+!roles/jenkins.rb
 data_bags/users/*
 !data_bags/users/patcon.json
 roles/config.yml
