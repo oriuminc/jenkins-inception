@@ -30,9 +30,10 @@ end
 desc "Initialize Inception Jenkins environment."
 task :init do
   # Write the config file if doesn't exist.
-  unless File.exists?("roles/config.yml")
-    p "Creating roles/config.yml..."
-    conf = File.open("roles/config.yml", "w")
+  config_path = "roles/config.yml"
+  unless File.exists?(config_path)
+    p "Creating #{config_path}"
+    conf = File.open(config_path, "w")
     conf.puts <<-EOF.unindent
       # `repo` expects a GitHub repo.
       repo: https://github.com/myplanetdigital/myplanet.git
@@ -56,7 +57,7 @@ task :init do
     EOF
     conf.close
   else
-    p "config.yml already exists. Skipping write..."
+    p "#{config_path} already exists. Skipping write..."
   end
 end
 
