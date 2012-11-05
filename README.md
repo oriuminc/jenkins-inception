@@ -125,7 +125,8 @@ and there will be less overhead to worry about.
 The first thing you'll want to do is edit the `domain` key in the
 `roles/config.yml`. This is where Jenkins will be served, either by
 pointing a DNS A-record at the server, or by adding a line like this to
-your `/etc/hosts` file:
+your `/etc/hosts` file. If you set the `domain` value in `config.yml` to
+be `ci.example.com`, this is what you would use in your `hosts` file:
 
     # <SERVER_IP_ADDRESS> <JENKINS_URL> <JOB1_DOCROOT_URL> ...
     123.123.123.123 ci.example.com build-int.ci.example.com
