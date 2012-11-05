@@ -2,6 +2,7 @@
   "id": "patcon",
   "comment": "Patrick Connolly",
   "password": "sekret",
+  "shell": "/bin/zsh",
   "ssh_keys": [
     "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAooarLSwYVj1y/tQqWE1jhGlakzSzy1kKzVVSQM8w8lu7APigP7UsAHn9FtV4VUnTRXGvx/PFbnVXRwwTtp3V6PW70TDK1aLha7KFkSc9GHMI2qcXDafK10VRLs0gYYwF5RnYHKq2IE4C0RCSnCChx6H1dUMnbb5SJ6qkUgbrB2/gjty8dfgJCVsPi0A+eYIfZsmCYj80qs+GLTv8iuK8Komv2XCdNCXwuI9u0u1gsZD/EO5ICUqgtnLySgw8aIo2hrBf+i6tWDdj3DZ8oszvcuZ9hgwki+YAxzovByS+ija9/cvyRESnPE3SRR36WrOVvyWWam/sM9e61YTQmxxdvQ== patcon-macbook"
   ]
