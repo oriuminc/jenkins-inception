@@ -138,17 +138,16 @@ you'd likely want to create one for each of `ci.example.com` and
 correctly.)
 
 Assuming you have received credentials (root password and IP address)
-for a fresh server running Ubuntu Lucid, run these commands substituting
-an appropriate PROJECT name and IP_ADDRESS:
+for a fresh server running Ubuntu Lucid, run the commands below, substituting
+appropriate environment variables.
 
 ```
 export INCEPTION_PROJECT=projectname
 export INCEPTION_USER=patcon # Your username from the users data bag
 export INCEPTION_IP=123.45.67.89
 echo -e "\nHost $INCEPTION_PROJECT\n  User $INCEPTION_USER\n  HostName $INCEPTION_IP" >> ~/.ssh/config
-# Use root the first time, since user not yet created.
+ssh-forever root@$INCEPTION_PROJECT -i path/to/ssh_key.pub # Enter root password when prompted.
 knife prepare root@$INCEPTION_PROJECT --omnibus-version 10.16.2-1
-# Run chef-solo on $INCEPTION_PROJECT server
 knife cook root@$INCEPTION_PROJECT nodes/jenkins.json --skip-chef-check
 
 # Subsequent chef-solo runs will employ user.
