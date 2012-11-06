@@ -34,7 +34,7 @@ default_attributes({
       "host_name" => yml['domain'],
     },
     "server" => {
-      "host" => "0.0.0.0",
+      "host" => "127.0.0.1",
       "plugins" => [
         "ansicolor",
         "disk-usage",
