@@ -67,18 +67,12 @@ authorized_user = search(:users, "password:*").first
 # Build URL for HTTP basic auth
 auth_username = authorized_user['id']
 auth_pass = authorized_user['password']
-server_host = node['jenkins']['server']['host']
-server_port = node['jenkins']['server']['port']
-server_url = "http://#{auth_username}:#{auth_pass}@#{server_host}:#{server_port}"
 
-# For some reason this is needed when running in Vagrant, but fails with knife-solo
-jenkins_cli "login --username #{auth_username} --password #{auth_pass}" do
-  only_if { node['vagrant'] }
-end
+# If login throws an error, assume it's because jenkins doesn't need it.
+jenkins_cli "login --username #{auth_username} --password #{auth_pass}" rescue nil
 
 jenkins_job job_name do
   action :nothing
-  url server_url
   config job_config
 end
 
