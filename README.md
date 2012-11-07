@@ -50,13 +50,12 @@ Quickstart
 
 ### Setup
 
-    $ curl -L get.rvm.io | bash -s 1.14.12
-    $ source $HOME/.rvm/scripts/rvm
-    $ rvm reload
-    $ git clone git@github.com:myplanetdigital/inception.git
-    $ cd inception
-    $ gem regenerate_binstubs
-    $ librarian-chef install
+    curl -L get.rvm.io | bash -s 1.14.12
+    exec $SHELL
+    git clone git@github.com:myplanetdigital/inception.git
+    cd inception
+    gem regenerate_binstubs
+    librarian-chef install
 
 ### Configuration
 
@@ -84,8 +83,8 @@ stack.
 If you have Vagrant installed, you can test the setup on local virtual
 machines:
 
-    $ vagrant up  # Spin up the VM
-    $ vagrant ssh # SSH into the VM
+    vagrant up  # Spin up the VM
+    vagrant ssh # SSH into the VM
 
 You can now view the Jenkins UI at: http://localhost:8080
 
@@ -100,8 +99,8 @@ with Jenkins when restarting the VM with `vagrant reload`.
 You can also access this virtual jenkins through the command-line by
 running:
 
-    $ jenkins configure --host=localhost --port=8080
-    $ jenkins --help
+    jenkins configure --host=localhost --port=8080
+    jenkins --help
 
 ### Cloud
 
@@ -142,18 +141,16 @@ Assuming you have received credentials (root password and IP address)
 for a fresh server running Ubuntu Lucid, run the commands below, substituting
 appropriate environment variables.
 
-```
-export INCEPTION_PROJECT=projectname
-export INCEPTION_USER=patcon # Your username from the users data bag
-export INCEPTION_IP=123.45.67.89
-echo -e "\nHost $INCEPTION_PROJECT\n  User $INCEPTION_USER\n  HostName $INCEPTION_IP" >> ~/.ssh/config
-ssh-forever root@$INCEPTION_PROJECT -i path/to/ssh_key.pub # Enter root password when prompted.
-knife prepare root@$INCEPTION_PROJECT --omnibus-version 10.16.2-1
-knife cook root@$INCEPTION_PROJECT nodes/jenkins.json --skip-chef-check
+    export INCEPTION_PROJECT=projectname
+    export INCEPTION_USER=patcon # Your username from the users data bag
+    export INCEPTION_IP=123.45.67.89
+    echo -e "\nHost $INCEPTION_PROJECT\n  User $INCEPTION_USER\n  HostName $INCEPTION_IP" >> ~/.ssh/config
+    ssh-forever root@$INCEPTION_PROJECT -i path/to/ssh_key.pub # Enter root password when prompted.
+    knife prepare root@$INCEPTION_PROJECT --omnibus-version 10.16.2-1
+    knife cook root@$INCEPTION_PROJECT nodes/jenkins.json --skip-chef-check
 
 # Subsequent chef-solo runs will employ user.
 knife cook $INCEPTION_PROJECT nodes/jenkins.json --skip-chef-check
-```
 
 **Notes:** The [chef-solo-search][chef-solo-search] cookbook is simply a
 container for a library that allows for chef-server search functions
