@@ -69,7 +69,9 @@ auth_username = authorized_user['id']
 auth_pass = authorized_user['password']
 
 # If login throws an error, assume it's because jenkins doesn't need it.
-jenkins_cli "login --username #{auth_username} --password #{auth_pass}" rescue nil
+jenkins_cli "login --username #{auth_username} --password #{auth_pass}" do
+  ignore_failure true
+end
 
 jenkins_job job_name do
   action :nothing
