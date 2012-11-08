@@ -46,6 +46,7 @@ Features
     right off the bat.
   - Testing tools configured:
     - PhantomJS
+    - CasperJS
 
 Quickstart
 ----------
