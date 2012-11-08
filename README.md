@@ -47,6 +47,7 @@ Features
   - Testing tools configured:
     - PhantomJS
     - CasperJS
+    - Xserver Virtual Framebuffer (xvfb)
 
 Quickstart
 ----------

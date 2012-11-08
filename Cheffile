@@ -17,11 +17,11 @@ cookbook "jenkins",
   :ref => "GH-11-basic-auth-opt"
 cookbook "oh-my-zsh"
 cookbook "openssh"
-cookbook "postfix"
 cookbook "php"
 cookbook "phpunit",
   :git => "https://github.com/myplanetdigital/chef-phpunit.git",
   :ref => "GH-7-version-attr"
+cookbook "postfix"
 cookbook "sudo"
 cookbook "user",
   :git => "https://github.com/myplanetdigital/chef-user.git",
@@ -31,4 +31,9 @@ cookbook "vim"
 cookbook "xdebug",
   :git => "https://github.com/myplanetdigital/chef-xdebug.git",
   :ref => "create-logfile"
+cookbook "xserver",
+  :git => "https://github.com/patcon/travis-cookbooks.git",
+  :path => "ci_environment/xserver",
+  # https://github.com/travis-ci/travis-cookbooks/pull/102
+  :ref => "xserver-metadata"
 cookbook "zsh"

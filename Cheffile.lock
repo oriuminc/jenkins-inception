@@ -80,6 +80,14 @@ GIT
     xdebug (0.0.1)
       php (>= 0.0.0)
 
+GIT
+  remote: https://github.com/patcon/travis-cookbooks.git
+  path: ci_environment/xserver
+  ref: xserver-metadata
+  sha: b478f466d6e063b8da9ac7130699c952b05da4e5
+  specs:
+    xserver (0.0.0)
+
 DEPENDENCIES
   apache2 (>= 0)
   apt (>= 0)
@@ -97,5 +105,6 @@ DEPENDENCIES
   user (>= 0)
   vim (>= 0)
   xdebug (>= 0)
+  xserver (>= 0)
   zsh (>= 0)
 
