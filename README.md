@@ -44,6 +44,8 @@ Features
     tasks.
   - Configured to boot the base demo of 2nd Level Deep install profile,
     right off the bat.
+  - Testing tools configured:
+    - PhantomJS
 
 Quickstart
 ----------
