@@ -10,7 +10,11 @@ class String
   end
 end
 
-desc "Create a Rackspace server"
+desc "Create a Rackspace server.
+
+Currently expected envvars to be set for:
+  - RACKSPACE_USERNAME
+  - RACKSPACE_USERNAME"
 task :create_server, :project do |t, args|
   require 'fog'
   connection = Fog::Compute.new({
