@@ -79,6 +79,9 @@ task :init do
       # For timestamps in Jenkins UI
       timezone: America/Toronto
 
+      # Master password for all Jenkins users.
+      password: sekret
+
       # This domain name will be used to contruct URL's for viewing workspaces of
       # Jenkins jobs.
       domain: inception.dev

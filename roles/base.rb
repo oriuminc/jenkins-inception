@@ -39,6 +39,7 @@ default_attributes({
   "user" => {
     "default_shell" => "/bin/zsh",
     "ssh_keygen" => false,
+    "password" => yml['password'],
     "use_plaintext" => true,
   },
   "users" => data_bag("users"),
