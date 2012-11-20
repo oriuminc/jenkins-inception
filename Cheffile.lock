@@ -42,6 +42,13 @@ GIT
       php (>= 0.0.0)
 
 GIT
+  remote: https://github.com/myplanetdigital/chef-bash.git
+  ref: feature/bash_profile-resource
+  sha: c3fb4df4d4692ccbc27ec1df365a057a81f387ab
+  specs:
+    bash (0.0.0)
+
+GIT
   remote: https://github.com/myplanetdigital/chef-jenkins.git
   ref: GH-11-basic-auth-opt
   sha: c335e0dd27dd2650f0417d29ff223ec79fc1282a
@@ -49,6 +56,14 @@ GIT
     jenkins (0.6.3)
       java (>= 0.0.0)
       runit (>= 0.0.0)
+
+GIT
+  remote: https://github.com/myplanetdigital/chef-phpcs.git
+  ref: master
+  sha: d222847865abb4bbc40b217116433ed6419924f1
+  specs:
+    phpcs (1.0.0)
+      php (>= 0.0.0)
 
 GIT
   remote: https://github.com/myplanetdigital/chef-phpunit.git
@@ -92,6 +107,7 @@ DEPENDENCIES
   apache2 (>= 0)
   apt (>= 0)
   ark (>= 0)
+  bash (>= 0)
   chef-solo-search (>= 0)
   drush (>= 0)
   git (>= 0)
@@ -99,6 +115,7 @@ DEPENDENCIES
   oh-my-zsh (>= 0)
   openssh (>= 0)
   php (>= 0)
+  phpcs (>= 0)
   phpunit (>= 0)
   postfix (>= 0)
   sudo (>= 0)

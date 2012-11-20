@@ -6,6 +6,10 @@ site "http://community.opscode.com/api/v1"
 cookbook "apache2"
 cookbook "apt"
 cookbook "ark"
+cookbook "bash",
+  :git => "https://github.com/myplanetdigital/chef-bash.git",
+  # PR: https://github.com/mszoernyi/chef-bash/pull/1
+  :ref => "feature/bash_profile-resource"
 cookbook "chef-solo-search",
   :git => "https://github.com/myplanetdigital/chef-solo-search.git"
 cookbook "drush",
@@ -18,6 +22,9 @@ cookbook "jenkins",
 cookbook "oh-my-zsh"
 cookbook "openssh"
 cookbook "php"
+cookbook "phpcs",
+  :git => "https://github.com/myplanetdigital/chef-phpcs.git",
+  :ref => "master"
 cookbook "phpunit",
   :git => "https://github.com/myplanetdigital/chef-phpunit.git",
   :ref => "GH-7-version-attr"
