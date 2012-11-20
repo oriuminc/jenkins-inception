@@ -61,16 +61,13 @@ end
 # unix user database, so we can use the `users` databag to build a URL and
 # therefore use HTTP basic auth.
 
-# Retrieve any one user that has a plaintext password of hashed password.
-authorized_user = search(:users, "password:*").first
-
-# Build URL for HTTP basic auth
-auth_username = authorized_user['id']
-auth_pass = authorized_user['password']
+# Get any user and use the common password
+auth_username = data_bag("users").first
+auth_pass = node['user']['password']
 
 # If login throws an error, assume it's because jenkins doesn't need it.
-jenkins_cli "login --username #{auth_username} --password #{auth_pass}" do
-  ignore_failure true
+jenkins_cli "login --username #{auth_username} --password '#{auth_pass}'" do
+  url "http://smartcentres:8080"
 end
 
 jenkins_job job_name do

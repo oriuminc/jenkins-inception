@@ -83,7 +83,7 @@ GIT
 GIT
   remote: https://github.com/myplanetdigital/chef-user.git
   ref: 23-plaintext-pwd
-  sha: c968ee288ff1d89c7ba16d3bb1f4299535aef1ba
+  sha: 4fa9b20409601d39a96a21d918b7dad8a60ff89c
   specs:
     user (0.3.1)
 

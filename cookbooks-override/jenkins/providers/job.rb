@@ -28,8 +28,10 @@ def job_url
 end
 
 def job_exists
-  jenkins_cli "get-job #{@new_resource.job_name}" rescue false
-  return true
+  url = URI.parse(job_url)
+  res = Chef::REST::RESTRequest.new(:GET, url, {}).call
+  Chef::Log.debug("[jenkins_job] GET #{url.request_uri} == #{res.code}")
+  res.kind_of?(Net::HTTPSuccess)
 end
 
 def action_create
