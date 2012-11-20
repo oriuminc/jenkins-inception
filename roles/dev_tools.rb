@@ -7,6 +7,6 @@ run_list(
 )
 default_attributes({
   :phpcs => {
-    :coder_git_ref => "c43676c3909038addcc75bc2c10ef35a1db1f368",
+    :coder_git_ref => "7.x-2.0-beta1",
   },
 })

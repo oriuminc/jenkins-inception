@@ -15,5 +15,5 @@ bash "copy-drupal-standard" do
 end
 
 bash_profile "coder-alias" do
-  user "vagrant"
+  user "jenkins"
 end
