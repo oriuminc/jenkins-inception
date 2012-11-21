@@ -7,6 +7,8 @@ run_list(
 )
 default_attributes({
   :phpcs => {
+    # Needs fix before bumping: http://drupal.org/node/1847170
+    :version => "1.4.0",
     :coder_git_ref => "7.x-2.0-beta1",
   },
 })
