@@ -6,7 +6,6 @@ name "jenkins"
 description "The base role for setting up the jenkins master with appropriate initial settings."
 run_list(
   "role[base]",
-  "role[dev_tools]",
   "role[apache2_mod_php]",
   "role[mysql_server]",
   "recipe[php]",
@@ -19,6 +18,7 @@ run_list(
   "recipe[drush::make]",
   "recipe[jenkins]",
   "recipe[jenkins::proxy_apache2]",
+  "role[dev_tools]",
   "recipe[inception]"
 )
 default_attributes({
