@@ -45,6 +45,8 @@ default_attributes({
         "github-api",
         "github-oauth",
         "greenballs",
+        "instant-messaging",
+        "ircbot",
         "jobConfigHistory",
         "pegdown-formatter",
         "project-description-setter",
