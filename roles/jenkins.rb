@@ -38,6 +38,7 @@ default_attributes({
       "host" => "0.0.0.0",
       "plugins" => [
         "ansicolor",
+        "build-pipeline-plugin",
         "checkstyle",
         "disk-usage",
         "git",
