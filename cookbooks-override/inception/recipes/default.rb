@@ -97,3 +97,15 @@ web_app job_name do
   docroot "#{node['jenkins']['server']['home']}/jobs/#{job_name}/workspace/build"
   notifies :reload, "service[apache2]"
 end
+
+%w{
+  drush-site-install
+  drush-features-list
+}.each do |type|
+  cookbook_file "/var/lib/jenkins/#{type}.logparserules.txt" do
+    source "#{type}.logparserules.txt"
+    owner node['jenkins']['server']['user']
+    group node['jenkins']['server']['group']
+    mode "0644"
+  end
+end

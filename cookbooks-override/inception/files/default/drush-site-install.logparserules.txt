@@ -1,0 +1,2 @@
+start /^Starting Drupal installation.*/
+error /\[error\]$/
