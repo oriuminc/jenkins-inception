@@ -99,8 +99,7 @@ web_app job_name do
 end
 
 %w{
-  drush-site-install
-  drush-features-list
+  deploy
 }.each do |type|
   cookbook_file "/var/lib/jenkins/#{type}.logparserules.txt" do
     source "#{type}.logparserules.txt"

@@ -1,0 +1,5 @@
+start /^Running Drush Make/
+start /^Starting Drupal installation.*/
+
+warning /\[error\][\S]*$/
+warning /Enabled[ ]+Overridden[ ]*$/

@@ -1,2 +1,0 @@
-start /Name[ ]+Feature[ ]+Status[ ]+State/
-warning /Enabled[ ]+Overridden[ ]*$/
