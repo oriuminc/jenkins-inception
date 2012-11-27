@@ -1,6 +1,10 @@
 Inception
 =========
 
+**Current status: UNSTABLE.** (We use the tool internally at Myplanet, but
+there are several undocumented steps that we take to massage the system
+into a running state.)
+
   - Source: https://github.com/myplanetdigital/inception
 
 A Drupal continuous integration infrastructure in a box. This currently
