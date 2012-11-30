@@ -49,6 +49,7 @@ default_attributes({
         "instant-messaging",
         "ircbot",
         "jobConfigHistory",
+        "log-parser",
         "pegdown-formatter",
         "project-description-setter",
         "token-macro",

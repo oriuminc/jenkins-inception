@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson.plugins.ircbot.IrcPublisher_-DescriptorImpl plugin="ircbot@2.20">
+  <helpRedirect/>
+  <enabled>true</enabled>
+  <hostname><%= node['inception']['irc']['host'] %></hostname>
+  <port><%= node['inception']['irc']['port'] %></port>
+  <ssl><%= node['inception']['irc']['use_ssl'] %></ssl>
+  <login><%= node['inception']['irc']['user_login'] %></login>
+  <password><%= node['inception']['irc']['user_pass'] %></password>
+  <nickServPassword><<%= node['inception']['irc']['server_pass'] %></nickServPassword>
+  <scrambledPasswords>false</scrambledPasswords>
+  <defaultTargets>
+    <hudson.plugins.im.GroupChatIMMessageTarget plugin="instant-messaging@1.23">
+      <name><%= node['inception']['irc']['room'].sub(/^[^#]/, '#\0') %></name>
+      <notificationOnly>true</notificationOnly>
+    </hudson.plugins.im.GroupChatIMMessageTarget>
+  </defaultTargets>
+</hudson.plugins.ircbot.IrcPublisher_-DescriptorImpl>

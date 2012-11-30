@@ -127,13 +127,23 @@ hosted, or self-hosted. If you have no plans to expand your
 infrastructure, provisioning a server via Chef Solo should work fine,
 and there will be less overhead to worry about.
 
+This project comes with a `rake` helper task for spinning up a new
+Rackspace Cloud server. You can use it like so:
+
+    RACKSPACE_USERNAME=myusername RACKSPACE_API_KEY=1234qwerty rake "create_server[myprojectname]"
+
+You can find your API key here:
+
+https://mycloud.rackspace.com/a/myplanetdigital/account/api-keys
+
 #### Stand-alone Chef Solo
 
 The first thing you'll want to do is edit the `domain` key in the
-`roles/config.yml`. This is where Jenkins will be served, either by
-pointing a DNS A-record at the server, or by adding a line like this to
-your `/etc/hosts` file. If you set the `domain` value in `config.yml` to
-be `ci.example.com`, this is what you would use in your `hosts` file:
+`roles/config.yml`. This is the domain where Jenkins is expecting to be
+served form, either by pointing a DNS A-record at the server, or by
+adding a line like the one shown below to your `/etc/hosts` file. If you
+set the `domain` value in `config.yml` to be `ci.example.com`, this is
+what you would use in your `hosts` file:
 
     # <SERVER_IP_ADDRESS> <JENKINS_URL> <JOB1_DOCROOT_URL> ...
     123.123.123.123 ci.example.com build-int.ci.example.com
@@ -149,16 +159,18 @@ Assuming you have received credentials (root password and IP address)
 for a fresh server running Ubuntu Lucid, run the commands below, substituting
 appropriate environment variables.
 
-    export INCEPTION_PROJECT=projectname
-    export INCEPTION_USER=patcon # Your username from the users data bag
     export INCEPTION_IP=123.45.67.89
-    echo -e "\nHost $INCEPTION_PROJECT\n  User $INCEPTION_USER\n  HostName $INCEPTION_IP" >> ~/.ssh/config
-    ssh-forever root@$INCEPTION_PROJECT -i path/to/ssh_key.pub # Enter root password when prompted.
-    knife prepare root@$INCEPTION_PROJECT --omnibus-version 10.16.2-1
-    knife cook root@$INCEPTION_PROJECT nodes/jenkins.json --skip-chef-check
-
-# Subsequent chef-solo runs will employ user.
-knife cook $INCEPTION_PROJECT nodes/jenkins.json --skip-chef-check
+    # Enter root password when prompted.
+    ssh-forever root@$INCEPTION_IP -i path/to/ssh_key.pub
+    knife prepare root@$INCEPTION_IP --omnibus-version 10.16.2-1
+    knife cook root@$INCEPTION_IP nodes/jenkins.json --skip-chef-check
+    # Subsequent chef-solo runs will employ your created user.
+    # Use your username from the users data bag.
+    export INCEPTION_USER=patcon
+    export INCEPTION_PROJECT=myproject
+    touch ~/.ssh/config
+    echo -e "\nHost jenkins-$INCEPTION_PROJECT\n  User $INCEPTION_USER\n  HostName $INCEPTION_IP" >> ~/.ssh/config
+    knife cook $INCEPTION_PROJECT nodes/jenkins.json --skip-chef-check
 
 **Notes:** The [chef-solo-search][chef-solo-search] cookbook is simply a
 container for a library that allows for chef-server search functions

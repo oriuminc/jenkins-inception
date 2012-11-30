@@ -37,23 +37,18 @@ group "shadow" do
   action :modify
 end
 
-# Set global Jenkins config
-template "#{node['jenkins']['server']['home']}/config.xml" do
-  source "jenkins-config.xml.erb"
-  owner node['jenkins']['server']['user']
-  group node['jenkins']['server']['group']
-  mode "0644"
-  notifies :restart, "service[jenkins]"
-end
-
-# Prepare build-int job
-job_name = "build-int"
-
-job_config = File.join(node['jenkins']['node']['home'], "#{job_name}-config.xml")
-
-directory node['jenkins']['node']['home'] do
-  owner node['jenkins']['server']['user']
-  group node['jenkins']['server']['group']
+# Set global Jenkins configs
+%w{
+  config
+  hudson.plugins.ircbot.IrcPublisher
+}.each do |file|
+  template "#{node['jenkins']['server']['home']}/#{file}.xml" do
+    source "global-#{file}.xml.erb"
+    owner node['jenkins']['server']['user']
+    group node['jenkins']['server']['group']
+    mode "0644"
+    notifies :restart, "service[jenkins]"
+  end
 end
 
 # In order to run authorized tasks (like updating job config), we need to
@@ -65,30 +60,53 @@ end
 auth_username = data_bag("users").first
 auth_pass = node['user']['password']
 
+# @TODO: Jenkins restart need to happen right here or else Jenkins needs to be
+# manually restarted.
+
 # If login throws an error, assume it's because jenkins doesn't need it.
 jenkins_cli "login --username #{auth_username} --password '#{auth_pass}'" do
-  url "http://smartcentres:8080"
+  url "http://localhost:8080"
 end
 
-jenkins_job job_name do
-  action :nothing
-  config job_config
-end
-
+# Convert git repo to public URL
 repo = node['inception']['repo']
 github_url = "http://github.com/#{repo.sub(/^.*[:\/](.*\/.*).git$/, '\\1')}"
 
-template job_config do
-  source "build-int-config.xml.erb"
-  variables({
-    :repo => repo,
-    :github_url => github_url,
-    :branch => node['inception']['branch'],
-  })
-  notifies :update, "jenkins_job[#{job_name}]", :immediately
-  notifies :build, "jenkins_job[#{job_name}]", :immediately
+job_names = [
+  "build-int",
+  "commit-stage",
+]
+
+# Create jenkins HOME so we can drop job templates there.
+directory node['jenkins']['node']['home'] do
+  owner node['jenkins']['server']['user']
+  group node['jenkins']['server']['group']
 end
 
+# Build each job
+job_names.each do |job_name|
+  job_config = File.join(node['jenkins']['node']['home'], "#{job_name}-config.xml")
+
+  jenkins_job job_name do
+    action :nothing
+    config job_config
+  end
+
+  template job_config do
+    source "build-int-config.xml.erb"
+    variables({
+      :repo => repo,
+      :github_url => github_url,
+      :branch => node['inception']['branch'],
+    })
+    notifies :update, "jenkins_job[#{job_name}]", :immediately
+    notifies :build, "jenkins_job[#{job_name}]", :immediately
+  end
+end
+
+# Set up build-int to be served by apache
+# @todo remove?
+job_name = "build-int"
 web_app job_name do
   template "site.conf.erb"
   port node['apache']['listen_ports'].to_a[0]

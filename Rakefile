@@ -10,11 +10,13 @@ class String
   end
 end
 
-desc "Create a Rackspace server.
+desc <<EOH
+Create a Rackspace server.
 
 Currently expected envvars to be set for:
   - RACKSPACE_USERNAME
-  - RACKSPACE_USERNAME"
+  - RACKSPACE_API_KEY
+EOH
 task :create_server, :project do |t, args|
   require 'fog'
   connection = Fog::Compute.new({
@@ -36,7 +38,7 @@ task :create_server, :project do |t, args|
       :image_id => image_id,
       :flavor_id => flavor_id,
     })
-    p "Waiting for server to build..."
+    p "Waiting for fresh server to spin up..."
     server.wait_for { ready? }
     password = (0...32).map{65.+(rand(25)).chr}.join
     p "Setting root password..."
