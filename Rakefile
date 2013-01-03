@@ -10,12 +10,26 @@ class String
   end
 end
 
-desc "Create a Rackspace server.
+desc "Create a Rackspace server if it doesn't already exist.
 
-Currently expected envvars to be set for:
+The configuration of the created server will be:
+  - 512MB RAM
+  - Ubuntu Lucid 10.04
+
+Requires the following envvars to be set:
   - RACKSPACE_USERNAME
-  - RACKSPACE_USERNAME"
+  - RACKSPACE_API_KEY"
 task :create_server, :project do |t, args|
+
+  # Ensure envvars set
+  required_envvars = [
+    'RACKSPACE_USERNAME',
+    'RACKSPACE_API_KEY',
+  ]
+  required_envvars.each do |envvar|
+    raise "The following environment variables must be set: #{required_envvars.join(', ')}" if ENV[envvar].nil?
+  end
+
   require 'fog'
   connection = Fog::Compute.new({
     :provider           => 'Rackspace',
