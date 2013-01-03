@@ -80,10 +80,14 @@ end
 
 desc "Initialize Inception Jenkins environment."
 task :init do
+
+  p "Installing external Chef cookbooks with Librarian..."
+  system "librarian-chef install"
+  p "Done!"
+
   # Write the config file if doesn't exist.
   config_path = "roles/config.yml"
   unless File.exists?(config_path)
-    p "Creating #{config_path}"
     conf = File.open(config_path, "w")
     conf.puts <<-EOF.unindent
       # `repo` expects a GitHub repo.
@@ -110,6 +114,7 @@ task :init do
         secret:
     EOF
     conf.close
+    p "Created #{config_path}"
   else
     p "#{config_path} already exists. Skipping write..."
   end
