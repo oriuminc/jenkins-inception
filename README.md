@@ -162,12 +162,13 @@ appropriate environment variables.
     export INCEPTION_USER=patcon # Your username from the users data bag
     export INCEPTION_IP=123.45.67.89
     echo -e "\nHost $INCEPTION_PROJECT\n  User $INCEPTION_USER\n  HostName $INCEPTION_IP" >> ~/.ssh/config
-    ssh-forever root@$INCEPTION_PROJECT -i path/to/ssh_key.pub # Enter root password when prompted.
+    brew install ssh-copy-id
+    ssh-copy-id root@$INCEPTION_IP
     knife prepare root@$INCEPTION_PROJECT --omnibus-version 10.16.2-1
     knife cook root@$INCEPTION_PROJECT nodes/jenkins.json --skip-chef-check
 
-# Subsequent chef-solo runs will employ user.
-knife cook $INCEPTION_PROJECT nodes/jenkins.json --skip-chef-check
+    # Subsequent chef-solo runs will use ssh config file written above
+    knife cook $INCEPTION_PROJECT nodes/jenkins.json --skip-chef-check
 
 **Notes:** The [chef-solo-search][chef-solo-search] cookbook is simply a
 container for a library that allows for chef-server search functions

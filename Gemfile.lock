@@ -1,12 +1,4 @@
 GIT
-  remote: https://github.com/hedgehog/ssh-forever.git
-  revision: 55ed673536b80ff68e01b3aedfe7ff6145d940b0
-  ref: v0.3.0-release
-  specs:
-    ssh-forever (0.4.0)
-      open4 (>= 1.0.1)
-
-GIT
   remote: https://github.com/myplanetdigital/knife-solo.git
   revision: 757a371ea2f04b597dbc02aa572ab247b37e1235
   ref: 125-rsync-path-sudo
@@ -151,6 +143,5 @@ DEPENDENCIES
   open4
   rake
   rubygems-bundler
-  ssh-forever!
   vagrant (>= 1.0.0)
   watir-webdriver

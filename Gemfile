@@ -11,8 +11,5 @@ gem "librarian"
 gem "open4"
 gem "rake"
 gem "rubygems-bundler"
-gem "ssh-forever",
-  :git => "https://github.com/hedgehog/ssh-forever.git",
-  :ref => "v0.3.0-release"
 gem "vagrant", ">= 1.0.0"
 gem "watir-webdriver"
