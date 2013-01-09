@@ -92,7 +92,6 @@ template job_config do
     :branch => node['inception']['branch'],
   })
   notifies :update, "jenkins_job[#{job_name}]", :immediately
-  notifies :build, "jenkins_job[#{job_name}]", :immediately
 end
 
 web_app job_name do
