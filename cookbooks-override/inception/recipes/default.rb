@@ -37,6 +37,14 @@ group "shadow" do
   action :modify
 end
 
+log "restarting jenkins" do
+  notifies :stop, "service[jenkins]", :immediately
+  notifies :create, "ruby_block[netstat]", :immediately
+  notifies :start, "service[jenkins]", :immediately
+  notifies :create, "ruby_block[block_until_operational]", :immediately
+  action :nothing
+end
+
 # Set global Jenkins config
 template "#{node['jenkins']['server']['home']}/config.xml" do
   source "jenkins-config.xml.erb"
@@ -66,9 +74,7 @@ auth_username = data_bag("users").first
 auth_pass = node['user']['password']
 
 # If login throws an error, assume it's because jenkins doesn't need it.
-jenkins_cli "login --username #{auth_username} --password '#{auth_pass}'" do
-  url "http://smartcentres:8080"
-end
+jenkins_cli "login --username #{auth_username} --password '#{auth_pass}'"
 
 jenkins_job job_name do
   action :nothing

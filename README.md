@@ -207,6 +207,11 @@ Notes
   - When GitHub authentication isn't set up, Jenkins will use the Unix
     user database from the server itself, which is set up based on the
     `users` databag entries with passwords.
+  - Unfortunately, it seems that global read permissions need to be open
+    for anonymous users in order for build jobs to be created
+    programmatically by Chef. For now, the solution is to manually
+    correct this after each Chef run:
+    https://www.evernote.com/shard/s27/sh/de933bb2-4177-48f7-90f7-e3a7f9945c44/c0baf21b5502a1f87358487281ea20c8
 
 Known Issues
 ------------
