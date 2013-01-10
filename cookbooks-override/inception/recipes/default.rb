@@ -54,11 +54,6 @@ template "#{node['jenkins']['server']['home']}/config.xml" do
   notifies :write, "log[restarting jenkins]", :immediately
 end
 
-# Prepare build-int job
-job_name = "build-int"
-
-job_config = File.join(node['jenkins']['node']['home'], "#{job_name}-config.xml")
-
 directory node['jenkins']['node']['home'] do
   owner node['jenkins']['server']['user']
   group node['jenkins']['server']['group']
@@ -76,31 +71,39 @@ auth_pass = node['user']['password']
 # If login throws an error, assume it's because jenkins doesn't need it.
 jenkins_cli "login --username #{auth_username} --password '#{auth_pass}'"
 
-jenkins_job job_name do
-  action :nothing
-  config job_config
-end
-
 repo = node['inception']['repo']
 github_url = "http://github.com/#{repo.sub(/^.*[:\/](.*\/.*).git$/, '\\1')}"
 
-template job_config do
-  source "build-int-config.xml.erb"
-  variables({
-    :repo => repo,
-    :github_url => github_url,
-    :branch => node['inception']['branch'],
-  })
-  notifies :update, "jenkins_job[#{job_name}]", :immediately
+# Prepare each job
+build_jobs = [
+  "commit",
+  "deploy-dev",
+  "deploy-stage",
+  "deploy-prod",
+]
+
+build_jobs.each do |job_name|
+  job_config = File.join(node['jenkins']['node']['home'], "#{job_name}-config.xml")
+
+  jenkins_job job_name do
+    action :nothing
+    config job_config
+  end
 end
 
-web_app job_name do
-  template "site.conf.erb"
-  port node['apache']['listen_ports'].to_a[0]
-  server_name "#{job_name}.#{node['inception']['domain']}"
-  server_aliases ["*.#{job_name}.#{node['inception']['domain']}"]
-  docroot "#{node['jenkins']['server']['home']}/jobs/#{job_name}/workspace/build"
-  notifies :reload, "service[apache2]"
+[*build_jobs, nil].each_cons(2) do |job_name, next_job|
+  job_config = File.join(node['jenkins']['node']['home'], "#{job_name}-config.xml")
+
+  template job_config do
+    source "job-config.xml.erb"
+    variables({
+      :repo => repo,
+      :github_url => github_url,
+      :branch => node['inception']['branch'],
+      :next_job => next_job,
+    })
+    notifies :update, "jenkins_job[#{job_name}]", :immediately
+  end
 end
 
 %w{
