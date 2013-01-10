@@ -100,6 +100,8 @@ end
       :repo => repo,
       :github_url => github_url,
       :branch => node['inception']['branch'],
+      # Is this the first job?
+      :trigger_job => (job_name == build_jobs.first),
       :next_job => next_job,
     })
     notifies :update, "jenkins_job[#{job_name}]", :immediately

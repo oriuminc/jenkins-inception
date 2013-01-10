@@ -48,11 +48,13 @@
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <%- if @trigger_job %>
   <triggers class="vector">
     <com.cloudbees.jenkins.GitHubPushTrigger>
       <spec></spec>
     </com.cloudbees.jenkins.GitHubPushTrigger>
   </triggers>
+  <%- end %>
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
