@@ -1,9 +1,9 @@
 GIT
-  remote: https://github.com/myplanetdigital/knife-solo.git
-  revision: 757a371ea2f04b597dbc02aa572ab247b37e1235
-  ref: 125-rsync-path-sudo
+  remote: https://github.com/matschaffer/knife-solo.git
+  revision: 358d20a43013dad3fb251c810d11f0640afe427c
+  ref: master
   specs:
-    knife-solo (0.0.14)
+    knife-solo (0.1.0.pre1)
       chef (>= 0.10.10)
       librarian (~> 0.0.20)
       net-ssh (>= 2.1.3, < 2.3.0)
