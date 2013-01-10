@@ -51,7 +51,7 @@ template "#{node['jenkins']['server']['home']}/config.xml" do
   owner node['jenkins']['server']['user']
   group node['jenkins']['server']['group']
   mode "0644"
-  notifies :restart, "service[jenkins]"
+  notifies :write, "log[restarting jenkins]", :immediately
 end
 
 # Prepare build-int job
