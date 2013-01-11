@@ -166,6 +166,9 @@ appropriate environment variables.
     ssh-copy-id root@$INCEPTION_IP
     knife solo bootstrap root@$INCEPTION_PROJECT --omnibus-version 10.16.2-1 --run-list 'role[jenkins]'
 
+    # Subsequent runs can be carried out like so:
+    knife solo cook $INCEPTION_PROJECT --skip-chef-check
+
 **Notes:** The [chef-solo-search][chef-solo-search] cookbook is simply a
 container for a library that allows for chef-server search functions
 that are not available in native chef-solo. See that project's README
@@ -240,7 +243,6 @@ To Do
   - Add feature to create DNS a-record if DynDNS API credentials are
     supplied in `config.yml`.
   - Add note on port forwarding 8080. (:auto?)
-  - Investigate [knife-solo gem](https://github.com/matschaffer/knife-solo).
   - Create rake task for chef-solo setup steps?
   - Add [spiceweasel][spiceweasel-project] support for launching into
     the cloud when using chef-server.

@@ -1,7 +1,7 @@
 GIT
-  remote: https://github.com/matschaffer/knife-solo.git
-  revision: 358d20a43013dad3fb251c810d11f0640afe427c
-  ref: master
+  remote: https://github.com/myplanetdigital/knife-solo.git
+  revision: 25692c7c8fa2a70b798f902b9758121fdee9e0ba
+  ref: 125-rsync-path-sudo
   specs:
     knife-solo (0.1.0.pre1)
       chef (>= 0.10.10)
@@ -15,7 +15,7 @@ GEM
     archive-tar-minitar (0.5.2)
     builder (2.1.2)
     bunny (0.7.9)
-    chef (10.16.4)
+    chef (10.16.6)
       bunny (>= 0.6.0, < 0.8.0)
       erubis
       highline (>= 1.6.9)
