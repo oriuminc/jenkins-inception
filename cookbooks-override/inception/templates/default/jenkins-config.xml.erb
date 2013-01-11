@@ -108,4 +108,23 @@
       </org.jenkins__ci.plugins.pegdown__formatter.PegDownExtension>
     </advancedExtensions>
   </markupFormatter>
+  <views>
+    <au.com.centrumsystems.hudson.plugin.buildpipeline.BuildPipelineView plugin="build-pipeline-plugin@1.3.3">
+      <owner class="hudson" reference="../../.."/>
+      <name>build-pipeline</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <selectedJob>commit</selectedJob>
+      <noOfDisplayedBuilds>5</noOfDisplayedBuilds>
+      <buildViewTitle></buildViewTitle>
+      <triggerOnlyLatestJob>true</triggerOnlyLatestJob>
+      <alwaysAllowManualTrigger>false</alwaysAllowManualTrigger>
+      <showPipelineParameters>true</showPipelineParameters>
+      <refreshFrequency>3</refreshFrequency>
+      <showPipelineDefinitionHeader>true</showPipelineDefinitionHeader>
+      <displayProgressBar>false</displayProgressBar>
+    </au.com.centrumsystems.hudson.plugin.buildpipeline.BuildPipelineView>
+  </views>
+  <primaryView>build-pipeline</primaryView>
 </hudson>

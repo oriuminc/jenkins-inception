@@ -94,6 +94,13 @@ task :init do
       repo: https://github.com/myplanetdigital/myplanet.git
       branch: develop
 
+      # Stages in build pipeline.
+      build_jobs:
+      - commit
+      - deploy-dev
+      - deploy-stage
+      - deploy-prod
+
       # For timestamps in Jenkins UI
       timezone: America/Toronto
 

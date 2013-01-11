@@ -48,18 +48,31 @@
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <%- if @trigger_job %>
   <triggers class="vector">
     <com.cloudbees.jenkins.GitHubPushTrigger>
       <spec></spec>
     </com.cloudbees.jenkins.GitHubPushTrigger>
   </triggers>
+  <%- end %>
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>bash profile/tmp/scripts/jenkins-deploy-dev.sh</command>
+      <command>bash profile/tmp/scripts/jenkins-<%= @job_name %>.sh</command>
     </hudson.tasks.Shell>
   </builders>
-  <publishers/>
+  <% unless @next_job.nil? -%>
+  <publishers>
+    <hudson.tasks.BuildTrigger>
+      <childProjects><%= @next_job %></childProjects>
+      <threshold>
+        <name>SUCCESS</name>
+        <ordinal>0</ordinal>
+        <color>BLUE</color>
+      </threshold>
+    </hudson.tasks.BuildTrigger>
+  </publishers>
+  <% end -%>
   <buildWrappers>
     <hudson.plugins.ws__cleanup.PreBuildCleanup>
       <deleteDirs>false</deleteDirs>
