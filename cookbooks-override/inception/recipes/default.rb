@@ -75,12 +75,7 @@ repo = node['inception']['repo']
 github_url = "http://github.com/#{repo.sub(/^.*[:\/](.*\/.*).git$/, '\\1')}"
 
 # Prepare each job
-build_jobs = [
-  "commit",
-  "deploy-dev",
-  "deploy-stage",
-  "deploy-prod",
-]
+build_jobs = node['inception']['build_jobs']
 
 build_jobs.each do |job_name|
   job_config = File.join(node['jenkins']['node']['home'], "#{job_name}-config.xml")
