@@ -74,20 +74,16 @@ jenkins_cli "login --username #{auth_username} --password '#{auth_pass}'"
 repo = node['inception']['repo']
 github_url = "http://github.com/#{repo.sub(/^.*[:\/](.*\/.*).git$/, '\\1')}"
 
-# Prepare each job
 build_jobs = node['inception']['build_jobs']
 
-build_jobs.each do |job_name|
+# Prepare each job
+[*build_jobs, nil].each_cons(2) do |job_name, next_job|
   job_config = File.join(node['jenkins']['node']['home'], "#{job_name}-config.xml")
 
   jenkins_job job_name do
     action :nothing
     config job_config
   end
-end
-
-[*build_jobs, nil].each_cons(2) do |job_name, next_job|
-  job_config = File.join(node['jenkins']['node']['home'], "#{job_name}-config.xml")
 
   template job_config do
     source "job-config.xml.erb"
