@@ -58,7 +58,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>bash profile/tmp/scripts/jenkins-deploy-dev.sh</command>
+      <command>bash profile/tmp/scripts/jenkins-<%= @job_name %>.sh</command>
     </hudson.tasks.Shell>
   </builders>
   <% unless @next_job.nil? -%>
