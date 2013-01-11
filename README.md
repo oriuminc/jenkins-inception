@@ -164,7 +164,7 @@ appropriate environment variables.
     echo -e "\nHost $INCEPTION_PROJECT\n  User $INCEPTION_USER\n  HostName $INCEPTION_IP" >> ~/.ssh/config
     brew install ssh-copy-id
     ssh-copy-id root@$INCEPTION_IP
-    knife solo bootstrap root@$INCEPTION_PROJECT --omnibus-version 10.16.2-1 --run-list 'role[jenkins]'
+    knife solo bootstrap root@$INCEPTION_PROJECT --omnibus-version 10.16.6-1 --run-list 'role[jenkins]'
 
     # Subsequent runs can be carried out like so:
     knife solo cook $INCEPTION_PROJECT --skip-chef-check
