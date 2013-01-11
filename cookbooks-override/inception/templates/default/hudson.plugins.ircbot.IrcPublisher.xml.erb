@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson.plugins.ircbot.IrcPublisher_-DescriptorImpl>
+  <helpRedirect/>
+  <enabled><%= node['inception']['irc']['hostname'].nil? ? "false" : "true" %></enabled>
+  <hostname><%= node['inception']['irc']['hostname'] %></hostname>
+  <port>6697</port>
+  <ssl>true</ssl>
+  <login><%= node['inception']['irc']['server_login'] %></login>
+  <password><%= node['inception']['irc']['server_password'] %></password>
+  <nick><%= node['inception']['irc']['nick'] %></nick>
+  <nickServPassword><%= node['inception']['irc']['nickserv_password'] %></nickServPassword>
+  <scrambledPasswords>false</scrambledPasswords>
+  <defaultTargets>
+    <% node['inception']['irc']['channels'].each do |channel| %>
+    <hudson.plugins.im.GroupChatIMMessageTarget>
+      <name><%= channel %> </name>
+      <notificationOnly>true</notificationOnly>
+    </hudson.plugins.im.GroupChatIMMessageTarget>
+    <% end %>
+  </defaultTargets>
+  <hudsonLogin></hudsonLogin>
+  <useNotice>false</useNotice>
+  <charset>UTF-8</charset>
+</hudson.plugins.ircbot.IrcPublisher_-DescriptorImpl>

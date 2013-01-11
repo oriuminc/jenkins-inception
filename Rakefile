@@ -111,6 +111,17 @@ task :init do
       # Jenkins jobs.
       domain: inception.dev
 
+      # Your IRC channel. Assumes secure over SSL (port 6697).
+      # Leave hostname blank to disable IRC notifications.
+      irc:
+        hostname: irc.freenode.net
+        server_login:
+        server_password:
+        nick: yourbotnick
+        nickserv_password:
+        channels:
+          - "#inception-test"
+
       github:
         organization: myplanetdigital
         # In order to use GitHub authentication, you'll need to register an app

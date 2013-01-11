@@ -45,6 +45,20 @@ log "restarting jenkins" do
   action :nothing
 end
 
+# Drop in global jenkins templates.
+global_templates = [
+  "hudson.plugins.ircbot.IrcPublisher.xml",
+]
+
+global_templates.each do |file|
+  template "#{node['jenkins']['server']['home']}/#{file}" do
+    source "#{file}.erb"
+    owner node['jenkins']['server']['user']
+    group node['jenkins']['server']['group']
+    mode "0644"
+  end
+end
+
 # Set global Jenkins config
 template "#{node['jenkins']['server']['home']}/config.xml" do
   source "jenkins-config.xml.erb"
