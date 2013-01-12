@@ -101,6 +101,11 @@ task :init do
       - deploy-stage
       - deploy-prod
 
+      # Manual gates kick off these stages.
+      manual_trigger_jobs:
+      - deploy-stage
+      - deploy-prod
+
       # For timestamps in Jenkins UI
       timezone: America/Toronto
 
