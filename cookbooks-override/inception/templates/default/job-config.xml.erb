@@ -48,7 +48,7 @@
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-  <%- if @trigger_job %>
+  <%- if @triggered_by_github %>
   <triggers class="vector">
     <com.cloudbees.jenkins.GitHubPushTrigger>
       <spec></spec>
@@ -63,6 +63,11 @@
   </builders>
   <% unless @next_job.nil? -%>
   <publishers>
+    <% if @manually_trigger_next_step -%>
+    <au.com.centrumsystems.hudson.plugin.buildpipeline.trigger.BuildPipelineTrigger>
+      <downstreamProjectNames><%= @next_job %></downstreamProjectNames>
+    </au.com.centrumsystems.hudson.plugin.buildpipeline.trigger.BuildPipelineTrigger>
+    <% else -%>
     <hudson.tasks.BuildTrigger>
       <childProjects><%= @next_job %></childProjects>
       <threshold>
@@ -71,6 +76,7 @@
         <color>BLUE</color>
       </threshold>
     </hudson.tasks.BuildTrigger>
+    <% end -%>
   </publishers>
   <% end -%>
   <buildWrappers>

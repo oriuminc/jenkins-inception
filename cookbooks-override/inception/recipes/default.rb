@@ -75,6 +75,7 @@ repo = node['inception']['repo']
 github_url = "http://github.com/#{repo.sub(/^.*[:\/](.*\/.*).git$/, '\\1')}"
 
 build_jobs = node['inception']['build_jobs']
+manual_trigger_jobs = node['inception']['manual_trigger_jobs']
 
 # Prepare each job
 [*build_jobs, nil].each_cons(2) do |job_name, next_job|
@@ -93,8 +94,9 @@ build_jobs = node['inception']['build_jobs']
       :branch => node['inception']['branch'],
       :job_name => job_name,
       :next_job => next_job,
-      # Is this the first job?
-      :trigger_job => (job_name == build_jobs.first),
+      # Boolean flags for jobs.
+      :triggered_by_github => (job_name == build_jobs.first),
+      :manually_trigger_next_step => manual_trigger_jobs.include?(next_job),
     })
     notifies :update, "jenkins_job[#{job_name}]", :immediately
   end
