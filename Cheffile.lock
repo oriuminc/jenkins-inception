@@ -47,6 +47,14 @@ GIT
       php (>= 0.0.0)
 
 GIT
+  remote: https://github.com/msonnabaum/chef-phpunit.git
+  ref: master
+  sha: 1a8dddf72ed6c34d51f32e806757cfc706bb952a
+  specs:
+    phpunit (0.9.1)
+      php (>= 0.0.0)
+
+GIT
   remote: https://github.com/myplanetdigital/chef-bash.git
   ref: feature/bash_profile-resource
   sha: c3fb4df4d4692ccbc27ec1df365a057a81f387ab
@@ -68,14 +76,6 @@ GIT
   sha: d222847865abb4bbc40b217116433ed6419924f1
   specs:
     phpcs (1.0.0)
-      php (>= 0.0.0)
-
-GIT
-  remote: https://github.com/myplanetdigital/chef-phpunit.git
-  ref: GH-7-version-attr
-  sha: 8f4f9b1a5e256b458ec3cac3ab57984c8b196a2c
-  specs:
-    phpunit (0.9.1)
       php (>= 0.0.0)
 
 GIT
