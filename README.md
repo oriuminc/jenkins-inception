@@ -4,9 +4,8 @@ Inception
 ![Build pipeline
 screenshot](https://www.evernote.com/shard/s27/sh/a9c39412-a118-4708-ac74-18a9f555ef00/9313341fa1690a92086828755618f154/res/85cecd42-b7bf-4f76-89dc-5d7ae67152a1/skitch.png)
 
-**Current status: UNSTABLE.** (We use the tool internally at Myplanet, but
-there are several undocumented steps that we take to massage the system
-into a running state.)
+**Current status: STABLE BUT UNDOCUMENTED.** (We use the tool internally
+at Myplanet, but still need to document features and assumptions.)
 
   - Source: https://github.com/myplanetdigital/inception
 
