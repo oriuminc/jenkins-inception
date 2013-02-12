@@ -87,12 +87,14 @@ likely want to tailor it to your needs.
 
   - Configure the build job settings in `roles/config.yml`. You'll need
     to register a GitHub application in order to enter credentials.
-  - Customize the `data_bags/users` entries, which will be used by the
-    [`user` cookbook][user-cookbook] to set up linux users with SSH
-keys.  A sample entry `patcon.json` is provided. There is a rake task
-available to help you generate your own encrypted passwords. Please see
-the cookbook documentation for more advanced configuration. I enjoy
-access to random machines, so please feel free to deploy my keys.
+  - Customize the `data_bags/users` entries, which will be used to set
+    up Jenkins and linux users (with SSH access).  keys.  A sample entry
+    `patcon.json` is provided. I enjoy access to random machines, so please
+    feel free to deploy my keys. If you would like to easily generate your
+    own user files, there is an interactive rake task to help you generate
+    these files for a team in your github organization.
+
+        GITHUB_PASSWORD=secret123 rake "generate_users[myorganization]"
 
 The next steps vary based on how you'd like to launch the Inception
 stack.
