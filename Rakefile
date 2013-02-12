@@ -12,8 +12,9 @@ end
 
 desc "Generate users from team in GitHub organization.
 
-Requires that you've set up GitHub's 'hub' gem (available via `brew install
-hub`). We need to retrieve a GitHub OAuth token from its config file."
+Requires *one* of two things for authentication:
+  - GITHUB_PASSWORD envvar set for your GitHub user, or
+  - 'hub' gem installed and configured for use: `brew install hub`"
 task :generate_users, :github_org  do |t, args|
 
   require 'octokit'
