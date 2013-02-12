@@ -19,7 +19,7 @@ task :generate_users, :github_org  do |t, args|
   require 'octokit'
 
   github_org = args.github_org
-  github_user = system("git config github.user")
+  github_user = `git config github.user`.chomp
   github_password = ENV['GITHUB_PASSWORD']
 
   # Authenticate GitHub client somehow
@@ -62,7 +62,6 @@ task :generate_users, :github_org  do |t, args|
     # Generate json user file
     user_file_path = "data_bags/users/#{team_member['login']}.json"
     unless File.exists?(user_file_path)
-      sleep 1
       user_data = @client.user(team_member['login'])
       # This call doesn't exist yet, so calling manually.
       user_key_data = Octokit.get("users/#{user_data['login']}/keys", {}).first
