@@ -32,7 +32,7 @@ task :generate_users, :github_org  do |t, args|
     require 'yaml'
     hub_data = YAML.load_file(hub_config_file)
     github_token = hub_data['github.com'][0]['oauth_token']
-    @client = Octokit::Client.new(:oauth_token => github_token)
+    @client = Octokit::Client.new(:username => github_user, :oauth_token => github_token)
   else
     raise "Sorry, this task requires either you set the environment variable GITHUB_PASSWORD, or that you're using the 'hub' gem."
   end
@@ -79,9 +79,9 @@ task :generate_users, :github_org  do |t, args|
         }
       EOF
       file.close
-      say "Generated file for #{user_data['login']}."
+      say "Generated file for #{team_member['login']}."
     else
-      say "File for #{user_data['login']} already exists. Skipping..."
+      say "File for #{team_member['login']} already exists. Skipping..."
     end
   end
 end
