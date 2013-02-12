@@ -26,13 +26,13 @@ task :generate_users, :github_org  do |t, args|
   hub_config_file = File.expand_path('~/.config/hub')
   if !github_password.nil?
     # Authenticate client if password envvar available
-    @client = Octokit::Client.new(:username => github_user, :password => github_password)
+    @client = Octokit::Client.new(:login => github_user, :password => github_password)
   elsif File.exists?(hub_config_file)
     # Authenticate with token if not password given and hub gem config file available.
     require 'yaml'
     hub_data = YAML.load_file(hub_config_file)
     github_token = hub_data['github.com'][0]['oauth_token']
-    @client = Octokit::Client.new(:username => github_user, :oauth_token => github_token)
+    @client = Octokit::Client.new(:login => github_user, :oauth_token => github_token)
   else
     raise "Sorry, this task requires either you set the environment variable GITHUB_PASSWORD, or that you're using the 'hub' gem."
   end
