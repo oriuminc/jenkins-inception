@@ -10,6 +10,82 @@ class String
   end
 end
 
+desc "Generate users from team in GitHub organization.
+
+Requires that you've set up GitHub's 'hub' gem (available via `brew install
+hub`). We need to retrieve a GitHub OAuth token from its config file."
+task :generate_users, :github_org  do |t, args|
+
+  require 'octokit'
+
+  github_org = args.github_org
+  github_user = system("git config github.user")
+  github_password = ENV['GITHUB_PASSWORD']
+
+  # Authenticate GitHub client somehow
+  hub_config_file = File.expand_path('~/.config/hub')
+  if !github_password.nil?
+    # Authenticate client if password envvar available
+    @client = Octokit::Client.new(:username => github_user, :password => github_password)
+  elsif File.exists?(hub_config_file)
+    # Authenticate with token if not password given and hub gem config file available.
+    require 'yaml'
+    hub_data = YAML.load_file(hub_config_file)
+    github_token = hub_data['github.com'][0]['oauth_token']
+    @client = Octokit::Client.new(:oauth_token => github_token)
+  else
+    raise "Sorry, this task requires either you set the environment variable GITHUB_PASSWORD, or that you're using the 'hub' gem."
+  end
+
+  # Get a listing of teams for GitHub organization and present to user.
+  all_teams_data = @client.organization_teams(github_org)
+
+  require 'highline/import'
+  selected_team_index = ''
+  choose do |menu|
+    menu.prompt = "We will use one of the above #{github_org} GitHub teams to generate the appropriate user files.\n"
+    menu.prompt << "Please enter the number corresponding to a team:  "
+
+    team_names = all_teams_data.collect { |team| team['name'] }
+    menu.choices(*team_names) do |choice|
+      say "Generating files for team '#{choice}'..." 
+      selected_team_index = team_names.index(choice)
+    end
+  end
+
+  selected_team_data = all_teams_data[selected_team_index]
+
+  # Get team members and generate username.json files for each.
+  team_members_data = @client.team_members(selected_team_data['id'])
+  team_members_data.each do |team_member|
+
+    # Generate json user file
+    user_file_path = "data_bags/users/#{team_member['login']}.json"
+    unless File.exists?(user_file_path)
+      sleep 1
+      user_data = @client.user(team_member['login'])
+      # This call doesn't exist yet, so calling manually.
+      user_key_data = Octokit.get("users/#{user_data['login']}/keys", {}).first
+
+      file = File.open(user_file_path, "w")
+      file.puts <<-EOF.unindent
+        {
+          "id": "#{user_data['login']}",
+          "comment": "#{user_data['name']}",
+          "shell": "/bin/zsh",
+          "ssh_keys": [
+            "#{user_key_data['key']}"
+          ]
+        }
+      EOF
+      file.close
+      say "Generated file for #{user_data['login']}."
+    else
+      say "File for #{user_data['login']} already exists. Skipping..."
+    end
+  end
+end
+
 desc "Create a Rackspace server if it doesn't already exist.
 
 The configuration of the created server will be:
@@ -80,10 +156,6 @@ end
 
 desc "Initialize Inception Jenkins environment."
 task :init do
-
-  p "Installing external Chef cookbooks with Librarian..."
-  system "librarian-chef install"
-  p "Done!"
 
   # Write the config file if doesn't exist.
   config_path = "roles/config.yml"

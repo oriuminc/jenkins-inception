@@ -8,6 +8,7 @@ gem "knife-solo",
   # Pending PR: https://github.com/matschaffer/knife-solo/pull/125
   :ref => "125-rsync-path-sudo"
 gem "librarian"
+gem "octokit"
 gem "open4"
 gem "rake"
 gem "rubygems-bundler"
