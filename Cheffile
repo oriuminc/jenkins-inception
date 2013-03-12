@@ -13,8 +13,7 @@ cookbook "bash",
 cookbook "chef-solo-search",
   :git => "https://github.com/myplanetdigital/chef-solo-search.git"
 cookbook "drush",
-  :git => "https://github.com/msonnabaum/chef-drush.git",
-  :ref => "master"
+  :git => "https://github.com/msonnabaum/chef-drush.git"
 cookbook "git"
 cookbook "jenkins",
   :git => "https://github.com/myplanetdigital/chef-jenkins.git",
@@ -23,11 +22,9 @@ cookbook "oh-my-zsh"
 cookbook "openssh"
 cookbook "php"
 cookbook "phpcs",
-  :git => "https://github.com/myplanetdigital/chef-phpcs.git",
-  :ref => "master"
+  :git => "https://github.com/myplanetdigital/chef-phpcs.git"
 cookbook "phpunit",
-  :git => "https://github.com/msonnabaum/chef-phpunit.git",
-  :ref => "master"
+  :git => "https://github.com/msonnabaum/chef-phpunit.git"
 cookbook "postfix"
 cookbook "sudo"
 cookbook "user",
@@ -39,8 +36,6 @@ cookbook "xdebug",
   :git => "https://github.com/myplanetdigital/chef-xdebug.git",
   :ref => "create-logfile"
 cookbook "xserver",
-  :git => "https://github.com/patcon/travis-cookbooks.git",
-  :path => "ci_environment/xserver",
-  # https://github.com/travis-ci/travis-cookbooks/pull/102
-  :ref => "xserver-metadata"
+  :git => "https://github.com/travis-ci/travis-cookbooks.git",
+  :path => "ci_environment/xserver"
 cookbook "zsh"

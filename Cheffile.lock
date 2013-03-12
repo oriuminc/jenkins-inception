@@ -101,10 +101,10 @@ GIT
       php (>= 0.0.0)
 
 GIT
-  remote: https://github.com/patcon/travis-cookbooks.git
+  remote: https://github.com/travis-ci/travis-cookbooks.git
   path: ci_environment/xserver
-  ref: xserver-metadata
-  sha: f1f8588712e9cec604b95ddda3d81a753960dd6f
+  ref: master
+  sha: e9ae39cfe55f8c937abf02cf19d7dc6fc8168c45
   specs:
     xserver (0.0.0)
 
