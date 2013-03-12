@@ -32,7 +32,7 @@ end
 chef_gem "ruby-shadow"
 
 group "shadow" do
-  members "jenkins"
+  members node['jenkins']['server']['user']
   append true
   action :modify
 end
