@@ -42,6 +42,7 @@ default_attributes({
         "checkstyle",
         "disk-usage",
         "git",
+        "git-client",
         "github",
         "github-api",
         "github-oauth",
