@@ -67,9 +67,7 @@ end
 # Get any user and use the common password
 auth_username = data_bag("users").first
 auth_pass = node['user']['password']
-
-# If login throws an error, assume it's because jenkins doesn't need it.
-jenkins_cli "login --username #{auth_username} --password '#{auth_pass}'"
+auth_url = "http://#{auth_username}:#{auth_pass}@#{node['fqdn']}:#{node['jenkins']['server']['port']}"
 
 repo = node['inception']['repo']
 github_url = "http://github.com/#{repo.sub(/^.*[:\/](.*\/.*).git$/, '\\1')}"
@@ -80,11 +78,6 @@ manual_trigger_jobs = node['inception']['manual_trigger_jobs']
 # Prepare each job
 [*build_jobs, nil].each_cons(2) do |job_name, next_job|
   job_config = File.join(node['jenkins']['node']['home'], "#{job_name}-config.xml")
-
-  jenkins_job job_name do
-    action :nothing
-    config job_config
-  end
 
   template job_config do
     source "job-config.xml.erb"
@@ -98,8 +91,14 @@ manual_trigger_jobs = node['inception']['manual_trigger_jobs']
       :triggered_by_github => (job_name == build_jobs.first),
       :manually_trigger_next_step => manual_trigger_jobs.include?(next_job),
     })
-    notifies :update, "jenkins_job[#{job_name}]", :immediately
   end
+
+  jenkins_job job_name do
+    url auth_url
+    config job_config
+    action :update
+  end
+
 end
 
 %w{
