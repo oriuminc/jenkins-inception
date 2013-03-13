@@ -63,6 +63,12 @@
   </builders>
   <% unless @next_job.nil? -%>
   <publishers>
+    <hudson.plugins.checkstyle.CheckStylePublisher>
+      <pattern>logs/checkstyle.xml</pattern>
+      <thresholds plugin="analysis-core@1.49">
+        <unstableTotalAll>0</unstableTotalAll>
+      </thresholds>
+    </hudson.plugins.checkstyle.CheckStylePublisher>
     <% if @manually_trigger_next_step -%>
     <au.com.centrumsystems.hudson.plugin.buildpipeline.trigger.BuildPipelineTrigger>
       <downstreamProjectNames><%= @next_job %></downstreamProjectNames>
@@ -71,9 +77,9 @@
     <hudson.tasks.BuildTrigger>
       <childProjects><%= @next_job %></childProjects>
       <threshold>
-        <name>SUCCESS</name>
-        <ordinal>0</ordinal>
-        <color>BLUE</color>
+        <name>UNSTABLE</name>
+        <ordinal>1</ordinal>
+        <color>YELLOW</color>
       </threshold>
     </hudson.tasks.BuildTrigger>
     <% end -%>

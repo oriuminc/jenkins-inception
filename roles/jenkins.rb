@@ -37,6 +37,7 @@ default_attributes({
     "server" => {
       "host" => "0.0.0.0",
       "plugins" => [
+        "analysis-core",
         "ansicolor",
         "build-pipeline-plugin",
         "checkstyle",
