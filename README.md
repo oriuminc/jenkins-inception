@@ -180,10 +180,13 @@ for documentation.
 
 To have Jenkins work with GitHub via its GitHub plugin, you'll need to
 go to your GitHub repo admin page and add the "Service Hook" for
-"Jenkins (GitHub plugin)", using the admin user credentials (which we
-happen to pull from our `users` data bag within Inception):
+"Jenkins (GitHub plugin)":
 
-    http://patcon:sekret@ci.example.com/github-webhook
+    http://ci.example.com/github-webhook/
+
+Please note that the trailing slash is currently required until a bug is
+fixed. Also, please click "Update settings" before trying to use the
+"Test Hook" button.
 
 #### Hosted via Opscode Platform
 
