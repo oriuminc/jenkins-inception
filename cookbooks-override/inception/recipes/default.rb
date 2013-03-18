@@ -45,7 +45,18 @@ log "restarting jenkins" do
   action :nothing
 end
 
-# Set global Jenkins config
+# Set global Jenkins configs
+%w{
+  hudson.plugins.disk_usage.DiskUsageProjectActionFactory.xml
+}.each do |filename|
+  template "#{node['jenkins']['server']['home']}/#{filename}" do
+    source "#{filename}.erb"
+    owner node['jenkins']['server']['user']
+    group node['jenkins']['server']['group']
+    mode "0644"
+  end
+end
+
 template "#{node['jenkins']['server']['home']}/config.xml" do
   source "jenkins-config.xml.erb"
   owner node['jenkins']['server']['user']
