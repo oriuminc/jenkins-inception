@@ -48,6 +48,7 @@ end
 # Set global Jenkins configs
 %w{
   hudson.plugins.disk_usage.DiskUsageProjectActionFactory.xml
+  jobConfigHistory.xml
 }.each do |filename|
   template "#{node['jenkins']['server']['home']}/#{filename}" do
     source "#{filename}.erb"
