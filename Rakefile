@@ -165,10 +165,10 @@ task :configure do
     end
   end
 
+  # Override output delimiter for defaults from "|blah|" to "<blah>".
   class HighLine
     class Question
       private
-      # Override output delimiter for defaults from "|blah|" to "<blah>".
       def append_default()
         if @question =~ /([\t ]+)\Z/
           @question << "<#{@default}>#{$1}"
@@ -185,24 +185,46 @@ task :configure do
 
   conf = load_yaml('roles/config.yml')
 
-  keys_to_collect = %w{
-    domain
-    repo
-    password
-    build_jobs
-    timezone
-    manual_trigger_jobs
-    branch
+  config_properties = {
+    'domain' => {
+       'default' => 'ci.example.com',
+    },
+    'repo' => {
+      'default' => 'https://github.com/myplanetdigital/drupal-skeletor.git',
+    },
+    'password' => {
+      'default' => 'sekret',
+    },
+    'build_jobs' => {
+      'default' => [
+        'commit',
+        'deploy-dev',
+        'deploy-stage',
+        'deploy-prod',
+      ],
+    },
+    'timezone' => {
+      'default' => 'America/Toronto',
+    },
+    'manual_trigger_jobs' => {
+      'default' => [
+        'deploy-stage',
+        'deploy-prod',
+      ],
+    },
+    'branch' => {
+      'default' => 'master',
+    },
   }
 
-  keys_to_collect.each do |key|
+  config_properties.each_key do |key|
     conf[key] = ask("#{key}?  ") do |q|
       # If Array, convert to string for easy default display.
       # (We'll convert back later.)
-      if conf[key].kind_of?(Array)
-        q.default = conf[key].join(',')
+      if config_properties[key]['default'].kind_of?(Array)
+        q.default = conf[key].join(',') || config_properties[key]['default'].join(',')
       else
-        q.default = conf[key]
+        q.default = conf[key] || config_properties[key]['default']
       end
     end.to_s # << See: https://github.com/engineyard/engineyard/pull/152
   end
