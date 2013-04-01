@@ -154,53 +154,65 @@ namespace :vagrant do
   end
 end
 
-desc "Initialize Inception Jenkins environment."
-task :init do
+desc "Create and update config file."
+task :configure do
+  require 'yaml'
+  require 'highline/import'
 
-  # Write the config file if doesn't exist.
-  config_path = "roles/config.yml"
-  unless File.exists?(config_path)
-    conf = File.open(config_path, "w")
-    conf.puts <<-EOF.unindent
-      # `repo` expects a GitHub repo.
-      repo: https://github.com/myplanetdigital/myplanet.git
-      branch: develop
+  def load_yaml(file)
+    if File.exist?(file)
+      YAML.load_file(file)
+    end
+  end
 
-      # Stages in build pipeline.
-      build_jobs:
-      - commit
-      - deploy-dev
-      - deploy-stage
-      - deploy-prod
+  class HighLine
+    class Question
+      private
+      # Override output delimiter for defaults from "|blah|" to "<blah>".
+      def append_default()
+        if @question =~ /([\t ]+)\Z/
+          @question << "<#{@default}>#{$1}"
+        elsif @question == ""
+          @question << "<#{@default}>  "
+        elsif @question[-1, 1] == "\n"
+          @question[-2, 0] =  "  <#{@default}>"
+        else
+          @question << "  <#{@default}>"
+        end
+      end
+    end
+  end
 
-      # Manual gates kick off these stages.
-      manual_trigger_jobs:
-      - deploy-stage
-      - deploy-prod
+  conf = load_yaml('roles/config.yml')
 
-      # For timestamps in Jenkins UI
-      timezone: America/Toronto
+  keys_to_collect = %w{
+    domain
+    repo
+    password
+    build_jobs
+    timezone
+    manual_trigger_jobs
+    branch
+  }
 
-      # Master password for all Jenkins users.
-      password: sekret
+  keys_to_collect.each do |key|
+    conf[key] = ask("#{key}?  ") do |q|
+      # If Array, convert to string for easy default display.
+      # (We'll convert back later.)
+      if conf[key].kind_of?(Array)
+        q.default = conf[key].join(',')
+      else
+        q.default = conf[key]
+      end
+    end.to_s # << See: https://github.com/engineyard/engineyard/pull/152
+  end
 
-      # This domain name will be used to contruct URL's for viewing workspaces of
-      # Jenkins jobs.
-      domain: inception.dev
+  %w{ build_jobs manual_trigger_jobs }.each do |array_string|
+    conf[array_string] = conf[array_string].split(',')
+  end
 
-      github:
-        organization: myplanetdigital
-        # In order to use GitHub authentication, you'll need to register an app
-        # See: https://github.com/settings/applications
-        # Leaving these blank will use Jenkins database for authentication.
-        # (Do not try GitHub authentication on Vagrant as it will break Jenkins.)
-        client_id:
-        secret:
-    EOF
-    conf.close
-    p "Created #{config_path}"
-  else
-    p "#{config_path} already exists. Skipping write..."
+  File.open('roles/config.yml', 'w') do |out|
+    YAML::dump(conf, out)
   end
 end
 
