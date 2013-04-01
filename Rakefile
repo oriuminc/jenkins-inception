@@ -158,6 +158,7 @@ desc "Create and update config file."
 task :configure do
   require 'yaml'
   require 'highline/import'
+  require 'hashery/ordered_hash'
 
   def load_yaml(file)
     if File.exist?(file)
@@ -185,46 +186,31 @@ task :configure do
 
   conf = load_yaml('roles/config.yml')
 
-  config_properties = {
-    'domain' => {
-       'default' => 'ci.example.com',
-    },
-    'repo' => {
-      'default' => 'https://github.com/myplanetdigital/drupal-skeletor.git',
-    },
-    'password' => {
-      'default' => 'sekret',
-    },
-    'build_jobs' => {
-      'default' => [
-        'commit',
-        'deploy-dev',
-        'deploy-stage',
-        'deploy-prod',
-      ],
-    },
-    'timezone' => {
-      'default' => 'America/Toronto',
-    },
-    'manual_trigger_jobs' => {
-      'default' => [
-        'deploy-stage',
-        'deploy-prod',
-      ],
-    },
-    'branch' => {
-      'default' => 'master',
-    },
-  }
+  config_defaults = Hashery::OrderedHash.new
+  config_defaults['domain'] = 'ci.example.com'
+  config_defaults['repo'] = 'https://github.com/myplanetdigital/drupal-skeletor.git'
+  config_defaults['branch'] = 'develop'
+  config_defaults['password'] = 'sekret'
+  config_defaults['timezone'] = 'America/Toronto'
+  config_defaults['build_jobs'] = [
+    'commit',
+    'deploy-dev',
+    'deploy-stage',
+    'deploy-prod',
+  ]
+  config_defaults['manual_trigger_jobs'] = [
+    'deploy-stage',
+    'deploy-prod',
+  ]
 
-  config_properties.each_key do |key|
+  config_defaults.each_key do |key|
     conf[key] = ask("#{key}?  ") do |q|
       # If Array, convert to string for easy default display.
       # (We'll convert back later.)
-      if config_properties[key]['default'].kind_of?(Array)
-        q.default = conf[key].join(',') || config_properties[key]['default'].join(',')
+      if config_defaults[key].kind_of?(Array)
+        q.default = conf[key].join(',') || config_defaults[key].join(',')
       else
-        q.default = conf[key] || config_properties[key]['default']
+        q.default = conf[key] || config_defaults[key]
       end
     end.to_s # << See: https://github.com/engineyard/engineyard/pull/152
   end
