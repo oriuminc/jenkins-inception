@@ -54,6 +54,7 @@ GEM
       nokogiri (~> 1.5.0)
       ruby-hmac
     formatador (0.2.4)
+    hashery (2.1.0)
     hashie (1.2.0)
     highline (1.6.15)
     hpricot (0.8.6)
@@ -153,6 +154,7 @@ PLATFORMS
 DEPENDENCIES
   chef
   fog
+  hashery
   jenkins
   knife-solo!
   librarian
