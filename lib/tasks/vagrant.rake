@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+require 'vagrant'
+
 namespace :vagrant do
   desc "Restarts the network service inside the VM.
 

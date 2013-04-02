@@ -1,4 +1,3 @@
-require 'vagrant'
 require 'yaml'
 
 require 'lib/ext/string'
