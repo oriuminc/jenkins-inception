@@ -6,10 +6,10 @@ gem "hashery"
 gem "highline"
 gem "hub"
 gem "jenkins"
-gem "knife-solo",
-  :git => "https://github.com/myplanetdigital/knife-solo.git",
-  # Pending PR: https://github.com/matschaffer/knife-solo/pull/125
-  :ref => "125-rsync-path-sudo"
+gem 'knife-solo',
+  :git => 'https://github.com/tmatilai/knife-solo.git',
+  :ref => 'knife-bootstrap-solo'
+gem "knife-rackspace"
 gem "librarian"
 gem "octokit"
 gem "open4"

@@ -134,21 +134,34 @@ complex):
     Platform.
   - Provisioned as part of a self-hosted Chef Server setup.
 
-Keep in mind that you will need to self-host the Jenkins server
+Keep in mind that you will need to self-host the *Jenkins* server
 regardless. It is only the Chef Server hosting that varies: none,
 hosted, or self-hosted. If you have no plans to expand your
 infrastructure, provisioning a server via Chef Solo should work fine,
-and there will be less overhead to worry about.
+and there will be less overhead to worry about. This is what we'll focus
+on.
 
 #### Stand-alone Chef Solo
 
+If you have a Rackspace account, you can easily spin up a stock server.
+You'll need to have environment variables set for `RACKSPACE_USERNAME` and
+`RACKSPACE_API_KEY`, and once logged in you can retrieve the latter at:
 
-Most of the items are self-explanatory with the examples provider, but
-`domain` requires the setup of a DNS A-record using an external DNS
-provider. If this is not possible, you may also edit your `/etc/hosts`
-file, but GitHub service hook won't work out of the box. If you set the
-`domain` value in `config.yml` to be `ci.example.com`, this is what you
-would use in your `hosts` file:
+    https://mycloud.rackspace.com/a/RACKSPACE_USERNAME/account/api-keys
+
+When you've set these environment variables in your shell, you may run:
+
+   bundle exec rake "create_server[server-name]"
+
+(The server name will be used to identify the instance in the Rackspace
+web interface.)
+
+As you recall from the configuration step above, you'll have a domain
+where you plan to host your Jenkins instance. This requires the setup of
+a DNS A-record using an external DNS provider. If this is not possible,
+you may also edit your `/etc/hosts` file, but GitHub service hook won't
+work out of the box. If you set the `domain` value in `config.yml` to be
+`ci.example.com`, this is what you would use in your `hosts` file:
 
     123.123.123.123 ci.example.com
 
@@ -209,9 +222,6 @@ Known Issues
   - Generally, both ruby and its gems should be compiled using the same
     version of Xcode. If you get odd errors, remove ruby and its gems
     and recompile.
-  - For some reason, jenkins_cli LWRP is needed for login on Vagrant VM,
-    but causes chef run failure when using knife-solo with rackspace. Have
-    workaround in place, but should probably investigate why this might be.
 
 To Do
 -----

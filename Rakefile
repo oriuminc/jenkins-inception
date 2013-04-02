@@ -114,35 +114,8 @@ task :create_server, :project do |t, args|
     raise "The following environment variables must be set: #{required_envvars.join(', ')}" if ENV[envvar].nil?
   end
 
-  require 'fog'
-  connection = Fog::Compute.new({
-    :provider           => 'Rackspace',
-    :rackspace_username => ENV['RACKSPACE_USERNAME'],
-    :rackspace_api_key  => ENV['RACKSPACE_API_KEY'],
-    :rackspace_endpoint => Fog::Compute::RackspaceV2::ORD_ENDPOINT,
-    :version => :v2,
-  })
-  servers = connection.servers
-  if servers.collect{ |i| i.name }.member? args.project
-    p "A server named #{args.project} already exists. Aborting server creation."
-  else
-    p "A server named #{args.project} doesn't yet exist. Creating it..."
-    flavor_id = "2" # 512MB
-    image_id = "d531a2dd-7ae9-4407-bb5a-e5ea03303d98" # Lucid LTS
-    server = connection.servers.create({
-      :name => args.project,
-      :image_id => image_id,
-      :flavor_id => flavor_id,
-    })
-    p "Waiting for server to build..."
-    server.wait_for { ready? }
-    password = (0...32).map{65.+(rand(25)).chr}.join
-    p "Setting root password..."
-    server.change_admin_password(password)
-    p "Server provisioned!"
-    p "IP address: #{server.ipv4_address}"
-    p "Root password: #{password}"
-  end
+  system "bundle exec knife rackspace server create --server-name=#{args.project}"
+
 end
 
 namespace :vagrant do
