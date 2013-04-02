@@ -3,6 +3,7 @@ source "http://rubygems.org"
 gem "chef"
 gem "fog"
 gem "hashery"
+gem "highline"
 gem "hub"
 gem "jenkins"
 gem "knife-solo",

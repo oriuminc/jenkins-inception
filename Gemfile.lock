@@ -156,6 +156,7 @@ DEPENDENCIES
   chef
   fog
   hashery
+  highline
   hub
   jenkins
   knife-solo!
