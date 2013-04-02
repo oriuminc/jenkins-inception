@@ -14,3 +14,4 @@ knife[:image] = 'd531a2dd-7ae9-4407-bb5a-e5ea03303d98' # Ubuntu 10.04 LTS
 # knife-solo
 knife[:solo] = true
 knife[:solo_path] = '~/chef-solo'
+knife[:omnibus_version] = '10.16.6'
