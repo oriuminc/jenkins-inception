@@ -1,15 +1,7 @@
 require 'vagrant'
 require 'yaml'
 
-class String
-  # Strip leading whitespace from each line that is the same as the
-  # amount of whitespace on the first line of the string
-  # Leaves _additional_ indentation on later lines intact
-  # SEE: http://stackoverflow.com/a/5638187/504018
-  def unindent
-    gsub /^#{self[/\A\s*/]}/, ''
-  end
-end
+require '../ext/string'
 
 def load_yaml(file)
   if File.exist?(file)
@@ -24,25 +16,8 @@ namespace :setup do
   desc "Create and update config file."
   task :configure do
     require 'highline/import'
+    require '../ext/highline'
     require 'hashery/ordered_hash'
-
-    # Override output delimiter for defaults from "|blah|" to "<blah>".
-    class HighLine
-      class Question
-        private
-        def append_default()
-          if @question =~ /([\t ]+)\Z/
-            @question << "<#{@default}>#{$1}"
-          elsif @question == ""
-            @question << "<#{@default}>  "
-          elsif @question[-1, 1] == "\n"
-            @question[-2, 0] =  "  <#{@default}>"
-          else
-            @question << "  <#{@default}>"
-          end
-        end
-      end
-    end
 
     config_defaults = Hashery::OrderedHash.new
     config_defaults['domain'] = 'ci.example.com'
