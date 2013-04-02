@@ -160,12 +160,6 @@ task :configure do
   require 'highline/import'
   require 'hashery/ordered_hash'
 
-  def load_yaml(file)
-    if File.exist?(file)
-      YAML.load_file(file)
-    end
-  end
-
   # Override output delimiter for defaults from "|blah|" to "<blah>".
   class HighLine
     class Question
@@ -184,7 +178,13 @@ task :configure do
     end
   end
 
-  conf = load_yaml('roles/config.yml')
+  def load_yaml(file)
+    if File.exist?(file)
+      YAML.load_file(file)
+    end
+  end
+
+  conf = load_yaml('roles/config.yml') || {}
 
   config_defaults = Hashery::OrderedHash.new
   config_defaults['domain'] = 'ci.example.com'
@@ -224,6 +224,7 @@ task :configure do
     conf[key] = conf[key].split(',')
   end
 
+  # Write config.yml
   File.open('roles/config.yml', 'w') do |out|
     YAML::dump(conf, out)
   end
