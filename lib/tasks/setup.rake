@@ -8,7 +8,8 @@ def load_yaml(file)
   end
 end
 
-conf = load_yaml('roles/config.yml') || {}
+config_file = ENV['INCEPTION_CONFIG'] || 'roles/config.yml'
+config = load_yaml(config_file) || {}
 
 namespace :setup do
 
@@ -36,11 +37,11 @@ namespace :setup do
     ]
 
     config_defaults.each_key do |key|
-      conf[key] = ask("#{key}?  ") do |q|
+      config[key] = ask("#{key}?  ") do |q|
 
         # If Array, convert to string for easy default display.
         # (We'll convert back later.)
-        q.default = conf[key] || config_defaults[key]
+        q.default = config[key] || config_defaults[key]
         if config_defaults[key].kind_of?(Array)
           q.default = q.default.join(',')
         end
@@ -53,12 +54,12 @@ namespace :setup do
 
     # Split the string into an array if the default is of that type.
     config_defaults.delete_if { |k,v| !v.kind_of?(Array) }.each do |key, array_string|
-      conf[key] = conf[key].split(',')
+      config[key] = config[key].split(',')
     end
 
     # Write config.yml
-    File.open('roles/config.yml', 'w') do |out|
-      YAML::dump(conf, out)
+    File.open(config_file, 'w') do |out|
+      YAML::dump(config, out)
     end
   end
 
@@ -181,7 +182,7 @@ namespace :setup do
     hook_data = {
       :name => 'jenkins',
       :config => {
-        :jenkins_hook_url => "http://#{conf['domain']}/github-webhook/"
+        :jenkins_hook_url => "http://#{config['domain']}/github-webhook/"
       }
     }
 
