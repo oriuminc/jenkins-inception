@@ -279,15 +279,24 @@ namespace :opscode do
   end
 end
 
-task :setup_webhook, :github_repo  do |t, args|
+desc "Creates and/or enables Jenkins service hook on GitHub.
+
+This can be run at any time, and will create/modify a new or existing service
+hook."
+task :set_service_hook, :github_repo  do |t, args|
+  if args.github_repo.nil? || args.github_repo.split('/').length < 2
+    raise "Requires :github_repo argument in format `username/repo`!"
+  end
+
   require 'hub'
   require 'ostruct'
 
   module Hub
     class GitHubAPI
       def create_webhook(project, hook_data)
-        res = get "https://%s/repos/%s/%s/hooks" %
+        url = "https://%s/repos/%s/%s/hooks" %
           [api_host(project.host), project.owner, project.name]
+        res = post(url, hook_data)
         res.error! unless res.success?
       end
     end
@@ -298,16 +307,20 @@ task :setup_webhook, :github_repo  do |t, args|
   project.owner = args.github_repo.split('/')[0]
   project.name = args.github_repo.split('/')[1]
 
-  hook_data = OpenStruct.new
-  hook_data.name = 'jenkins'
-  hook_data.config = { :jenkins_hook_url => "http://#{conf['domain']}/github-webhook/" }
-
-  require 'pp'
-  pp hook_data.to_s
-  pp project.to_s
+  hook_data = {
+    :name => 'jenkins',
+    :config => {
+      :jenkins_hook_url => "http://#{conf['domain']}/github-webhook/"
+    }
+  }
 
   # Use hub gem to authenticate against API.
+  puts "Creating service hook. You may be ask for your GitHub credentials."
+  puts "These will NOT be stored on disk, but will be used to generate an access token."
   @api_client = Hub::Commands.send(:api_client)
   @api_client.create_webhook(project, hook_data)
+
+  puts "Jenkins commit hook successfully created/activated for GitHub project #{args.github_repo}:"
+  puts hook_data[:config][:jenkins_hook_url]
 
 end

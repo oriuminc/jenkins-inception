@@ -178,15 +178,12 @@ container for a library that allows for chef-server search functions
 that are not available in native chef-solo. See that project's README
 for documentation.
 
-To have Jenkins work with GitHub via its GitHub plugin, you'll need to
-go to your GitHub repo admin page and add the "Service Hook" for
-"Jenkins (GitHub plugin)":
+Provided that you've modified the `config.yml` to your needs, you may
+use this helper task to add a service hook to your GitHub project:
 
-    http://ci.example.com/github-webhook/
+   bundle exec rake "set_service_hook[mygithubuser/myproject]"
 
-Please note that the trailing slash is currently required until a bug is
-fixed. Also, please click "Update settings" before trying to use the
-"Test Hook" button.
+This will ensure that pushed to GitHub kick off the build pipeline.
 
 #### Hosted via Opscode Platform
 
