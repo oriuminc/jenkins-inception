@@ -1,5 +1,3 @@
-#!/usr/bin/env ruby
-
 # Override output delimiter for defaults from "|blah|" to "<blah>".
 class HighLine
   class Question

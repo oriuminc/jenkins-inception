@@ -1,5 +1,3 @@
-#!/usr/bin/env ruby
-
 class String
   # Strip leading whitespace from each line that is the same as the
   # amount of whitespace on the first line of the string
