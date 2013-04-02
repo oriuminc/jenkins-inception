@@ -1,4 +1,5 @@
 require 'vagrant'
+require 'yaml'
 
 class String
   # Strip leading whitespace from each line that is the same as the
@@ -9,6 +10,14 @@ class String
     gsub /^#{self[/\A\s*/]}/, ''
   end
 end
+
+def load_yaml(file)
+  if File.exist?(file)
+    YAML.load_file(file)
+  end
+end
+
+conf = load_yaml('roles/config.yml') || {}
 
 desc "Generate users from team in GitHub organization.
 
@@ -30,7 +39,6 @@ task :generate_users, :github_org  do |t, args|
     @client = Octokit::Client.new(:login => github_user, :password => github_password)
   elsif File.exists?(hub_config_file)
     # Authenticate with token if not password given and hub gem config file available.
-    require 'yaml'
     hub_data = YAML.load_file(hub_config_file)
     github_token = hub_data['github.com'][0]['oauth_token']
     @client = Octokit::Client.new(:login => github_user, :oauth_token => github_token)
@@ -156,7 +164,6 @@ end
 
 desc "Create and update config file."
 task :configure do
-  require 'yaml'
   require 'highline/import'
   require 'hashery/ordered_hash'
 
@@ -177,14 +184,6 @@ task :configure do
       end
     end
   end
-
-  def load_yaml(file)
-    if File.exist?(file)
-      YAML.load_file(file)
-    end
-  end
-
-  conf = load_yaml('roles/config.yml') || {}
 
   config_defaults = Hashery::OrderedHash.new
   config_defaults['domain'] = 'ci.example.com'
@@ -280,15 +279,35 @@ namespace :opscode do
   end
 end
 
-task :setup_webhook, :project  do |t, args|
+task :setup_webhook, :github_repo  do |t, args|
+  require 'hub'
+  require 'ostruct'
 
-  github_project = args.project
+  module Hub
+    class GitHubAPI
+      def create_webhook(project, hook_data)
+        res = get "https://%s/repos/%s/%s/hooks" %
+          [api_host(project.host), project.owner, project.name]
+        res.error! unless res.success?
+      end
+    end
+  end
+
+  project = OpenStruct.new
+  project.host = 'github.com'
+  project.owner = args.github_repo.split('/')[0]
+  project.name = args.github_repo.split('/')[1]
+
+  hook_data = OpenStruct.new
+  hook_data.name = 'jenkins'
+  hook_data.config = { :jenkins_hook_url => "http://#{conf['domain']}/github-webhook/" }
+
+  require 'pp'
+  pp hook_data.to_s
+  pp project.to_s
 
   # Use hub gem to authenticate against API.
-  require 'hub'
   @api_client = Hub::Commands.send(:api_client)
-  # @api_client.post "https://api.github.com/repos/thomasdavis/best-practices/forks"
+  @api_client.create_webhook(project, hook_data)
 
-  #Force auth via hub gem.
-  puts @api_client.config.username('github.com')
 end
