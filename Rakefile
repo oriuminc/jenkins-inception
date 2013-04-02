@@ -219,8 +219,9 @@ task :configure do
     end.to_s # << See: https://github.com/engineyard/engineyard/pull/152
   end
 
-  %w{ build_jobs manual_trigger_jobs }.each do |array_string|
-    conf[array_string] = conf[array_string].split(',')
+  # Split the string into an array if the default is of that type.
+  config_defaults.delete_if { |k,v| !v.kind_of?(Array) }.each do |key, array_string|
+    conf[key] = conf[key].split(',')
   end
 
   File.open('roles/config.yml', 'w') do |out|
