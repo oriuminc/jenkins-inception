@@ -58,24 +58,6 @@ Features
 Quickstart
 ----------
 
-### Setup (RVM)
-
-    curl -L get.rvm.io | bash -s 1.14.12
-    exec $SHELL
-    git clone git@github.com:myplanetdigital/jenkins-inception.git
-    cd jenkins-inception
-    gem regenerate_binstubs
-    librarian-chef install
-
-### Setup (rbenv -- incomplete)
-
-    # TODO: Document rbenv setup
-    git clone git@github.com:myplanetdigital/jenkins-inception.git
-    cd jenkins-inception
-    bundle install --path tmp/bundler
-    rbenv rehash
-    librarian-chef [[install]]
-
 ### Configuration
 
 The first thing you'll want to do is run the helper task to set up the
