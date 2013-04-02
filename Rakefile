@@ -212,6 +212,10 @@ task :configure do
       if config_defaults[key].kind_of?(Array)
         q.default = q.default.join(',')
       end
+
+      # Make sure we don't have whitespace, especially for joined arrays.
+      q.whitespace = :remove
+
     end.to_s # << See: https://github.com/engineyard/engineyard/pull/152
   end
 
