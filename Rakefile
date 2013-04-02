@@ -205,12 +205,12 @@ task :configure do
 
   config_defaults.each_key do |key|
     conf[key] = ask("#{key}?  ") do |q|
+
       # If Array, convert to string for easy default display.
       # (We'll convert back later.)
+      q.default = conf[key] || config_defaults[key]
       if config_defaults[key].kind_of?(Array)
-        q.default = conf[key].join(',') || config_defaults[key].join(',')
-      else
-        q.default = conf[key] || config_defaults[key]
+        q.default = q.default.join(',')
       end
     end.to_s # << See: https://github.com/engineyard/engineyard/pull/152
   end
