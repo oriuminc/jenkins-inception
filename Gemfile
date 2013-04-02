@@ -3,6 +3,7 @@ source "http://rubygems.org"
 gem "chef"
 gem "fog"
 gem "hashery"
+gem "hub"
 gem "jenkins"
 gem "knife-solo",
   :git => "https://github.com/myplanetdigital/knife-solo.git",

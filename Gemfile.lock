@@ -60,6 +60,7 @@ GEM
     hpricot (0.8.6)
     httparty (0.6.1)
       crack (= 0.1.8)
+    hub (1.10.5)
     i18n (0.6.1)
     ipaddress (0.8.0)
     jenkins (0.6.8)
@@ -155,6 +156,7 @@ DEPENDENCIES
   chef
   fog
   hashery
+  hub
   jenkins
   knife-solo!
   librarian

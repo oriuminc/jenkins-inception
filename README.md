@@ -74,24 +74,24 @@ Quickstart
     cd jenkins-inception
     bundle install --path tmp/bundler
     rbenv rehash
-    librarian-chef install
+    librarian-chef [[install]]
 
 ### Configuration
 
-The first thing you'll want to do is generate a `config.yml` template:
+The first thing you'll want to do is run the helper task to set up the
+configuration file that will be used to provision Jenkins:
 
-    rake init
+    bundle exec rake configure
 
 While the default demo stack will boot without any custom configuration, you'll
 likely want to tailor it to your needs.
 
-  - Configure the build job settings in `roles/config.yml`. You'll need
-    to register a GitHub application in order to enter credentials.
+  - Configure the build job settings in `roles/config.yml`.
   - Customize the `data_bags/users` entries, which will be used to set
-    up Jenkins and linux users (with SSH access).  keys.  A sample entry
+    up Jenkins and linux users (with SSH access). A sample entry
     `patcon.json` is provided. I enjoy access to random machines, so please
     feel free to deploy my keys. If you would like to easily generate your
-    own user files, there is an interactive rake task to help you generate
+    own user files, there is an interactive helper task to help you generate
     these files for a team in your github organization.
 
         GITHUB_PASSWORD=secret123 rake "generate_users[myorganization]"
@@ -142,21 +142,18 @@ and there will be less overhead to worry about.
 
 #### Stand-alone Chef Solo
 
-The first thing you'll want to do is edit the `domain` key in the
-`roles/config.yml`. This is where Jenkins will be served, either by
-pointing a DNS A-record at the server, or by adding a line like this to
-your `/etc/hosts` file. If you set the `domain` value in `config.yml` to
-be `ci.example.com`, this is what you would use in your `hosts` file:
 
-    # <SERVER_IP_ADDRESS> <JENKINS_URL> <JOB1_DOCROOT_URL> ...
-    123.123.123.123 ci.example.com build-int.ci.example.com
+Most of the items are self-explanatory with the examples provider, but
+`domain` requires the setup of a DNS A-record using an external DNS
+provider. If this is not possible, you may also edit your `/etc/hosts`
+file, but GitHub service hook won't work out of the box. If you set the
+`domain` value in `config.yml` to be `ci.example.com`, this is what you
+would use in your `hosts` file:
 
-Jenkins will be available at `http://ci.example.com`, and the
-"build-int" Jenkins job docroot (the only one provided by default), will
-be served at `http://build-int.ci.example.com`. (If using an A-record,
-you'd likely want to create one for each of `ci.example.com` and
-`*.ci.example.com`, so any future job docroots would be served
-correctly.)
+    123.123.123.123 ci.example.com
+
+Jenkins will be available at `http://ci.example.com` from your local
+machine.
 
 Assuming you have received credentials (root password and IP address)
 for a fresh server running Ubuntu Lucid, run the commands below, substituting
@@ -184,25 +181,6 @@ use this helper task to add a service hook to your GitHub project:
    bundle exec rake "set_service_hook[mygithubuser/myproject]"
 
 This will ensure that pushed to GitHub kick off the build pipeline.
-
-#### Hosted via Opscode Platform
-
-Opscode platform is a hosted Chef server that is free for managing up to
-5 servers. This should be more than enough for each project-specific CI
-setup.
-
-We'll be including various Rake tasks to automate the setup process as
-much as possible. These rake tasks will attempt to use a browser
-webdriver to fill out web forms and perform simple setup tasks for you.
-
-You may view the available tasks from the project root by running `rake
--D` (for full descriptions) or `rake -T` (for short descriptions)
-
-More coming soon...
-
-#### Self-hosted Chef Server
-
-Coming soon...
 
 Notes
 -----
