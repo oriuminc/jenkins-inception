@@ -81,7 +81,7 @@ Quickstart
 The first thing you'll want to do is run the helper task to set up the
 configuration file that will be used to provision Jenkins:
 
-    bundle exec rake configure
+    bundle exec rake setup:configure
 
 While the default demo stack will boot without any custom configuration, you'll
 likely want to tailor it to your needs.
@@ -94,7 +94,7 @@ likely want to tailor it to your needs.
     own user files, there is an interactive helper task to help you generate
     these files for a team in your github organization.
 
-        GITHUB_PASSWORD=secret123 rake "generate_users[myorganization]"
+        GITHUB_PASSWORD=secret123 rake "setup:generate_users[myorganization]"
 
 The next steps vary based on how you'd like to launch the Inception
 stack.
@@ -151,7 +151,7 @@ You'll need to have environment variables set for `RACKSPACE_USERNAME` and
 
 When you've set these environment variables in your shell, you may run:
 
-   bundle exec rake "create_server[server-name]"
+   bundle exec rake "setup:create_server[server-name]"
 
 (The server name will be used to identify the instance in the Rackspace
 web interface.)
@@ -191,7 +191,7 @@ for documentation.
 Provided that you've modified the `config.yml` to your needs, you may
 use this helper task to add a service hook to your GitHub project:
 
-   bundle exec rake "set_service_hook[mygithubuser/myproject]"
+   bundle exec rake "setup:service_hook[mygithubuser/myproject]"
 
 This will ensure that pushed to GitHub kick off the build pipeline.
 
@@ -226,30 +226,21 @@ Known Issues
 To Do
 -----
 
-  - In order to update jenkins jobs, must have a small recipe to
-    authenticate with the jenkins_cli resource.
   - Include a base Drupal install profile to show file structure and
     bare minimum scripting expectations.
-  - Look into better alternative to `0.0.0.0` for
-    `node['jenkins']['server']['host']`
   - Add feature to create DNS a-record if DynDNS API credentials are
     supplied in `config.yml`.
   - Add note on port forwarding 8080. (:auto?)
-  - Create rake task for chef-solo setup steps?
   - Add [spiceweasel][spiceweasel-project] support for launching into
     the cloud when using chef-server.
   - Provide instructions on using with Opscode hosted Chef server?
-  - Use watir-webdriver and rake to create an opscode hosted chef
-    account and/or create a new hosted chef organization.
   - Create a chef server as a multi-VM Vagrant environment (or use
     [Hatch][hatch-project]?)
   - Investigate using [preSCMbuildstep plugin][plugin-preSCMbuildstep]
     for running `jenkins-setup.sh`
   - Investigate [hosted chef gem][hosted-chef-gem].
-  - Test whether github auth can work with localhost.
   - Create role hierarchy like in Ariadne.
   - Set up varnish.
-  - Submit PR to knife-solo to prevent auto-creation of node.json.
   - Determine public vs private git repo and change job git url
     accordingly.
 
