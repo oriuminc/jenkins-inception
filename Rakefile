@@ -279,3 +279,16 @@ namespace :opscode do
     #end
   end
 end
+
+task :setup_webhook, :project  do |t, args|
+
+  github_project = args.project
+
+  # Use hub gem to authenticate against API.
+  require 'hub'
+  @api_client = Hub::Commands.send(:api_client)
+  # @api_client.post "https://api.github.com/repos/thomasdavis/best-practices/forks"
+
+  #Force auth via hub gem.
+  puts @api_client.config.username('github.com')
+end
