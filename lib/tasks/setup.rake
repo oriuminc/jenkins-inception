@@ -71,6 +71,10 @@ namespace :setup do
   task :generate_users, :github_org  do |t, args|
 
     require 'octokit'
+    require 'highline/import'
+
+    # Prevents odd 'input stream is exhausted' error in ruby-1.8.7.
+    HighLine.track_eof = false
 
     github_org = args.github_org
     github_user = `git config github.user`.chomp
@@ -93,7 +97,6 @@ namespace :setup do
     # Get a listing of teams for GitHub organization and present to user.
     all_teams_data = @client.organization_teams(github_org)
 
-    require 'highline/import'
     selected_team_index = ''
     choose do |menu|
       menu.prompt = "We will use one of the above #{github_org} GitHub teams to generate the appropriate user files.\n"
