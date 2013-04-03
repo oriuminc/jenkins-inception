@@ -1,6 +1,6 @@
 require 'yaml'
 
-require 'lib/ext/string'
+require './lib/ext/string'
 
 def load_yaml(file)
   if File.exist?(file)
@@ -16,7 +16,7 @@ namespace :setup do
   desc "Create and update config file."
   task :configure do
     require 'highline/import'
-    require 'lib/ext/highline'
+    require './lib/ext/highline'
     require 'hashery/ordered_hash'
 
     config_defaults = Hashery::OrderedHash.new
