@@ -63,36 +63,30 @@ namespace :setup do
     end
   end
 
-  desc "Generate users from team in GitHub organization.
-
-  Requires *one* of two things for authentication:
-    - GITHUB_PASSWORD envvar set for your GitHub user, or
-    - 'hub' gem installed and configured for use: `brew install hub`"
+  desc "Generate users from team in GitHub organization."
   task :generate_users, :github_org  do |t, args|
 
+    require 'hub'
     require 'octokit'
     require 'highline/import'
 
     # Prevents odd 'input stream is exhausted' error in ruby-1.8.7.
     HighLine.track_eof = false
 
-    github_org = args.github_org
-    github_user = `git config github.user`.chomp
-    github_password = ENV['GITHUB_PASSWORD']
+    github_host = ENV['GITHUB_HOST'] || 'github.com'
+    hub_config_file = ENV['HUB_CONFIG'] || '~/.config/hub'
 
-    # Authenticate GitHub client somehow
-    hub_config_file = File.expand_path('~/.config/hub')
-    if !github_password.nil?
-      # Authenticate client if password envvar available
-      @client = Octokit::Client.new(:login => github_user, :password => github_password)
-    elsif File.exists?(hub_config_file)
-      # Authenticate with token if not password given and hub gem config file available.
-      hub_data = YAML.load_file(hub_config_file)
-      github_token = hub_data['github.com'][0]['oauth_token']
-      @client = Octokit::Client.new(:login => github_user, :oauth_token => github_token)
-    else
-      raise "Sorry, this task requires either you set the environment variable GITHUB_PASSWORD, or that you're using the 'hub' gem."
-    end
+    # Force auth with hub gem, ensuring hub config file present.
+    @api_client = Hub::Commands.send(:api_client).config.username(github_host)
+
+    hub_config = load_yaml File.expand_path(hub_config_file)
+
+    github_org = args.github_org
+    github_user = hub_config[github_host][0]['user']
+    github_token = hub_config[github_host][0]['oauth_token']
+
+    # Authenticate github client.
+    @client = Octokit::Client.new(:login => github_user, :oauth_token => github_token)
 
     # Get a listing of teams for GitHub organization and present to user.
     all_teams_data = @client.organization_teams(github_org)
