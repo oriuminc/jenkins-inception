@@ -66,6 +66,7 @@ namespace :setup do
   desc "Generate users from team in GitHub organization."
   task :generate_users, :github_org  do |t, args|
 
+    require 'json'
     require 'hub'
     require 'octokit'
     require 'highline/import'
@@ -114,19 +115,16 @@ namespace :setup do
       unless File.exists?(user_file_path)
         user_data = @client.user(team_member['login'])
         # This call doesn't exist yet, so calling manually.
-        user_key_data = Octokit.get("users/#{user_data['login']}/keys", {}).first
+        user_keys_data = Octokit.get("users/#{user_data['login'].downcase}/keys", {})
 
         file = File.open(user_file_path, "w")
-        file.puts <<-EOF.unindent
-          {
-            "id": "#{user_data['login']}",
-            "comment": "#{user_data['name']}",
-            "shell": "/bin/zsh",
-            "ssh_keys": [
-              "#{user_key_data['key']}"
-            ]
-          }
-        EOF
+        user_data_bag_item = {
+          :id => user_data['login'].downcase,
+          :comment => user_data['name'] || '',
+          :shell => "/bin/zsh",
+          :ssh_keys => user_keys_data.collect { |entry| entry['key'] },
+        }
+        file.puts JSON.pretty_generate(user_data_bag_item)
         file.close
         say "Generated file for #{team_member['login']}."
       else
