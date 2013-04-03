@@ -6,6 +6,7 @@ gem "hashery"
 gem "highline"
 gem "hub"
 gem "jenkins"
+gem "json"
 gem 'knife-solo',
   :git => 'https://github.com/tmatilai/knife-solo.git',
   :ref => 'knife-bootstrap-solo'
