@@ -1,6 +1,7 @@
 source "http://rubygems.org"
 
 gem "chef"
+gem "dynect_rest"
 gem "fog"
 gem "hashery"
 gem "highline"

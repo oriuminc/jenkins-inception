@@ -35,6 +35,11 @@ GEM
     childprocess (0.3.6)
       ffi (~> 1.0, >= 1.0.6)
     crack (0.1.8)
+    dynect_rest (0.4.3)
+      json
+      json
+      rest-client
+      rest-client
     erubis (2.7.0)
     excon (0.16.10)
     faraday (0.8.5)
@@ -157,6 +162,7 @@ PLATFORMS
 
 DEPENDENCIES
   chef
+  dynect_rest
   fog
   hashery
   highline
