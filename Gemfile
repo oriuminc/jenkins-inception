@@ -16,5 +16,6 @@ gem "octokit"
 gem "open4"
 gem "rake"
 gem "rubygems-bundler"
+gem "system_timer", :platform => :ruby_18
 gem "vagrant", ">= 1.0.0"
 gem "watir-webdriver"
