@@ -11,7 +11,7 @@ end
 config_file = ENV['INCEPTION_CONFIG'] || 'roles/config.yml'
 config = load_yaml(config_file) || {}
 
-namespace :setup do
+namespace :team do
 
   desc "Create and update config file."
   task :configure do
