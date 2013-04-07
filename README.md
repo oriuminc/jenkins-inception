@@ -63,7 +63,7 @@ Quickstart
 The first thing you'll want to do is run the helper task to set up the
 configuration file that will be used to provision Jenkins:
 
-    bundle exec rake setup:configure
+    bundle exec rake team:configure
 
 While the default demo stack will boot without any custom configuration, you'll
 likely want to tailor it to your needs.
@@ -71,12 +71,11 @@ likely want to tailor it to your needs.
   - Configure the build job settings in `roles/config.yml`.
   - Customize the `data_bags/users` entries, which will be used to set
     up Jenkins and linux users (with SSH access). A sample entry
-    `patcon.json` is provided. I enjoy access to random machines, so please
-    feel free to deploy my keys. If you would like to easily generate your
+    `patcon.json` is provided. If you would like to easily generate your
     own user files, there is an interactive helper task to help you generate
     these files for a team in your github organization.
 
-        GITHUB_PASSWORD=secret123 rake "setup:generate_users[myorganization]"
+        bundle exec rake "team:generate_users[myorganization]"
 
 The next steps vary based on how you'd like to launch the Inception
 stack.
@@ -133,7 +132,7 @@ You'll need to have environment variables set for `RACKSPACE_USERNAME` and
 
 When you've set these environment variables in your shell, you may run:
 
-   bundle exec rake "setup:create_server[server-name]"
+   bundle exec rake "team:create_server[server-name]"
 
 (The server name will be used to identify the instance in the Rackspace
 web interface.)
@@ -173,7 +172,7 @@ for documentation.
 Provided that you've modified the `config.yml` to your needs, you may
 use this helper task to add a service hook to your GitHub project:
 
-   bundle exec rake "setup:service_hook[mygithubuser/myproject]"
+   bundle exec rake "team:service_hook[mygithubuser/myproject]"
 
 This will ensure that pushed to GitHub kick off the build pipeline.
 
