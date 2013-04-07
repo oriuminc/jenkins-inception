@@ -31,11 +31,12 @@ running a single command.
 
 We'll be building this out based on a set of assumptions regarding how
 to best build a Drupal site. This set of assumptions will take the form
-of the [2nd Level Deep][2ndleveldeep] install profile. The goal will be
+of the [Skeletor][skeletor] install profile skeleton. The goal will be
 build a totally self-contained base profile, which other projects can
 use as a foundation. Ideally, only slight configurations of the Jenkins
 CI environment (ie. project name, and git repo URL) will be needed in
-order to build any project that uses the 2nd Level Deep install profile.
+order to build any project that uses the Skeletor install profile as
+a base.
 
 Features
 --------
@@ -48,7 +49,7 @@ Features
     fixing Vagrant networking issues to automating the webform signup
     for Opscode Platform. Type `rake -D` or `rake -T` to see available
     tasks.
-  - Configured to boot the base demo of 2nd Level Deep install profile,
+  - Configured to boot the base demo of Skeletor install profile,
     right off the bat.
   - Testing tools configured:
     - PhantomJS
@@ -233,6 +234,6 @@ To Do
    [plugin-github-oauth]:      https://wiki.jenkins-ci.org/display/JENKINS/Github+OAuth+Plugin
    [plugin-preSCMbuildstep]:   https://wiki.jenkins-ci.org/display/JENKINS/pre-scm-buildstep
    [about-rake]:               http://en.wikipedia.org/wiki/Rake_(software)
-   [2ndleveldeep]:             https://github.com/myplanetdigital/2ndleveldeep#readme
+   [skeletor]:                 https://github.com/myplanetdigital/drupal-skeletor#readme
    [hosted-chef-gem]:          https://github.com/opscode/hosted-chef-gem#readme
    [github-auth-issue]:        https://github.com/mocleiri/github-oauth-plugin/issues/18
