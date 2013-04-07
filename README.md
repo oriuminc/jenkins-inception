@@ -234,6 +234,6 @@ To Do
    [plugin-github-oauth]:      https://wiki.jenkins-ci.org/display/JENKINS/Github+OAuth+Plugin
    [plugin-preSCMbuildstep]:   https://wiki.jenkins-ci.org/display/JENKINS/pre-scm-buildstep
    [about-rake]:               http://en.wikipedia.org/wiki/Rake_(software)
-   [skeletor]:                 https://github.com/myplanetdigital/drupal-skeletor#readme
+   [skeletor]:                 https://github.com/myplanetdigital/drupal-skeletor/blob/master/SKELETOR-README.md
    [hosted-chef-gem]:          https://github.com/opscode/hosted-chef-gem#readme
    [github-auth-issue]:        https://github.com/mocleiri/github-oauth-plugin/issues/18
