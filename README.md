@@ -46,9 +46,8 @@ Features
     Anyone in a specified GitHub organization will be given access to
     the Jenkins UI. **This will not work locally on Vagrant.**
   - Various [rake][about-rake] tasks for helping with everything from
-    fixing Vagrant networking issues to automating the webform signup
-    for Opscode Platform. Type `rake -D` or `rake -T` to see available
-    tasks.
+    creating new Rackspace servers to adding GitHub service hooks. Type
+    `rake -D` or `rake -T` to see available tasks.
   - Configured to boot the base demo of Skeletor install profile,
     right off the bat.
   - Testing tools configured:
@@ -69,7 +68,6 @@ configuration file that will be used to provision Jenkins:
 While the default demo stack will boot without any custom configuration, you'll
 likely want to tailor it to your needs.
 
-  - Configure the build job settings in `roles/config.yml`.
   - Customize the `data_bags/users` entries, which will be used to set
     up Jenkins and linux users (with SSH access). A sample entry
     `patcon.json` is provided. If you would like to easily generate your
