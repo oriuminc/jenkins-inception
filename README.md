@@ -2,7 +2,7 @@ Inception
 =========
 
 ![Build pipeline
-screenshot](https://www.evernote.com/shard/s27/sh/a9c39412-a118-4708-ac74-18a9f555ef00/9313341fa1690a92086828755618f154/res/85cecd42-b7bf-4f76-89dc-5d7ae67152a1/skitch.png)
+screenshot](https://www.evernote.com/shard/s27/sh/80368a8d-62c5-4739-b33e-3e986f145bd3/8d7d0f7730534611b0c5bfa1bbcb3af4/res/054729d9-d034-4a29-aae8-89017d74cf94/skitch.png)
 
 **Current status: STABLE BUT UNDOCUMENTED.** (We use the tool internally
 at Myplanet, but still need to document features and assumptions.)
