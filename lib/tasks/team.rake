@@ -196,16 +196,22 @@ namespace :team do
 
   end
 
-  desc "Fork the Skeletor project into a new repo."
+  desc "Fork the Skeletor project into a new repo.
+
+  Creates a new private repo for an organization. Requires an argument be
+  passed in the format of 'organization/repo'.
+
+  Example: myplanetdigital/newproject"
   task :fork_skeletor, :github_repo do |t, args|
     Rake::Task["team:github_auth"].invoke
 
     options = {}
+    options[:private] = true
     if args.github_repo.split('/').length == 1
       repo = args.github_repo
     else
       org, repo = args.github_repo.split('/')
-      options = {:organization => org}
+      options[:organization] = org
     end
     response = @client.create_repo(repo, options)
     puts response['ssh_url']
@@ -229,7 +235,7 @@ namespace :team do
         system "git remote add origin #{response['ssh_url']}"
         system "git pull upstream master"
         system "git submodule update --init --recursive"
-        system "PATH=$PATH:$PWD/tmp/scripts/rerun/core RERUN_MODULES=$PWD/tmp/scripts/rerun/custom_modules rerun renamer:rename --to #{repo} --repo myplanetdigital/#{repo}"
+        system "PATH=$PATH:$PWD/tmp/scripts/rerun/core RERUN_MODULES=$PWD/tmp/scripts/rerun/custom_modules rerun renamer:rename --to #{repo} --repo #{org}/#{repo}"
         system "git push origin master"
       end
     end
