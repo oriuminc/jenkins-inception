@@ -12,6 +12,24 @@ config_file = ENV['INCEPTION_CONFIG'] || 'roles/config.yml'
 config = load_yaml(config_file) || {}
 
 namespace :team do
+  task :github_auth do
+    require 'hub'
+    require 'octokit'
+
+    github_host = ENV['GITHUB_HOST'] || 'github.com'
+    hub_config_file = ENV['HUB_CONFIG'] || '~/.config/hub'
+
+    # Force auth with hub gem, ensuring hub config file present.
+    @api_client = Hub::Commands.send(:api_client).config.username(github_host)
+
+    hub_config = load_yaml File.expand_path(hub_config_file)
+
+    github_user = hub_config[github_host][0]['user']
+    github_token = hub_config[github_host][0]['oauth_token']
+
+    # Authenticate github client.
+    @client = Octokit::Client.new(:login => github_user, :oauth_token => github_token)
+  end
 
   desc "Create and update config file."
   task :configure do
@@ -65,29 +83,15 @@ namespace :team do
 
   desc "Generate users from team in GitHub organization."
   task :generate_users, :github_org  do |t, args|
+    Rake::Task["team:github_auth"].invoke
 
     require 'json'
-    require 'hub'
-    require 'octokit'
     require 'highline/import'
 
     # Prevents odd 'input stream is exhausted' error in ruby-1.8.7.
     HighLine.track_eof = false
 
-    github_host = ENV['GITHUB_HOST'] || 'github.com'
-    hub_config_file = ENV['HUB_CONFIG'] || '~/.config/hub'
-
-    # Force auth with hub gem, ensuring hub config file present.
-    @api_client = Hub::Commands.send(:api_client).config.username(github_host)
-
-    hub_config = load_yaml File.expand_path(hub_config_file)
-
     github_org = args.github_org
-    github_user = hub_config[github_host][0]['user']
-    github_token = hub_config[github_host][0]['oauth_token']
-
-    # Authenticate github client.
-    @client = Octokit::Client.new(:login => github_user, :oauth_token => github_token)
 
     # Get a listing of teams for GitHub organization and present to user.
     all_teams_data = @client.organization_teams(github_org)
@@ -191,6 +195,43 @@ namespace :team do
     puts hook_data[:config][:jenkins_hook_url]
 
   end
+
+  desc "Fork the Skeletor project into a new repo."
+  task :fork_skeletor, :github_repo do |t, args|
+    Rake::Task["team:github_auth"].invoke
+
+    options = {}
+    if args.github_repo.split('/').length == 1
+      repo = args.github_repo
+    else
+      org, repo = args.github_repo.split('/')
+      options = {:organization => org}
+    end
+    response = @client.create_repo(repo, options)
+    puts response['ssh_url']
+
+    # See: http://stackoverflow.com/a/8791484/504018
+    def in_tmpdir
+      require 'tmpdir'
+      path = File.expand_path "#{Dir.tmpdir}/#{Time.now.to_i}#{rand(1000)}/"
+      FileUtils.mkdir_p path
+      yield path
+    ensure
+      FileUtils.rm_rf( path ) if File.exists?( path )
+    end
+
+    in_tmpdir do |tmpdir|
+      puts "My tmp dir: #{tmpdir}"
+      skeletor_uri = 'git://github.com/myplanetdigital/drupal-skeletor.git'
+      FileUtils.cd(tmpdir) do
+        system "git init"
+        system "git remote add upstream #{skeletor_uri}"
+        system "git remote add origin #{response['ssh_url']}"
+        system "git pull upstream master"
+        system "git submodule update --init --recursive"
+        system "PATH=$PATH:$PWD/tmp/scripts/rerun/core RERUN_MODULES=$PWD/tmp/scripts/rerun/custom_modules rerun renamer:rename --to #{repo} --repo myplanetdigital/#{repo}"
+        system "git push origin master"
+      end
+    end
+  end
 end
-
-
