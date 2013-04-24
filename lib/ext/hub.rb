@@ -6,5 +6,10 @@ module Hub
       res = post(url, hook_data)
       res.error! unless res.success?
     end
+
+    def force_auth
+      url = "https://github.com/user"
+      res = post(url)
+    end
   end
 end

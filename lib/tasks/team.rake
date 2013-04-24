@@ -14,13 +14,19 @@ config = load_yaml(config_file) || {}
 namespace :team do
   task :github_auth do
     require 'hub'
+    require './lib/ext/hub'
     require 'octokit'
 
     github_host = ENV['GITHUB_HOST'] || 'github.com'
     hub_config_file = ENV['HUB_CONFIG'] || '~/.config/hub'
 
-    # Force auth with hub gem, ensuring hub config file present.
-    @api_client = Hub::Commands.send(:api_client).config.username(github_host)
+    unless File.exists? File.expand_path(hub_config_file)
+      puts "You will be asked for your GitHub credentials."
+      puts "These will NOT be stored on disk, but will be used to generate an access token."
+
+      # Force auth with hub gem, ensuring hub config file present.
+      @api_client = Hub::Commands.send(:api_client).force_auth
+    end
 
     hub_config = load_yaml File.expand_path(hub_config_file)
 
@@ -169,8 +175,9 @@ namespace :team do
       raise "Requires :github_repo argument in format `username/repo`!"
     end
 
-    require 'hub'
-    require 'lib/ext/hub'
+    # Use hub gem to authenticate against API.
+    Rake::Task["team:github_auth"].invoke
+
     require 'ostruct'
 
     project = OpenStruct.new
@@ -185,10 +192,7 @@ namespace :team do
       }
     }
 
-    # Use hub gem to authenticate against API.
-    puts "Creating service hook. You may be ask for your GitHub credentials."
-    puts "These will NOT be stored on disk, but will be used to generate an access token."
-    @api_client = Hub::Commands.send(:api_client)
+    puts "Creating service hook..."
     @api_client.create_webhook(project, hook_data)
 
     puts "Jenkins commit hook successfully created/activated for GitHub project #{args.github_repo}:"
@@ -214,7 +218,6 @@ namespace :team do
       options[:organization] = org
     end
     response = @client.create_repo(repo, options)
-    puts response['ssh_url']
 
     # See: http://stackoverflow.com/a/8791484/504018
     def in_tmpdir
@@ -227,7 +230,6 @@ namespace :team do
     end
 
     in_tmpdir do |tmpdir|
-      puts "My tmp dir: #{tmpdir}"
       skeletor_uri = 'git://github.com/myplanetdigital/drupal-skeletor.git'
       FileUtils.cd(tmpdir) do
         system "git init"
