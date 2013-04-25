@@ -20,6 +20,8 @@ namespace :team do
     github_host = ENV['GITHUB_HOST'] || 'github.com'
     hub_config_file = ENV['HUB_CONFIG'] || '~/.config/hub'
 
+    puts "Authorizing with GitHub..."
+
     unless File.exists? File.expand_path(hub_config_file)
       puts "You will be asked for your GitHub credentials."
       puts "These will NOT be stored on disk, but will be used to generate an access token."
@@ -241,5 +243,18 @@ namespace :team do
         system "git push origin master"
       end
     end
+
+  end
+
+  desc "Adds deploy key file to GitHub."
+  task :add_deploy_key, :github_repo, :pubkey_file do |t, args|
+    Rake::Task["team:github_auth"].invoke
+
+    contents = File.open(args.pubkey_file, "rb").read
+    title = 'jenkins'
+
+    puts "Adding deploy key..."
+    @client.add_deploy_key(args.github_repo, title, contents)
+    puts "Successfully added '#{title}' deploy key to repo '#{args.github_repo}'!"
   end
 end
