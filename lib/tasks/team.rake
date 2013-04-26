@@ -46,7 +46,8 @@ namespace :team do
     require 'hashery/ordered_hash'
 
     config_defaults = Hashery::OrderedHash.new
-    config_defaults['domain'] = 'ci.example.com'
+    config_defaults['project'] = 'newproject'
+    config_defaults['domain'] = 'ci.newproject.example.com'
     config_defaults['repo'] = 'https://github.com/myplanetdigital/drupal-skeletor.git'
     config_defaults['branch'] = 'develop'
     config_defaults['password'] = 'sekret'
@@ -155,6 +156,7 @@ namespace :team do
     - RACKSPACE_USERNAME
     - RACKSPACE_API_KEY"
   task :create_server, :project do |t, args|
+    args.with_defaults(:project => config['project'])
 
     # Ensure envvars set
     required_envvars = [
@@ -187,7 +189,7 @@ namespace :team do
     servers = servers.sort_by { |k| k.created }
     latest_server = servers[-1]
 
-    # Write IP to config.yml
+    puts "Writing IP address of new server '#{args.project}' to config file."
     config['ip_address'] = latest_server.ipv4_address
     File.open(config_file, 'w') do |out|
       YAML::dump(config, out)
