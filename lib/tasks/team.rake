@@ -275,15 +275,18 @@ namespace :team do
 
   end
 
-  desc "Adds deploy key file to GitHub."
-  task :add_deploy_key, :github_repo, :pubkey_file do |t, args|
+  desc "Adds Jenkins deploy key to GitHub repo."
+  task :add_deploy_key, :github_repo, :ssh_username do |t, args|
     Rake::Task["team:github_auth"].invoke
 
-    contents = File.open(args.pubkey_file, "rb").read
+    # SSH into jenkins server and get pub key contents.
+    puts "Retrieving Jenkins user public key from #{config['domain']}..."
+    contents = %x[ssh #{args.ssh_username}@#{config['domain']} 'sudo cat ~jenkins/.ssh/id_rsa.pub'].chomp
     title = 'jenkins'
 
     puts "Adding deploy key..."
     @client.add_deploy_key(args.github_repo, title, contents)
     puts "Successfully added '#{title}' deploy key to repo '#{args.github_repo}'!"
+    puts "You can view the key at: https://github.com/#{args.github_repo}/settings/keys"
   end
 end
