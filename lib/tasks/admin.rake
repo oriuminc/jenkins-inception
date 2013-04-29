@@ -1,6 +1,7 @@
 namespace :admin do
   desc "Sets up DNS via dynect API to point to Jenkins server."
   task :create_subdomain, :project, :ip_address do |t, args|
+    args.with_defaults(:project => config['project'], :ip_address => config['ip_address'])
     require 'dynect_rest'
 
     # Ensure envvars set

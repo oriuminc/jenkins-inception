@@ -1,16 +1,3 @@
-require 'yaml'
-
-require './lib/ext/string'
-
-def load_yaml(file)
-  if File.exist?(file)
-    YAML.load_file(file)
-  end
-end
-
-config_file = ENV['INCEPTION_CONFIG'] || 'roles/config.yml'
-config = load_yaml(config_file) || {}
-
 namespace :team do
   task :github_auth do
     require 'hub'
@@ -91,8 +78,11 @@ namespace :team do
   end
 
   desc "Generate users from team in GitHub organization."
-  task :generate_users, :github_org  do |t, args|
+  task :generate_users, :github_org do |t, args|
     Rake::Task["team:github_auth"].invoke
+    repo_url = config['repo']
+    github_org = /.*[:\/](.+)\/(.+)\.git/.match(repo_url)[1]
+    args.with_defaults(:github_org => github_org)
 
     require 'json'
     require 'highline/import'
@@ -202,6 +192,11 @@ namespace :team do
   This can be run at any time, and will create/modify a new or existing service
   hook."
   task :service_hook, :github_repo  do |t, args|
+    repo_url = config['repo']
+    github_org = /.*[:\/](.+)\/(.+)\.git/.match(repo_url)[1]
+    github_repo = /.*[:\/](.+)\/(.+)\.git/.match(repo_url)[2]
+    args.with_defaults(:github_repo => "#{github_org}/#{github_repo}")
+
     if args.github_repo.nil? || args.github_repo.split('/').length < 2
       raise "Requires :github_repo argument in format `username/repo`!"
     end
