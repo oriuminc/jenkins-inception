@@ -1,7 +1,8 @@
 namespace :admin do
   desc "Sets up DNS via dynect API to point to Jenkins server."
   task :create_subdomain, :project, :ip_address do |t, args|
-    args.with_defaults(:project => config['project'], :ip_address => config['ip_address'])
+    Rake::Task["load_config"].invoke
+    args.with_defaults(:project => @config['project'], :ip_address => @config['ip_address'])
     require 'dynect_rest'
 
     # Ensure envvars set
@@ -23,9 +24,11 @@ namespace :admin do
     project_fqdn = "ci.#{args.project}.#{zone}"
     project_ip = args.ip_address
 
+    puts "Creating DNS A-record..."
     client = DynectRest.new(customer, username, password, zone)
     client.a.fqdn(project_fqdn).address(project_ip).save
     client.publish
+    puts "Successfully created DNS A-record pointing #{project.fqdn} to #{project_ip}!"
 
   end
 end
