@@ -28,16 +28,18 @@ namespace :team do
 
   desc "Create and update config file."
   task :configure do
+    Rake::Task["load_config"].invoke
     require 'highline/import'
     require './lib/ext/highline'
     require 'hashery/ordered_hash'
+    require 'pwqgen'
 
     config_defaults = Hashery::OrderedHash.new
     config_defaults['project'] = 'newproject'
-    config_defaults['domain'] = 'ci.newproject.example.com'
-    config_defaults['repo'] = 'https://github.com/myplanetdigital/drupal-skeletor.git'
+    config_defaults['domain'] = "ci.newproject.example.com"
+    config_defaults['repo'] = "https://github.com/myplanetdigital/drupal-skeletor.git"
     config_defaults['branch'] = 'develop'
-    config_defaults['password'] = 'sekret'
+    config_defaults['password'] = Pwqgen.generate(4)
     config_defaults['timezone'] = 'America/Toronto'
     config_defaults['build_jobs'] = [
       'commit',
@@ -51,11 +53,11 @@ namespace :team do
     ]
 
     config_defaults.each_key do |key|
-      config[key] = ask("#{key}?  ") do |q|
+      @config[key] = ask("#{key}?  ") do |q|
 
         # If Array, convert to string for easy default display.
         # (We'll convert back later.)
-        q.default = config[key] || config_defaults[key]
+        q.default = @config[key] || config_defaults[key]
         if config_defaults[key].kind_of?(Array)
           q.default = q.default.join(',')
         end
@@ -68,19 +70,20 @@ namespace :team do
 
     # Split the string into an array if the default is of that type.
     config_defaults.delete_if { |k,v| !v.kind_of?(Array) }.each do |key, array_string|
-      config[key] = config[key].split(',')
+      @config[key] = @config[key].split(',')
     end
 
     # Write config.yml
-    File.open(config_file, 'w') do |out|
-      YAML::dump(config, out)
+    File.open(@config_file, 'w') do |out|
+      YAML::dump(@config, out)
     end
   end
 
   desc "Generate users from team in GitHub organization."
   task :generate_users, :github_org do |t, args|
+    Rake::Task["load_config"].invoke
     Rake::Task["team:github_auth"].invoke
-    repo_url = config['repo']
+    repo_url = @config['repo']
     github_org = /.*[:\/](.+)\/(.+)\.git/.match(repo_url)[1]
     args.with_defaults(:github_org => github_org)
 
@@ -146,7 +149,8 @@ namespace :team do
     - RACKSPACE_USERNAME
     - RACKSPACE_API_KEY"
   task :create_server, :project do |t, args|
-    args.with_defaults(:project => config['project'])
+    Rake::Task["load_config"].invoke
+    args.with_defaults(:project => @config['project'])
 
     # Ensure envvars set
     required_envvars = [
@@ -180,8 +184,8 @@ namespace :team do
     latest_server = servers[-1]
 
     puts "Writing IP address of new server '#{args.project}' to config file."
-    config['ip_address'] = latest_server.ipv4_address
-    File.open(config_file, 'w') do |out|
+    @config['ip_address'] = latest_server.ipv4_address
+    File.open(@config_file, 'w') do |out|
       YAML::dump(config, out)
     end
 
@@ -192,7 +196,8 @@ namespace :team do
   This can be run at any time, and will create/modify a new or existing service
   hook."
   task :service_hook, :github_repo  do |t, args|
-    repo_url = config['repo']
+    Rake::Task["load_config"].invoke
+    repo_url = @config['repo']
     github_org = /.*[:\/](.+)\/(.+)\.git/.match(repo_url)[1]
     github_repo = /.*[:\/](.+)\/(.+)\.git/.match(repo_url)[2]
     args.with_defaults(:github_repo => "#{github_org}/#{github_repo}")
@@ -214,7 +219,7 @@ namespace :team do
     hook_data = {
       :name => 'jenkins',
       :config => {
-        :jenkins_hook_url => "http://#{config['domain']}/github-webhook/"
+        :jenkins_hook_url => "http://#{@config['domain']}/github-webhook/"
       }
     }
 
@@ -272,11 +277,12 @@ namespace :team do
 
   desc "Adds Jenkins deploy key to GitHub repo."
   task :add_deploy_key, :github_repo, :ssh_username do |t, args|
+    Rake::Task["load_config"].invoke
     Rake::Task["team:github_auth"].invoke
 
     # SSH into jenkins server and get pub key contents.
-    puts "Retrieving Jenkins user public key from #{config['domain']}..."
-    contents = %x[ssh #{args.ssh_username}@#{config['domain']} 'sudo cat ~jenkins/.ssh/id_rsa.pub'].chomp
+    puts "Retrieving Jenkins user public key from #{@config['domain']}..."
+    contents = %x[ssh #{args.ssh_username}@#{@config['domain']} 'sudo cat ~jenkins/.ssh/id_rsa.pub'].chomp
     title = 'jenkins'
 
     puts "Adding deploy key..."

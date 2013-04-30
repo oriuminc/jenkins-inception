@@ -15,6 +15,10 @@ gem "knife-rackspace"
 gem "librarian"
 gem "octokit"
 gem "open4"
+gem "pwqgen.rb",
+  # Pending PR: https://github.com/iphoting/pwqgen.rb/pull/2
+  :git => "https://github.com/myplanet-experimental/pwqgen.rb.git",
+  :ref => "1-support-all-rubies"
 gem "rake"
 gem "rubygems-bundler"
 gem "system_timer", :platform => :ruby_18

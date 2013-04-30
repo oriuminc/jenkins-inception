@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/myplanet-experimental/pwqgen.rb.git
+  revision: 8949dec79a4a14057b4b3d73e40ef9e2b9d909f3
+  ref: 1-support-all-rubies
+  specs:
+    pwqgen.rb (0.0.4)
+      docopt (~> 0.5.0)
+
+GIT
   remote: https://github.com/tmatilai/knife-solo.git
   revision: f2f6e999f1f7cbaba16affa8dcc12929e36c9ab4
   ref: knife-bootstrap-solo
@@ -35,6 +43,7 @@ GEM
     childprocess (0.3.6)
       ffi (~> 1.0, >= 1.0.6)
     crack (0.1.8)
+    docopt (0.5.0)
     dynect_rest (0.4.3)
       json
       json
@@ -174,6 +183,7 @@ DEPENDENCIES
   librarian
   octokit
   open4
+  pwqgen.rb!
   rake
   rubygems-bundler
   system_timer
