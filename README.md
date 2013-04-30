@@ -58,6 +58,18 @@ Features
 Quickstart
 ----------
 
+- Install Xcode with Command Line Tools from Apple Developer website.
+
+    git clone https://github.com/myplanetdigital/jenkins-inception.git
+    cd jenkins-inception
+    [sudo] gem install bundler
+    bundle install
+    bundle exec rake team:configure
+    bundle exec rake team:generate_users
+    bundle exec rake team:fork_skeletor
+    bundle exec rake team:create_server
+    bundle exec rake admin:create_subdomain
+
 ### Configuration
 
 The first thing you'll want to do is run the helper task to set up the
