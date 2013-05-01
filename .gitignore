@@ -16,5 +16,5 @@ tmp/
 nodes/*
 !roles/jenkins.rb
 data_bags/users/*
-!data_bags/users/patcon.json
+!data_bags/users/sampleuser.json
 roles/config.yml

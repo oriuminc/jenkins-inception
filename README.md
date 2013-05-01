@@ -84,7 +84,7 @@ likely want to tailor it to your needs.
 
   - Customize the `data_bags/users` entries, which will be used to set
     up Jenkins and linux users (with SSH access). A sample entry
-    `patcon.json` is provided. If you would like to easily generate your
+    `sampleuser.json` is provided. If you would like to easily generate your
     own user files, there is an interactive helper task to help you generate
     these files for a team in your github organization.
 

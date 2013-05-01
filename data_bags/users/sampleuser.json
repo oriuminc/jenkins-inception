@@ -1,0 +1,8 @@
+{
+  "id": "sampleuser",
+  "comment": "Clarence Weatherspoon",
+  "shell": "/bin/zsh",
+  "ssh_keys": [
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDiAKRrR7FSoSJOLzB4kt8wIOsY+/lXGF6z+wlW+gr1L1hK0HPrDWzVY0EMoimiBmNwg/BWSuQB/vps1toTOWpFvu2CaoE4/O62lUYYgFw5faHi/0kdvqbBeu6evYTu22WFNf8HnoXjNMlW7iuYTztqMOMf96894SpELsI9kBmWMo3w214sDS0KylFx53BXLry5iY+H0rNkrCNwb4uMzGcbNKfQTnn5cdSmOqIwrBLFBQRH66fiL2TpfpwFHY61iCkA6oZEqmxVdD/ajk7fhohyGlB+YChH5MTWOreNZCMDOR+a+S4eDhz7FeOEIBGD3YTXsC4OhuemPjRUUNvrO+l3 sampleuser@Samples-MacBook-Pro.local"
+  ]
+}
