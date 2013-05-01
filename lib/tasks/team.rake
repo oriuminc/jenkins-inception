@@ -19,11 +19,11 @@ namespace :team do
 
     hub_config = load_yaml File.expand_path(hub_config_file)
 
-    github_user = hub_config[github_host][0]['user']
+    @github_user = hub_config[github_host][0]['user']
     github_token = hub_config[github_host][0]['oauth_token']
 
     # Authenticate github client.
-    @client = Octokit::Client.new(:login => github_user, :oauth_token => github_token)
+    @client = Octokit::Client.new(:login => @github_user, :oauth_token => github_token)
   end
 
   desc "Create and update config file."
@@ -227,6 +227,10 @@ namespace :team do
   task :add_deploy_key, :github_repo, :ssh_username do |t, args|
     Rake::Task["load_config"].invoke
     Rake::Task["team:github_auth"].invoke
+    repo_url = @config['repo']
+    github_org = /.*[:\/](.+)\/(.+)\.git/.match(repo_url)[1]
+    github_repo = /.*[:\/](.+)\/(.+)\.git/.match(repo_url)[2]
+    args.with_defaults(:github_repo => "#{github_org}/#{github_repo}", :ssh_username => @github_user)
 
     # SSH into jenkins server and get pub key contents.
     puts "Retrieving Jenkins user public key from #{@config['domain']}..."
