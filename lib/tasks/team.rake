@@ -242,4 +242,16 @@ namespace :team do
     puts "Successfully added '#{title}' deploy key to repo '#{args.github_repo}'!"
     puts "You can view the key at: https://github.com/#{args.github_repo}/settings/keys"
   end
+
+  desc "Rsync project config files into place.
+
+  This task is only useful when the Inception project is nested within a
+  project repo as a submodule."
+  task :rsync_project_configs do
+    if File.exists? File.expand_path('../../conf/jenkins-inception')
+      system "rsync --recursive ../../conf/jenkins-inception/* ."
+    else
+      raise "Inception does not appear to be nested within a project, or config files not present."
+    end
+  end
 end
