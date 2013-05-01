@@ -69,6 +69,7 @@ Quickstart
     bundle exec rake team:fork_skeletor
     bundle exec rake admin:create_server
     bundle exec rake admin:create_subdomain
+    bundle exec rake team:service_hook
 
 ### Configuration
 

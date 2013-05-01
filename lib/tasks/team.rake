@@ -14,7 +14,7 @@ namespace :team do
       puts "These will NOT be stored on disk, but will be used to generate an access token."
 
       # Force auth with hub gem, ensuring hub config file present.
-      @api_client = Hub::Commands.send(:api_client).force_auth
+      Hub::Commands.send(:api_client).force_auth
     end
 
     hub_config = load_yaml File.expand_path(hub_config_file)
@@ -172,7 +172,7 @@ namespace :team do
     }
 
     puts "Creating service hook..."
-    @api_client.create_webhook(project, hook_data)
+    Hub::Commands.send(:api_client).create_webhook(project, hook_data)
 
     puts "Jenkins commit hook successfully created/activated for GitHub project #{args.github_repo}:"
     puts hook_data[:config][:jenkins_hook_url]
