@@ -248,10 +248,25 @@ namespace :team do
   This task is only useful when the Inception project is nested within a
   project repo as a submodule."
   task :rsync_project_configs do
+    puts "Attempting to rsync inception config files from containing project..."
     if File.exists? File.expand_path('../../conf/jenkins-inception')
+      puts "Detected containing project. Rsync'ing files into place."
       system "rsync --recursive ../../conf/jenkins-inception/* ."
     else
-      raise "Inception does not appear to be nested within a project, or config files not present."
+      puts "Inception does not appear to be nested within a project, or config files not present."
+      puts "No rsync action taken."
     end
+  end
+
+  desc "Sync files with remote server, and start chef run.
+
+  First syncs cookbooks and project config files with remote server, then
+  initializes chef run to converge jenkins server on desired state."
+  task :update_jenkins do
+    Rake::Task["load_config"].invoke
+    Rake::Task["team:github_auth"].invoke
+    Rake::Task["team:rsync_project_configs"].invoke
+    system "rm nodes/#{@config['domain']}.json"
+    system "bundle exec knife solo cook #{@github_user}@#{@config['domain']} --no-chef-check --run-list='role[jenkins]'"
   end
 end
