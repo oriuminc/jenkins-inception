@@ -60,18 +60,18 @@ Quickstart
 
 - Install Xcode with Command Line Tools from Apple Developer website.
 
-    git clone https://github.com/myplanetdigital/jenkins-inception.git
-    cd jenkins-inception
-    [sudo] gem install bundler
-    bundle install
-    bundle exec rake team:configure
-    bundle exec rake team:generate_users
-    bundle exec rake team:fork_skeletor
-    bundle exec rake admin:create_server
-    bundle exec rake admin:create_subdomain
-    bundle exec rake team:update_jenkins
-    bundle exec rake team:add_deploy_key
-    bundle exec rake team:service_hook
+        git clone https://github.com/myplanetdigital/jenkins-inception.git
+        cd jenkins-inception
+        [sudo] gem install bundler
+        bundle install
+        bundle exec rake team:configure
+        bundle exec rake team:generate_users
+        bundle exec rake team:fork_skeletor
+        bundle exec rake admin:create_server
+        bundle exec rake admin:create_subdomain
+        bundle exec rake team:update_jenkins
+        bundle exec rake team:add_deploy_key
+        bundle exec rake team:service_hook
 
 Notes
 -----
