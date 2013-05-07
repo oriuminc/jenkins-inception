@@ -4,7 +4,7 @@ yml = YAML.load_file "#{current_dir}/config.yml"
 
 name "jenkins"
 description "The base role for setting up the jenkins master with appropriate initial settings."
-run_list(
+run_list([
   "role[base]",
   "role[apache2_mod_php]",
   "role[mysql_server]",
@@ -19,8 +19,9 @@ run_list(
   "recipe[jenkins]",
   "recipe[jenkins::proxy_apache2]",
   "role[dev_tools]",
-  "recipe[inception]"
-)
+  "recipe[inception]",
+  "recipe[inception::compass]",
+])
 default_attributes({
   "drush" => {
     "version" => "5.9.0",

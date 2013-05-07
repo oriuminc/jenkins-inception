@@ -175,7 +175,7 @@ appropriate environment variables.
     knife solo bootstrap root@$INCEPTION_PROJECT --omnibus-version 10.16.6-1 --run-list 'role[jenkins]'
 
     # Subsequent runs can be carried out like so:
-    knife solo cook $INCEPTION_PROJECT --skip-chef-check
+    knife solo cook $INCEPTION_PROJECT --no-chef-check
 
 **Notes:** The [chef-solo-search][chef-solo-search] cookbook is simply a
 container for a library that allows for chef-server search functions
