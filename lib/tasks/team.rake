@@ -186,7 +186,12 @@ namespace :team do
 
   Example: myplanetdigital/newproject"
   task :fork_skeletor, :github_repo do |t, args|
+    Rake::Task["load_config"].invoke
     Rake::Task["team:github_auth"].invoke
+    repo_url = @config['repo']
+    github_org = /.*[:\/](.+)\/(.+)\.git/.match(repo_url)[1]
+    github_repo = /.*[:\/](.+)\/(.+)\.git/.match(repo_url)[2]
+    args.with_defaults(:github_repo => "#{github_org}/#{github_repo}")
 
     options = {}
     options[:private] = true
