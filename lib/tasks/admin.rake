@@ -46,7 +46,7 @@ namespace :admin do
     puts "Writing IP address of new server '#{args.project}' to config file."
     @config['ip_address'] = latest_server.ipv4_address
     File.open(@config_file, 'w') do |out|
-      YAML::dump(config, out)
+      YAML::dump(@config, out)
     end
   end
 
@@ -79,7 +79,7 @@ namespace :admin do
     client = DynectRest.new(customer, username, password, zone)
     client.a.fqdn(project_fqdn).address(project_ip).save
     client.publish
-    puts "Successfully created DNS A-record pointing #{project.fqdn} to #{project_ip}!"
+    puts "Successfully created DNS A-record pointing #{project_fqdn} to #{project_ip}!"
 
   end
 end

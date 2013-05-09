@@ -69,6 +69,8 @@ Quickstart
         bundle exec rake team:fork_skeletor
         bundle exec rake admin:create_server
         bundle exec rake admin:create_subdomain
+        brew install ssh-copy-id
+        ssh-copy-id root@$INCEPTION_IP
         bundle exec rake team:update_jenkins
         bundle exec rake team:add_deploy_key
         bundle exec rake team:service_hook
