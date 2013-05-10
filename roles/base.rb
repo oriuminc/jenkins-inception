@@ -8,6 +8,7 @@ name "base"
 description "The base role for servers."
 run_list(
   "recipe[apt]",
+  "recipe[chef-solo-search]",
   "recipe[sudo]",
   "recipe[git]",
   "recipe[zsh]",
