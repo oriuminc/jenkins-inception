@@ -16,7 +16,7 @@ run_list([
   "recipe[php::write_inis]",
   "recipe[drush::utils]",
   "recipe[drush::make]",
-  "recipe[jenkins]",
+  "recipe[jenkins::server]",
   "recipe[jenkins::proxy_apache2]",
   "role[dev_tools]",
   "recipe[inception]",

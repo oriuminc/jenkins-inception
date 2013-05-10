@@ -37,14 +37,6 @@ group "shadow" do
   action :modify
 end
 
-log "restarting jenkins" do
-  notifies :stop, "service[jenkins]", :immediately
-  notifies :create, "ruby_block[netstat]", :immediately
-  notifies :start, "service[jenkins]", :immediately
-  notifies :create, "ruby_block[block_until_operational]", :immediately
-  action :nothing
-end
-
 # Set global Jenkins configs
 %w{
   hudson.plugins.disk_usage.DiskUsageProjectActionFactory.xml
@@ -63,7 +55,8 @@ template "#{node['jenkins']['server']['home']}/config.xml" do
   owner node['jenkins']['server']['user']
   group node['jenkins']['server']['group']
   mode "0644"
-  notifies :write, "log[restarting jenkins]", :immediately
+  notifies :restart, "service[jenkins]", :immediately
+  notifies :create, "ruby_block[block_until_operational]", :immediately
 end
 
 directory node['jenkins']['node']['home'] do
