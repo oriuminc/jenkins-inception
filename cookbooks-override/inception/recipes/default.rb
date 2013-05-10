@@ -42,7 +42,7 @@ end
   hudson.plugins.disk_usage.DiskUsageProjectActionFactory.xml
   jobConfigHistory.xml
 }.each do |filename|
-  template "#{node['jenkins']['server']['home']}/#{filename}" do
+  template "#{node['jenkins']['server']['data_dir']}/#{filename}" do
     source "#{filename}.erb"
     owner node['jenkins']['server']['user']
     group node['jenkins']['server']['group']
@@ -50,7 +50,7 @@ end
   end
 end
 
-template "#{node['jenkins']['server']['home']}/config.xml" do
+template "#{node['jenkins']['server']['data_dir']}/config.xml" do
   source "jenkins-config.xml.erb"
   owner node['jenkins']['server']['user']
   group node['jenkins']['server']['group']
