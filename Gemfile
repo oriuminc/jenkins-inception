@@ -9,8 +9,7 @@ gem "hub"
 gem "jenkins"
 gem "json"
 gem 'knife-solo',
-  :git => 'https://github.com/tmatilai/knife-solo.git',
-  :ref => 'knife-bootstrap-solo'
+  :git => 'https://github.com/matschaffer/knife-solo.git'
 gem "knife-rackspace"
 gem "librarian"
 gem "octokit"

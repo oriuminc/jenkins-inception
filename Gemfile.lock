@@ -1,10 +1,10 @@
 GIT
-  remote: https://github.com/tmatilai/knife-solo.git
-  revision: f2f6e999f1f7cbaba16affa8dcc12929e36c9ab4
-  ref: knife-bootstrap-solo
+  remote: https://github.com/matschaffer/knife-solo.git
+  revision: 9be2dbe01be3606bf2eff6c49572e46a8496f192
   specs:
-    knife-solo (0.3.0.pre3)
+    knife-solo (0.3.0.pre4)
       chef (>= 10.12)
+      erubis (~> 2.7.0)
       net-ssh (>= 2.2.2, < 3.0)
 
 GEM
