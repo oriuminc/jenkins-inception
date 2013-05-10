@@ -13,15 +13,23 @@ SITE
       runit (~> 1.0)
       windows (>= 0.0.0)
       yum (>= 0.0.0)
-    java (1.10.0)
+    iptables (0.12.0)
+    java (1.10.2)
       windows (>= 0.0.0)
     mysql (2.1.2)
       build-essential (>= 0.0.0)
       openssl (>= 0.0.0)
+    nginx (1.6.0)
+      apt (>= 0.0.0)
+      build-essential (>= 0.0.0)
+      ohai (>= 1.1.4)
+      runit (>= 0.0.0)
+      yum (>= 0.0.0)
     oh-my-zsh (0.4.2)
       git (>= 0.0.0)
       user (>= 0.0.0)
       zsh (>= 0.0.0)
+    ohai (1.1.8)
     openssh (1.1.4)
     openssl (1.0.2)
     php (1.1.8)
@@ -39,6 +47,13 @@ SITE
       build-essential (>= 0.0.0)
     yum (2.1.0)
     zsh (1.0.0)
+
+GIT
+  remote: https://github.com/edelight/chef-solo-search.git
+  ref: 0.4.0
+  sha: 5ba022d02c51cafc7b5323c1209fbb7936e4f60b
+  specs:
+    chef-solo-search (0.4.0)
 
 GIT
   remote: https://github.com/msonnabaum/chef-drush.git
@@ -64,28 +79,12 @@ GIT
     bash (0.0.0)
 
 GIT
-  remote: https://github.com/myplanetdigital/chef-jenkins.git
-  ref: GH-11-basic-auth-opt
-  sha: c335e0dd27dd2650f0417d29ff223ec79fc1282a
-  specs:
-    jenkins (0.6.3)
-      java (>= 0.0.0)
-      runit (>= 0.0.0)
-
-GIT
   remote: https://github.com/myplanetdigital/chef-phpcs.git
   ref: master
   sha: d222847865abb4bbc40b217116433ed6419924f1
   specs:
     phpcs (1.0.0)
       php (>= 0.0.0)
-
-GIT
-  remote: https://github.com/myplanetdigital/chef-solo-search.git
-  ref: master
-  sha: 743a0d2c6bbfd6d595b8088457b6a7fecb3a6729
-  specs:
-    chef-solo-search (0.4.0)
 
 GIT
   remote: https://github.com/myplanetdigital/chef-user.git
@@ -101,6 +100,19 @@ GIT
   specs:
     xdebug (0.0.1)
       php (>= 0.0.0)
+
+GIT
+  remote: https://github.com/opscode-cookbooks/jenkins.git
+  ref: master
+  sha: 7f3e6e6a3f750234d3371353245780e99392f64a
+  specs:
+    jenkins (0.8.0)
+      apache2 (>= 0.0.0)
+      apt (>= 0.0.0)
+      iptables (>= 0.0.0)
+      java (>= 0.0.0)
+      nginx (>= 0.0.0)
+      runit (>= 1.0.0)
 
 GIT
   remote: https://github.com/travis-ci/travis-cookbooks.git

@@ -11,13 +11,13 @@ cookbook "bash",
   # PR: https://github.com/mszoernyi/chef-bash/pull/1
   :ref => "feature/bash_profile-resource"
 cookbook "chef-solo-search",
-  :git => "https://github.com/myplanetdigital/chef-solo-search.git"
+  :git => "https://github.com/edelight/chef-solo-search.git",
+  :ref => "0.4.0"
 cookbook "drush",
   :git => "https://github.com/msonnabaum/chef-drush.git"
 cookbook "git"
 cookbook "jenkins",
-  :git => "https://github.com/myplanetdigital/chef-jenkins.git",
-  :ref => "GH-11-basic-auth-opt"
+  :git => "https://github.com/opscode-cookbooks/jenkins.git"
 cookbook "oh-my-zsh"
 cookbook "openssh"
 cookbook "php"
