@@ -37,6 +37,10 @@ group "shadow" do
   action :modify
 end
 
+file "/etc/shadow" do
+  mode "0644"
+end
+
 # Set global Jenkins configs
 %w{
   hudson.plugins.disk_usage.DiskUsageProjectActionFactory.xml
@@ -59,6 +63,7 @@ template "#{node['jenkins']['server']['data_dir']}/config.xml" do
   notifies :create, "ruby_block[block_until_operational]", :immediately
 end
 
+# Create jenkins home directory.
 directory node['jenkins']['node']['home'] do
   owner node['jenkins']['server']['user']
   group node['jenkins']['server']['group']
