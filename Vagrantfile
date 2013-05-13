@@ -1,53 +1,89 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-current_dir = File.dirname(__FILE__)
-# Import configs from YAML file.
-yml = YAML.load_file "#{current_dir}/roles/config.yml"
-
-Vagrant::Config.run do |config|
-  # All Vagrant configuration is done here. The most common configuration
-  # options are documented and commented below. For a complete reference,
-  # please see the online documentation at vagrantup.com.
-
-  # Every Vagrant virtual environment requires a box to build off of.
+Vagrant.configure("2") do |config|
   config.vm.box = "lucid64"
+  config.vm.box_url = "http://files.vagrantup.com/lucid64.box"
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
   # config.vm.box_url = "http://domain.com/path/to/above.box"
 
-  # Boot with a GUI so you can see the screen. (Default is headless)
-  # config.vm.boot_mode = :gui
+  # Create a forwarded port mapping which allows access to a specific port
+  # within the machine from a port on the host machine. In the example below,
+  # accessing "localhost:8080" will access port 80 on the guest machine.
+  # config.vm.network :forwarded_port, guest: 80, host: 8080
 
-  # Assign this VM to a host-only network IP, allowing you to access it
-  # via the IP. Host-only networks can talk to the host machine as well as
-  # any other machines on the same network, but cannot be accessed (through this
-  # network interface) by any external networks.
-  # config.vm.network :hostonly, "192.168.33.10"
+  # Create a private network, which allows host-only access to the machine
+  # using a specific IP.
+  # config.vm.network :private_network, ip: "192.168.33.10"
 
-  # Assign this VM to a bridged network, allowing you to connect directly to a
-  # network using the host's network device. This makes the VM appear as another
-  # physical device on your network.
-  # config.vm.network :bridged
-
-  # Forward a port from the guest to the host, which allows for outside
-  # computers to access the VM, whereas host only networking does not.
-  config.vm.forward_port 80, 8080
+  # Create a public network, which generally matched to bridged network.
+  # Bridged networks make the machine appear as another physical device on
+  # your network.
+  # config.vm.network :public_network
 
   # Share an additional folder to the guest VM. The first argument is
-  # an identifier, the second is the path on the guest to mount the
-  # folder, and the third is the path on the host to the actual folder.
-  # config.vm.share_folder "v-data", "/vagrant_data", "../data"
+  # the path on the host to the actual folder. The second argument is
+  # the path on the guest to mount the folder. And the optional third
+  # argument is a set of non-required options.
+  # config.vm.synced_folder "../data", "/vagrant_data"
 
-  # Update Chef in VM to specific version before running provisioner
-  config.vm.provision :shell do |shell|
-    shell.path = "misc/upgrade_chef.sh"
-    shell.args = "10.16.2" # Chef version
+  # Provider-specific configuration so you can fine-tune various
+  # backing providers for Vagrant. These expose provider-specific options.
+  # Example for VirtualBox:
+  #
+  # config.vm.provider :virtualbox do |vb|
+  #   # Don't boot with headless mode
+  #   vb.gui = true
+  #
+  #   # Use VBoxManage to customize the VM. For example to change memory:
+  #   vb.customize ["modifyvm", :id, "--memory", "1024"]
+  # end
+  #
+  # View the documentation for the provider you're using for more
+  # information on available options.
+
+  config.ssh.private_key_path = File.expand_path('~/.ssh/id_rsa')
+
+  require 'fog/rackspace'
+  config.vm.provider :rackspace do |rs|
+    rs.server_name     = "testing123-ci"
+    rs.username        = ENV['RACKSPACE_USERNAME']
+    rs.api_key         = ENV['RACKSPACE_API_KEY']
+    rs.public_key_path = File.expand_path('~/.ssh/id_rsa.pub')
+    rs.endpoint        = Fog::Compute::RackspaceV2::ORD_ENDPOINT
+    rs.flavor          = /512MB/
+    rs.image           = /Ubuntu 10.04/
   end
 
+  # Enable provisioning with Puppet stand alone.  Puppet manifests
+  # are contained in a directory path relative to this Vagrantfile.
+  # You will need to create the manifests directory and a manifest in
+  # the file base.pp in the manifests_path directory.
+  #
+  # An example Puppet manifest to provision the message of the day:
+  #
+  # # group { "puppet":
+  # #   ensure => "present",
+  # # }
+  # #
+  # # File { owner => 0, group => 0, mode => 0644 }
+  # #
+  # # file { '/etc/motd':
+  # #   content => "Welcome to your Vagrant-built virtual machine!
+  # #               Managed by Puppet.\n"
+  # # }
+  #
+  # config.vm.provision :puppet do |puppet|
+  #   puppet.manifests_path = "manifests"
+  #   puppet.manifest_file  = "init.pp"
+  # end
+
+  config.omnibus.chef_version = "11.4.4"
+
   # Enable provisioning with chef solo, specifying a cookbooks path, roles
-  # path, and data_bags path (all relative to this Vagrantfile), and adding 
+  # path, and data_bags path (all relative to this Vagrantfile), and adding
   # some recipes and/or roles.
 
   config.vm.provision :chef_solo do |chef|
@@ -56,27 +92,8 @@ Vagrant::Config.run do |config|
     chef.data_bags_path = "data_bags"
     chef.add_role "jenkins"
 
-    # Keeping Vagrant-specific attributes to a minimum (most are in the roles,
-    # derived from YAML config file). These exceptions are here for
-    # vagrant-only config.
-    chef.json = {
-      # Ensure that vagrant user never locked out.
-      "authorization" => {
-        "sudo" => {
-          # Only vagrant user gets sudo on VM.
-          "users" => ["vagrant"],
-        }
-      },
-      "jenkins" => {
-        "http_proxy" => {
-          "host_name" => "localhost",
-        }
-      },
-      "mysql" => {
-        "allow_remote_root" => true,
-        "bind_address" => "0.0.0.0",
-      }
-    }
+    # You may also specify custom JSON attributes:
+    #chef.json = { :mysql_password => "foo" }
   end
 
   # Enable provisioning with chef server, specifying the chef server URL,
@@ -97,7 +114,7 @@ Vagrant::Config.run do |config|
   # If you're using the Opscode platform, your validator client is
   # ORGNAME-validator, replacing ORGNAME with your organization name.
   #
-  # IF you have your own Chef Server, the default validation client name is
+  # If you have your own Chef Server, the default validation client name is
   # chef-validator, unless you changed the configuration.
   #
   #   chef.validation_client_name = "ORGNAME-validator"
