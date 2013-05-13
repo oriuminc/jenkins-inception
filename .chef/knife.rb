@@ -12,6 +12,8 @@ knife[:flavor] = 2 # 512MB
 knife[:image] = 'd531a2dd-7ae9-4407-bb5a-e5ea03303d98' # Ubuntu 10.04 LTS
 
 # knife-solo
-knife[:solo] = true
-knife[:solo_path] = '~/chef-solo'
-knife[:omnibus_version] = '10.16.6'
+knife[:bootstrap_version] = '11.4.4'
+
+data_bag_path "data_bags"
+cookbook_path [ "cookbooks", "cookbooks-override" ]
+role_path "roles"

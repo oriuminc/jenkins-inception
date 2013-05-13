@@ -2,12 +2,14 @@ current_dir = File.dirname(__FILE__)
 # Import configs from YAML file.
 yml = YAML.load_file "#{current_dir}/config.yml"
 
-::Chef::Role.send(:include, Chef::Mixin::Language)
+# Allow databag search in role file.
+::Chef::Role.send(:include, Chef::DSL::DataQuery)
 
 name "base"
 description "The base role for servers."
 run_list(
   "recipe[apt]",
+  "recipe[chef-solo-search]",
   "recipe[sudo]",
   "recipe[git]",
   "recipe[zsh]",
