@@ -17,4 +17,17 @@ out, run this task."
       vm.channel.sudo("/etc/init.d/networking restart")
     end
   end
+
+  task :install_plugins do
+    # TODO: Terrible using system here, need to look @ thor more to
+    # see what we can do to make this sane, or possibly use mxin::command?
+    plugins = `vagrant plugin list`.split("\n").map { |i| i.split(" ")[0] }
+    %w{
+      vagrant-librarian-chef
+      vagrant-rackspace
+      vagrant-omnibus
+    }.each do |plugin|
+      system "vagrant plugin install #{plugin}" unless plugins.include? plugin
+    end
+  end
 end
