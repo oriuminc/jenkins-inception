@@ -12,7 +12,7 @@ knife[:flavor] = 2 # 512MB
 knife[:image] = 'd531a2dd-7ae9-4407-bb5a-e5ea03303d98' # Ubuntu 10.04 LTS
 
 # knife-solo
-knife[:omnibus_version] = '10.26.0'
+knife[:bootstrap_version] = '11.4.4'
 
 data_bag_path "data_bags"
 cookbook_path [ "cookbooks", "cookbooks-override" ]
