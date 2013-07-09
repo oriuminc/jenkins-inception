@@ -1,7 +1,29 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <hudson>
   <useSecurity>true</useSecurity>
-  <% if node['inception']['github']['client_id'].nil? || node['inception']['github']['secret'].nil? -%>
+  <% if node['inception'].attribute?('github') && !node['inception']['github']['client_id'].empty? && !node['inception']['github']['secret'].empty? -%>
+  <authorizationStrategy class="org.jenkinsci.plugins.GithubAuthorizationStrategy">
+    <rootACL>
+      <organizationNameList class="linked-list">
+        <string><%= node['inception']['github']['organization'] %></string>
+      </organizationNameList>
+      <adminUserNameList class="linked-list">
+        <% data_bag("users").each do |user| -%>
+        <string><%= user %></string>
+        <% end -%>
+      </adminUserNameList>
+      <authenticatedUserReadPermission>false</authenticatedUserReadPermission>
+      <allowGithubWebHookPermission>true</allowGithubWebHookPermission>
+      <allowCcTrayPermission>false</allowCcTrayPermission>
+      <allowAnonymousReadPermission>false</allowAnonymousReadPermission>
+    </rootACL>
+  </authorizationStrategy>
+  <securityRealm class="org.jenkinsci.plugins.GithubSecurityRealm">
+    <githubUri>https://github.com</githubUri>
+    <clientID><%= node['inception']['github']['client_id'] %></clientID>
+    <clientSecret><%= node['inception']['github']['secret'] %></clientSecret>
+  </securityRealm>
+  <% else -%>
   <authorizationStrategy class="hudson.security.GlobalMatrixAuthorizationStrategy">
     <permission>hudson.model.Computer.Configure:authenticated</permission>
     <permission>hudson.model.Computer.Connect:authenticated</permission>
@@ -31,28 +53,6 @@
   </authorizationStrategy>
   <securityRealm class="hudson.security.PAMSecurityRealm">
     <serviceName>sshd</serviceName>
-  </securityRealm>
-  <% else -%>
-  <authorizationStrategy class="org.jenkinsci.plugins.GithubAuthorizationStrategy">
-    <rootACL>
-      <organizationNameList class="linked-list">
-        <string><%= node['inception']['github']['organization'] %></string>
-      </organizationNameList>
-      <adminUserNameList class="linked-list">
-        <% data_bag("users").each do |user| -%>
-        <string><%= user %></string>
-        <% end -%>
-      </adminUserNameList>
-      <authenticatedUserReadPermission>false</authenticatedUserReadPermission>
-      <allowGithubWebHookPermission>true</allowGithubWebHookPermission>
-      <allowCcTrayPermission>false</allowCcTrayPermission>
-      <allowAnonymousReadPermission>false</allowAnonymousReadPermission>
-    </rootACL>
-  </authorizationStrategy>
-  <securityRealm class="org.jenkinsci.plugins.GithubSecurityRealm">
-    <githubUri>https://github.com</githubUri>
-    <clientID><%= node['inception']['github']['client_id'] %></clientID>
-    <clientSecret><%= node['inception']['github']['secret'] %></clientSecret>
   </securityRealm>
   <% end -%>
   <markupFormatter class="org.jenkins_ci.plugins.pegdown_formatter.PegDownFormatter">
