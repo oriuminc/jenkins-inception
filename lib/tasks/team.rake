@@ -267,11 +267,12 @@ namespace :team do
 
   First syncs cookbooks and project config files with remote server, then
   initializes chef run to converge jenkins server on desired state."
-  task :update_jenkins do
+  task :update_jenkins, :ssh_user do |t, args|
     Rake::Task["load_config"].invoke
     Rake::Task["team:github_auth"].invoke
     Rake::Task["team:rsync_project_configs"].invoke
+    args.with_defaults(:ssh_user => @github_user)
     system "rm nodes/#{@config['domain']}.json"
-    system "bundle exec knife solo cook #{@github_user}@#{@config['domain']} --no-chef-check --run-list='role[jenkins]'"
+    system "bundle exec knife solo bootstrap #{args.ssh_user}@#{@config['domain']} --run-list='role[jenkins]'"
   end
 end
