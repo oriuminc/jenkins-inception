@@ -70,8 +70,10 @@ Quickstart
         bundle exec rake admin:create_server
         bundle exec rake admin:create_subdomain
         brew install ssh-copy-id
-        ssh-copy-id root@$INCEPTION_IP
+        ssh-copy-id root@ci.myproject.example.com
         bundle exec rake team:update_jenkins[root]
+        # Temporary fixed until GH-27 solved.
+        ssh <github_username>@ci.myproject.example.com "sudo -iujenkins ssh-keygen -t rsa -C jenkins@localhost"
         bundle exec rake team:add_deploy_key
         bundle exec rake team:service_hook
 
