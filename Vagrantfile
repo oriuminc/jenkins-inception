@@ -58,8 +58,6 @@ Vagrant.configure("2") do |config|
     end
   end
 
-  # Compile-time pkg install (gcc & make for ruby-shadow) needs apt-get update first.
-  config.vm.provision :shell, :inline => "sudo apt-get update"
 
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = [ "cookbooks", "cookbooks-override" ]
