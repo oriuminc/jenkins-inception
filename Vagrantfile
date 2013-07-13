@@ -15,14 +15,13 @@ end
 # Move librarian scratch space out of project root so it doesn't rsync.
 ENV['LIBRARIAN_CHEF_TMP'] = File.expand_path("~/.librarian")
 
+
 Vagrant.configure("2") do |config|
   config.vm.define "inception"
 
   config.vm.box = "dummy"
-  config.vm.box_url = "https://github.com/mitchellh/vagrant-rackspace/raw/master/dummy.box"
 
   config.omnibus.chef_version = "11.4.4"
-  #config.ssh.username = "patcon"
   config.ssh.private_key_path = Dir.glob(File.expand_path "~/.ssh/id_*").first
 
   # Create a forwarded port mapping which allows access to a specific port
@@ -45,6 +44,7 @@ Vagrant.configure("2") do |config|
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
 
+
   config.vm.provider :rackspace do |rs, override|
     rs.username = ENV['RACKSPACE_USERNAME']
     rs.api_key  = ENV['RACKSPACE_API_KEY']
@@ -52,6 +52,8 @@ Vagrant.configure("2") do |config|
 
     rs.flavor   = /512MB/
     rs.image    = /Lucid/
+
+    override.vm.box_url = "https://github.com/mitchellh/vagrant-rackspace/raw/master/dummy.box"
   end
 
   config.vm.provider :managed do |man|
@@ -63,5 +65,13 @@ Vagrant.configure("2") do |config|
     chef.data_bags_path = "data_bags"
 
     chef.add_role "jenkins"
+
+    chef.json = {
+      :openssh => {
+        :server => {
+          :permit_root_login => "yes"
+        }
+      }
+    }
   end
 end
