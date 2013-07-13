@@ -5,13 +5,14 @@ Vagrant.require_plugin "vagrant-rackspace"
 Vagrant.require_plugin "vagrant-librarian-chef"
 Vagrant.require_plugin "vagrant-omnibus"
 
-case ENV['PROVISO_PROVIDER']
-when /virtualbox/i, /vbox/i,
-  ENV['VAGRANT_DEFAULT_PROVIDER'] = "virtualbox"
-when /rackspace/i, nil
+# Use rackspace unless credential config missing.
+unless ENV['RACKSPACE_USERNAME'].nil? || ENV['RACKSPACE_API_KEY'].nil?
   ENV['VAGRANT_DEFAULT_PROVIDER'] = "rackspace"
+else
+  ENV['VAGRANT_DEFAULT_PROVIDER'] = "managed"
 end
 
+# Move librarian scratch space out of project root so it doesn't rsync.
 ENV['LIBRARIAN_CHEF_TMP'] = File.expand_path("~/.librarian")
 
 Vagrant.configure("2") do |config|
@@ -44,20 +45,17 @@ Vagrant.configure("2") do |config|
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
 
-  unless ENV['RACKSPACE_USERNAME'].nil? || ENV['RACKSPACE_API_KEY'].nil?
-    config.vm.provider :rackspace do |rs, override|
-      rs.username = ENV['RACKSPACE_USERNAME']
-      rs.api_key  = ENV['RACKSPACE_API_KEY']
-      rs.public_key_path = Dir.glob(File.expand_path "~/.ssh/id_*.pub").first
+  config.vm.provider :rackspace do |rs, override|
+    rs.username = ENV['RACKSPACE_USERNAME']
+    rs.api_key  = ENV['RACKSPACE_API_KEY']
+    rs.public_key_path = Dir.glob(File.expand_path "~/.ssh/id_*.pub").first
 
-      rs.flavor   = /512MB/
-      rs.image    = /Lucid/
-    end
-  else
-    config.vm.provider :managed do |man|
-    end
+    rs.flavor   = /512MB/
+    rs.image    = /Lucid/
   end
 
+  config.vm.provider :managed do |man|
+  end
 
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = [ "cookbooks", "cookbooks-override" ]
