@@ -67,7 +67,6 @@ Quickstart
         bundle exec rake team:configure
         bundle exec rake team:generate_users
         bundle exec rake team:fork_skeletor
-        bundle exec rake admin:create_server
         bundle exec rake admin:create_subdomain
         bundle exec vagrant up
         # Temporary fixed until GH-27 solved.
