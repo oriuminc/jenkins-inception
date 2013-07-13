@@ -2,21 +2,22 @@ source "http://rubygems.org"
 
 gem "chef"
 gem "dynect_rest"
-gem "fog"
 gem "hashery"
 gem "highline"
 gem "hub"
-gem "jenkins"
-gem "json"
-gem 'knife-solo',
-  :git => 'https://github.com/matschaffer/knife-solo.git'
-gem "knife-rackspace"
-gem "librarian"
 gem "octokit"
 gem "open4"
 gem "pwqgen.rb"
 gem "rake"
-gem "rubygems-bundler"
 gem "system_timer", :platform => :ruby_18
-gem "vagrant", ">= 1.0.0"
-gem "watir-webdriver"
+gem "vagrant",
+  :git => "https://github.com/mitchellh/vagrant",
+  :ref => "v1.2.3"
+gem "vagrant-librarian-chef"
+gem "vagrant-omnibus"
+gem "vagrant-rackspace",
+  # Pending PR: https://github.com/mitchellh/vagrant-rackspace/pull/15
+  # Pending PR: https://github.com/mitchellh/vagrant-rackspace/pull/16
+  # Pending PR: https://github.com/mitchellh/vagrant-rackspace/pull/24
+  :git => "https://github.com/myplanetdigital/vagrant-rackspace",
+  :ref => "develop"
