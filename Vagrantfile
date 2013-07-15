@@ -4,6 +4,7 @@
 Vagrant.require_plugin "vagrant-rackspace"
 Vagrant.require_plugin "vagrant-librarian-chef"
 Vagrant.require_plugin "vagrant-omnibus"
+Vagrant.require_plugin "vagrant-managed-servers"
 
 # Use rackspace unless credential config missing.
 if ENV['VAGRANT_DEFAULT_PROVIDER'].nil?

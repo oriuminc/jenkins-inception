@@ -126,6 +126,7 @@ GEM
     thor (0.18.1)
     vagrant-librarian-chef (0.1.2)
       librarian-chef
+    vagrant-managed-servers (0.1.0)
     vagrant-omnibus (1.1.0)
     yajl-ruby (1.1.0)
 
@@ -145,5 +146,6 @@ DEPENDENCIES
   system_timer
   vagrant!
   vagrant-librarian-chef
+  vagrant-managed-servers
   vagrant-omnibus
   vagrant-rackspace!

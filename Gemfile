@@ -14,6 +14,7 @@ gem "vagrant",
   :git => "https://github.com/mitchellh/vagrant",
   :ref => "v1.2.3"
 gem "vagrant-librarian-chef"
+gem "vagrant-managed-servers"
 gem "vagrant-omnibus"
 gem "vagrant-rackspace",
   # Pending PR: https://github.com/mitchellh/vagrant-rackspace/pull/15
