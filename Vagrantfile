@@ -6,10 +6,12 @@ Vagrant.require_plugin "vagrant-librarian-chef"
 Vagrant.require_plugin "vagrant-omnibus"
 
 # Use rackspace unless credential config missing.
-unless ENV['RACKSPACE_USERNAME'].nil? || ENV['RACKSPACE_API_KEY'].nil?
-  ENV['VAGRANT_DEFAULT_PROVIDER'] = "rackspace"
-else
-  ENV['VAGRANT_DEFAULT_PROVIDER'] = "managed"
+if ENV['VAGRANT_DEFAULT_PROVIDER'].nil?
+  unless ENV['RACKSPACE_USERNAME'].nil? || ENV['RACKSPACE_API_KEY'].nil?
+    ENV['VAGRANT_DEFAULT_PROVIDER'] = "rackspace"
+  else
+    ENV['VAGRANT_DEFAULT_PROVIDER'] = "managed"
+  end
 end
 
 # Move librarian scratch space out of project root so it doesn't rsync.
@@ -19,15 +21,11 @@ ENV['LIBRARIAN_CHEF_TMP'] = File.expand_path("~/.librarian")
 Vagrant.configure("2") do |config|
   config.vm.define "inception"
 
-  config.vm.box = "dummy"
+  config.vm.box = "lucid64"
 
   config.omnibus.chef_version = "11.4.4"
-  config.ssh.private_key_path = Dir.glob(File.expand_path "~/.ssh/id_*").first
 
-  # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine. In the example below,
-  # accessing "localhost:8080" will access port 80 on the guest machine.
-  # config.vm.network :forwarded_port, guest: 80, host: 8080
+  config.vm.network :forwarded_port, guest: 8080, host: 8080
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -44,6 +42,10 @@ Vagrant.configure("2") do |config|
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
 
+  config.vm.provider :virtualbox do |vb, override|
+    vb.customize ["modifyvm", :id, "--memory", "3000"]
+    override.vm.hostname = "proviso.local"
+  end
 
   config.vm.provider :rackspace do |rs, override|
     rs.username = ENV['RACKSPACE_USERNAME']
@@ -53,10 +55,14 @@ Vagrant.configure("2") do |config|
     rs.flavor   = /512MB/
     rs.image    = /Lucid/
 
+    override.ssh.private_key_path = Dir.glob(File.expand_path "~/.ssh/id_*").first
     override.vm.box_url = "https://github.com/mitchellh/vagrant-rackspace/raw/master/dummy.box"
   end
 
-  config.vm.provider :managed do |man|
+  config.vm.provider :managed do |mngd, override|
+    mngd.server = YAML.load_file(File.expand_path "roles/config.yml")['ip_address']
+    override.ssh.username = `git config --get github.user`.chomp
+    override.vm.box_url = "https://github.com/tknerr/vagrant-managed-servers/raw/master/dummy.box"
   end
 
   config.vm.provision :chef_solo do |chef|
@@ -67,11 +73,16 @@ Vagrant.configure("2") do |config|
     chef.add_role "jenkins"
 
     chef.json = {
+      :authorization => {
+        :sudo => {
+          :users => ["vagrant"],
+        },
+      },
       :openssh => {
         :server => {
           :permit_root_login => "yes"
-        }
-      }
+        },
+      },
     }
   end
 end
