@@ -67,10 +67,10 @@ Quickstart
         bundle exec rake team:configure
         bundle exec rake team:generate_users
         bundle exec rake team:fork_skeletor
-        bundle exec rake admin:create_subdomain
         bundle exec vagrant up
+        bundle exec rake admin:create_subdomain
         # Temporary fixed until GH-27 solved.
-        ssh <github_username>@ci.myproject.example.com "sudo -iujenkins ssh-keygen -t rsa -C jenkins@localhost"
+        bundle exec vagrant ssh -c "sudo -iujenkins ssh-keygen -t rsa -C jenkins@localhost"
         bundle exec rake team:add_deploy_key
         bundle exec rake team:service_hook
 
