@@ -45,7 +45,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provider :virtualbox do |vb, override|
     vb.customize ["modifyvm", :id, "--memory", "3000"]
-    override.vm.hostname = "proviso.local"
+    override.vm.hostname = "inception.local"
   end
 
   config.vm.provider :rackspace do |rs, override|
