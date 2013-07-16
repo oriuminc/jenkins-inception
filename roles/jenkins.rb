@@ -18,6 +18,7 @@ run_list([
   "recipe[drush::make]",
   "recipe[jenkins::server]",
   "recipe[jenkins::proxy_apache2]",
+  "recipe[jenkins-job-builder]",
   "role[dev_tools]",
   "recipe[inception]",
   "recipe[inception::compass]",
@@ -52,6 +53,8 @@ default_attributes({
         "instant-messaging",
         "ircbot",
         "jobConfigHistory",
+        "jquery",
+        "parameterized-trigger",
         "pegdown-formatter",
         "project-description-setter",
         "token-macro",
@@ -59,7 +62,16 @@ default_attributes({
       ]
     }
   },
+  "jenkins_job_builder" => {
+    "username" => "patcon",
+    "password" => yml['password'],
+    "url" => "http://#{node['fqdn']}:8080",
+    "version" => "0.5.0",
+  },
   "postfix" => {
     "mydomain" => "$myhostname",
+  },
+  "python" => {
+    "install_method" => "source"
   },
 })

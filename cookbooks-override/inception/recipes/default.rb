@@ -85,12 +85,13 @@ github_url = "http://github.com/#{repo.sub(/^.*[:\/](.*\/.*).git$/, '\\1')}"
 build_jobs = node['inception']['build_jobs']
 manual_trigger_jobs = node['inception']['manual_trigger_jobs']
 
+
 # Prepare each job
 [*build_jobs, nil].each_cons(2) do |job_name, next_job|
-  job_config = File.join(node['jenkins']['node']['home'], "#{job_name}-config.xml")
+  job_config = File.join(node['jenkins']['node']['home'], "#{job_name}-config.yml")
 
   template job_config do
-    source "job-config.xml.erb"
+    source "job-config.yml.erb"
     variables({
       :repo => repo,
       :github_url => github_url,
@@ -103,10 +104,8 @@ manual_trigger_jobs = node['inception']['manual_trigger_jobs']
     })
   end
 
-  jenkins_job job_name do
-    url auth_url
-    config job_config
-    action :update
+  build_jenkins_job job_name do
+    job_config job_config
   end
 
 end

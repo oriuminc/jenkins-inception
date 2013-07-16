@@ -1,0 +1,40 @@
+- job:
+    name: <%= @job_name %>
+    description: |
+      This job description will be auto-generated from project repo on first run.
+    scm:
+      - git:
+          url: <%= @repo %>
+          branches:
+            - <%= @branch %>
+          basedir: profile
+          skip-tag: true
+    properties:
+      - github:
+          url: <%= @github_url %>
+    <% if @triggered_by_github -%>
+    triggers:
+      - github
+    <% end -%>
+    builders:
+      - shell: bash profile/tmp/scripts/jenkins-<%= @job_name %>.sh
+    wrappers:
+      - ansicolor
+      - workspace-cleanup
+    <% unless @next_job.nil? -%>
+    publishers:
+      <% if @job_name == "commit" -%>
+      - checkstyle:
+          pattern: logs/checkstyle.xml
+          thresholds:
+            unstable:
+              totalAll: '0'
+      <%- end %>
+      <% if @manually_trigger_next_step -%>
+      - pipeline: <%= @next_job %>
+      <% else -%>
+      - trigger:
+          project: <%= @next_job %>
+          threshold: UNSTABLE
+      <% end -%>
+    <% end -%>
