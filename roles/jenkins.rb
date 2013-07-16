@@ -71,7 +71,4 @@ default_attributes({
   "postfix" => {
     "mydomain" => "$myhostname",
   },
-  "python" => {
-    "install_method" => "source"
-  },
 })

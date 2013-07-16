@@ -19,6 +19,9 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 
+include_recipe "jenkins::server"
+include_recipe "jenkins-job-builder"
+
 # TAKEN FROM build-essential COOKBOOK::
 # on apt-based platforms when first provisioning we need to force
 # apt-get update at compiletime if we are going to try to install at compiletime
@@ -97,7 +100,6 @@ github_url = "http://github.com/#{repo.sub(/^.*[:\/](.*\/.*).git$/, '\\1')}"
 
 build_jobs = node['inception']['build_jobs']
 manual_trigger_jobs = node['inception']['manual_trigger_jobs']
-
 
 # Prepare each job
 [*build_jobs, nil].each_cons(2) do |job_name, next_job|
