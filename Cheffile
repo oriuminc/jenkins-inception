@@ -19,6 +19,8 @@ cookbook "fail2ban"
 cookbook "git"
 cookbook "jenkins",
   :git => "https://github.com/opscode-cookbooks/jenkins.git"
+cookbook "jenkins-job-builder",
+  :git => "https://github.com/needle-cookbooks/chef-jenkins-job-builder.git"
 cookbook "oh-my-zsh"
 cookbook "openssh"
 cookbook "php"
