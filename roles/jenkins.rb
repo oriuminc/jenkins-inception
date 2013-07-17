@@ -65,7 +65,7 @@ default_attributes({
   "jenkins_job_builder" => {
     "username" => "patcon",
     "password" => yml['password'],
-    "url" => "http://#{yml['domain'].gsub('.com', '.local')}:8080",
+    "url" => "http://#{yml['domain']}:8080",
     "version" => "0.5.0",
   },
   "postfix" => {

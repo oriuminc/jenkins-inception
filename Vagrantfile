@@ -27,6 +27,8 @@ ENV['LIBRARIAN_CHEF_TMP'] = File.expand_path("~/.librarian")
 Vagrant.configure("2") do |config|
   config.vm.define "inception"
 
+  config.vm.hostname = yml['domain']
+
   config.vm.box = "lucid64"
 
   config.omnibus.chef_version = "11.4.4"
@@ -50,7 +52,6 @@ Vagrant.configure("2") do |config|
 
   config.vm.provider :virtualbox do |vb, override|
     vb.customize ["modifyvm", :id, "--memory", "3000"]
-    override.vm.hostname = yml['domain'].gsub('.com', '.local')
     override.cache.auto_detect = true
   end
 
