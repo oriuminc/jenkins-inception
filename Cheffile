@@ -20,7 +20,10 @@ cookbook "git"
 cookbook "jenkins",
   :git => "https://github.com/opscode-cookbooks/jenkins.git"
 cookbook "jenkins-job-builder",
-  :git => "https://github.com/needle-cookbooks/chef-jenkins-job-builder.git"
+  # Pending PR: https://github.com/needle-cookbooks/chef-jenkins-job-builder/pull/1
+  # Pending PR: https://github.com/needle-cookbooks/chef-jenkins-job-builder/pull/2
+  :git => "https://github.com/myplanetdigital/chef-jenkins-job-builder.git",
+  :ref => "2-deprecated-shellout"
 cookbook "oh-my-zsh"
 cookbook "openssh"
 cookbook "php"
@@ -29,6 +32,10 @@ cookbook "phpcs",
 cookbook "phpunit",
   :git => "https://github.com/msonnabaum/chef-phpunit.git"
 cookbook "postfix"
+cookbook "python",
+  # Pending PR: https://github.com/opscode-cookbooks/python/pull/49
+  :git => "https://github.com/myplanetdigital/python.git",
+  :ref => "COOK-3335-unset-version-unless-source"
 cookbook "sudo"
 cookbook "user",
   :git => "https://github.com/myplanetdigital/chef-user.git",

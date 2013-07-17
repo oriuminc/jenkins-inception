@@ -1,40 +1,46 @@
 GIT
-  remote: https://github.com/matschaffer/knife-solo.git
-  revision: 9be2dbe01be3606bf2eff6c49572e46a8496f192
+  remote: https://github.com/mitchellh/vagrant
+  revision: 95d308caaecd139b8f62e41e7add0ec3f8ae3bd1
+  ref: v1.2.3
   specs:
-    knife-solo (0.3.0.pre4)
-      chef (>= 10.12)
+    vagrant (1.2.3)
+      childprocess (~> 0.3.7)
       erubis (~> 2.7.0)
-      net-ssh (>= 2.2.2, < 3.0)
+      i18n (~> 0.6.0)
+      log4r (~> 1.1.9)
+      net-scp (~> 1.1.0)
+      net-ssh (~> 2.6.6)
+
+GIT
+  remote: https://github.com/myplanetdigital/vagrant-rackspace
+  revision: c8f2e0cb22e3fcf7de99712ee2332227a64c8f9c
+  ref: develop
+  specs:
+    vagrant-rackspace (0.1.1)
+      fog (~> 1.10.0)
 
 GEM
   remote: http://rubygems.org/
   specs:
-    addressable (2.3.2)
+    addressable (2.3.5)
     archive-tar-minitar (0.5.2)
-    builder (2.1.2)
-    bunny (0.7.9)
-    chef (10.16.6)
-      bunny (>= 0.6.0, < 0.8.0)
+    builder (3.2.2)
+    chef (11.4.4)
       erubis
       highline (>= 1.6.9)
-      json (>= 1.4.4, <= 1.6.1)
+      json (>= 1.4.4, <= 1.7.7)
       mixlib-authentication (>= 1.3.0)
-      mixlib-cli (>= 1.1.0)
+      mixlib-cli (~> 1.3.0)
       mixlib-config (>= 1.1.2)
       mixlib-log (>= 1.3.0)
       mixlib-shellout
-      moneta (< 0.7.0)
-      net-ssh (~> 2.2.2)
+      net-ssh (~> 2.6)
       net-ssh-multi (~> 1.1.0)
       ohai (>= 0.6.0)
       rest-client (>= 1.0.4, < 1.7.0)
-      treetop (~> 1.4.9)
-      uuidtools
       yajl-ruby (~> 1.1)
-    childprocess (0.3.6)
-      ffi (~> 1.0, >= 1.0.6)
-    crack (0.1.8)
+    childprocess (0.3.9)
+      ffi (~> 1.0, >= 1.0.11)
     docopt (0.5.0)
     dynect_rest (0.4.3)
       json
@@ -42,122 +48,87 @@ GEM
       rest-client
       rest-client
     erubis (2.7.0)
-    excon (0.16.10)
-    faraday (0.8.5)
+    excon (0.25.1)
+    faraday (0.8.7)
       multipart-post (~> 1.1)
     faraday_middleware (0.9.0)
       faraday (>= 0.7.4, < 0.9)
-    ffi (1.2.0)
-    fog (1.8.0)
+    ffi (1.9.0)
+    fog (1.10.1)
       builder
-      excon (~> 0.14)
+      excon (~> 0.20)
       formatador (~> 0.2.0)
       mime-types
       multi_json (~> 1.0)
-      net-scp (~> 1.0.4)
+      net-scp (~> 1.1)
       net-ssh (>= 2.1.3)
       nokogiri (~> 1.5.0)
       ruby-hmac
     formatador (0.2.4)
     hashery (2.1.0)
-    hashie (1.2.0)
-    highline (1.6.15)
-    hpricot (0.8.6)
-    httparty (0.6.1)
-      crack (= 0.1.8)
+    hashie (2.0.5)
+    highline (1.6.19)
     hub (1.10.6)
-    i18n (0.6.1)
+    i18n (0.6.4)
     ipaddress (0.8.0)
-    jenkins (0.6.8)
-      builder (~> 2.1.2)
-      hpricot
-      httparty (~> 0.6.1)
-      json_pure (>= 1.5.1)
-      term-ansicolor (>= 1.0.4)
-      thor (~> 0.14.2)
-    json (1.5.4)
-    json_pure (1.7.6)
-    knife-rackspace (0.6.2)
-      chef (>= 0.10.10)
-      fog (~> 1.6)
-    librarian (0.0.20)
+    json (1.7.7)
+    librarian (0.1.0)
+      highline
+      thor (~> 0.15)
+    librarian-chef (0.0.1)
       archive-tar-minitar (>= 0.5.2)
       chef (>= 0.10)
-      highline
-      thor
-    libwebsocket (0.1.7.1)
-      addressable
-      websocket
+      librarian (~> 0.1.0)
     log4r (1.1.10)
-    mime-types (1.19)
+    mime-types (1.23)
     mixlib-authentication (1.3.0)
       mixlib-log
-    mixlib-cli (1.2.2)
+    mixlib-cli (1.3.0)
     mixlib-config (1.1.2)
-    mixlib-log (1.4.1)
+    mixlib-log (1.6.0)
     mixlib-shellout (1.1.0)
-    moneta (0.6.0)
-    multi_json (1.5.0)
-    multipart-post (1.1.5)
-    net-scp (1.0.4)
-      net-ssh (>= 1.99.1)
-    net-ssh (2.2.2)
-    net-ssh-gateway (1.1.0)
-      net-ssh (>= 1.99.1)
+    multi_json (1.7.7)
+    multipart-post (1.2.0)
+    net-scp (1.1.2)
+      net-ssh (>= 2.6.5)
+    net-ssh (2.6.8)
+    net-ssh-gateway (1.2.0)
+      net-ssh (>= 2.6.5)
     net-ssh-multi (1.1)
       net-ssh (>= 2.1.4)
       net-ssh-gateway (>= 0.99.0)
     netrc (0.7.7)
-    nokogiri (1.5.6)
-    octokit (1.23.0)
+    nokogiri (1.5.10)
+    octokit (1.25.0)
       addressable (~> 2.2)
       faraday (~> 0.8)
       faraday_middleware (~> 0.9)
-      hashie (~> 1.2)
+      hashie (~> 2.0)
       multi_json (~> 1.3)
       netrc (~> 0.7.7)
-    ohai (6.14.0)
+    ohai (6.16.0)
       ipaddress
       mixlib-cli
       mixlib-config
       mixlib-log
+      mixlib-shellout
       systemu
       yajl-ruby
     open4 (1.3.0)
-    polyglot (0.3.3)
     pwqgen.rb (0.0.5)
       docopt (~> 0.5.0)
-    rake (10.0.3)
+    rake (10.1.0)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     ruby-hmac (0.4.0)
-    rubygems-bundler (1.1.0)
-    rubyzip (0.9.9)
-    selenium-webdriver (2.27.2)
-      childprocess (>= 0.2.5)
-      libwebsocket (~> 0.1.3)
-      multi_json (~> 1.0)
-      rubyzip
     system_timer (1.2.4)
     systemu (2.5.2)
-    term-ansicolor (1.0.7)
-    thor (0.14.6)
-    treetop (1.4.12)
-      polyglot
-      polyglot (>= 0.3.1)
-    uuidtools (2.1.3)
-    vagrant (1.0.5)
-      archive-tar-minitar (= 0.5.2)
-      childprocess (~> 0.3.1)
-      erubis (~> 2.7.0)
-      i18n (~> 0.6.0)
-      json (~> 1.5.1)
-      log4r (~> 1.1.9)
-      net-scp (~> 1.0.4)
-      net-ssh (~> 2.2.2)
-    watir-webdriver (0.6.2)
-      selenium-webdriver (>= 2.18.0)
-    websocket (1.0.6)
+    thor (0.18.1)
+    vagrant-cachier (0.2.0)
+    vagrant-librarian-chef (0.1.2)
+      librarian-chef
+    vagrant-managed-servers (0.1.0)
+    vagrant-omnibus (1.1.0)
     yajl-ruby (1.1.0)
 
 PLATFORMS
@@ -166,20 +137,17 @@ PLATFORMS
 DEPENDENCIES
   chef
   dynect_rest
-  fog
   hashery
   highline
   hub
-  jenkins
-  json
-  knife-rackspace
-  knife-solo!
-  librarian
   octokit
   open4
   pwqgen.rb
   rake
-  rubygems-bundler
   system_timer
-  vagrant (>= 1.0.0)
-  watir-webdriver
+  vagrant!
+  vagrant-cachier
+  vagrant-librarian-chef
+  vagrant-managed-servers
+  vagrant-omnibus
+  vagrant-rackspace!

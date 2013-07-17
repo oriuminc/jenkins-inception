@@ -19,6 +19,22 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 
+include_recipe "jenkins::server"
+include_recipe "jenkins-job-builder"
+
+# TAKEN FROM build-essential COOKBOOK::
+# on apt-based platforms when first provisioning we need to force
+# apt-get update at compiletime if we are going to try to install at compiletime
+execute "apt-get-update-ruby-shadow" do
+  command "apt-get update"
+  action :nothing
+  # tip: to suppress this running every time, just use the apt cookbook
+  not_if do
+    ::File.exists?('/var/lib/apt/periodic/update-success-stamp') &&
+    ::File.mtime('/var/lib/apt/periodic/update-success-stamp') > Time.now - 86400*2
+  end
+end.run_action(:run)
+
 # Add so that we can set user passwords from databag
 %w{
   make
@@ -84,7 +100,6 @@ github_url = "http://github.com/#{repo.sub(/^.*[:\/](.*\/.*).git$/, '\\1')}"
 
 build_jobs = node['inception']['build_jobs']
 manual_trigger_jobs = node['inception']['manual_trigger_jobs']
-
 
 # Prepare each job
 [*build_jobs, nil].each_cons(2) do |job_name, next_job|

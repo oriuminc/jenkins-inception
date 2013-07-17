@@ -1,104 +1,97 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+require 'yaml'
 current_dir = File.dirname(__FILE__)
-# Import configs from YAML file.
 yml = YAML.load_file "#{current_dir}/roles/config.yml"
 
-Vagrant::Config.run do |config|
-  # All Vagrant configuration is done here. The most common configuration
-  # options are documented and commented below. For a complete reference,
-  # please see the online documentation at vagrantup.com.
+Vagrant.require_plugin "vagrant-cachier"
+Vagrant.require_plugin "vagrant-rackspace"
+Vagrant.require_plugin "vagrant-librarian-chef"
+Vagrant.require_plugin "vagrant-omnibus"
+Vagrant.require_plugin "vagrant-managed-servers"
 
-  # Every Vagrant virtual environment requires a box to build off of.
+# Use rackspace unless credential config missing.
+if ENV['VAGRANT_DEFAULT_PROVIDER'].nil?
+  unless ENV['RACKSPACE_USERNAME'].nil? || ENV['RACKSPACE_API_KEY'].nil?
+    ENV['VAGRANT_DEFAULT_PROVIDER'] = "rackspace"
+  else
+    ENV['VAGRANT_DEFAULT_PROVIDER'] = "managed"
+  end
+end
+
+# Move librarian scratch space out of project root so it doesn't rsync.
+ENV['LIBRARIAN_CHEF_TMP'] = File.expand_path("~/.librarian")
+
+
+Vagrant.configure("2") do |config|
+  config.vm.define "inception"
+
+  config.vm.hostname = yml['domain']
+
   config.vm.box = "lucid64"
 
-  # The url from where the 'config.vm.box' box will be fetched if it
-  # doesn't already exist on the user's system.
-  # config.vm.box_url = "http://domain.com/path/to/above.box"
+  config.omnibus.chef_version = "11.4.4"
 
-  # Boot with a GUI so you can see the screen. (Default is headless)
-  # config.vm.boot_mode = :gui
+  config.vm.network :forwarded_port, guest: 8080, host: 8080
 
-  # Assign this VM to a host-only network IP, allowing you to access it
-  # via the IP. Host-only networks can talk to the host machine as well as
-  # any other machines on the same network, but cannot be accessed (through this
-  # network interface) by any external networks.
-  # config.vm.network :hostonly, "192.168.33.10"
+  # Create a private network, which allows host-only access to the machine
+  # using a specific IP.
+  # config.vm.network :private_network, ip: "192.168.33.10"
 
-  # Assign this VM to a bridged network, allowing you to connect directly to a
-  # network using the host's network device. This makes the VM appear as another
-  # physical device on your network.
-  # config.vm.network :bridged
-
-  # Forward a port from the guest to the host, which allows for outside
-  # computers to access the VM, whereas host only networking does not.
-  config.vm.forward_port 80, 8080
+  # Create a public network, which generally matched to bridged network.
+  # Bridged networks make the machine appear as another physical device on
+  # your network.
+  # config.vm.network :public_network
 
   # Share an additional folder to the guest VM. The first argument is
-  # an identifier, the second is the path on the guest to mount the
-  # folder, and the third is the path on the host to the actual folder.
-  # config.vm.share_folder "v-data", "/vagrant_data", "../data"
+  # the path on the host to the actual folder. The second argument is
+  # the path on the guest to mount the folder. And the optional third
+  # argument is a set of non-required options.
+  # config.vm.synced_folder "../data", "/vagrant_data"
 
-  # Update Chef in VM to specific version before running provisioner
-  config.vm.provision :shell do |shell|
-    shell.path = "misc/upgrade_chef.sh"
-    shell.args = "10.16.2" # Chef version
+  config.vm.provider :virtualbox do |vb, override|
+    vb.customize ["modifyvm", :id, "--memory", "3000"]
+    override.cache.auto_detect = true
   end
 
-  # Enable provisioning with chef solo, specifying a cookbooks path, roles
-  # path, and data_bags path (all relative to this Vagrantfile), and adding 
-  # some recipes and/or roles.
+  config.vm.provider :rackspace do |rs, override|
+    rs.username = ENV['RACKSPACE_USERNAME']
+    rs.api_key  = ENV['RACKSPACE_API_KEY']
+    rs.public_key_path = Dir.glob(File.expand_path "~/.ssh/id_*.pub").first
+
+    rs.flavor   = /512MB/
+    rs.image    = /Lucid/
+
+    override.ssh.username = "root"
+    override.ssh.private_key_path = Dir.glob(File.expand_path "~/.ssh/id_*").first
+    override.vm.box_url = "https://github.com/mitchellh/vagrant-rackspace/raw/master/dummy.box"
+  end
+
+  config.vm.provider :managed do |mngd, override|
+    mngd.server = YAML.load_file(File.expand_path "roles/config.yml")['ip_address']
+    override.ssh.username = `git config --get github.user`.chomp
+    override.vm.box_url = "https://github.com/tknerr/vagrant-managed-servers/raw/master/dummy.box"
+  end
 
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = [ "cookbooks", "cookbooks-override" ]
     chef.roles_path = "roles"
     chef.data_bags_path = "data_bags"
+
     chef.add_role "jenkins"
 
-    # Keeping Vagrant-specific attributes to a minimum (most are in the roles,
-    # derived from YAML config file). These exceptions are here for
-    # vagrant-only config.
     chef.json = {
-      # Ensure that vagrant user never locked out.
-      "authorization" => {
-        "sudo" => {
-          # Only vagrant user gets sudo on VM.
-          "users" => ["vagrant"],
-        }
+      :authorization => {
+        :sudo => {
+          :users => ["vagrant"],
+        },
       },
-      "jenkins" => {
-        "http_proxy" => {
-          "host_name" => "localhost",
-        }
+      :openssh => {
+        :server => {
+          :permit_root_login => "yes"
+        },
       },
-      "mysql" => {
-        "allow_remote_root" => true,
-        "bind_address" => "0.0.0.0",
-      }
     }
   end
-
-  # Enable provisioning with chef server, specifying the chef server URL,
-  # and the path to the validation key (relative to this Vagrantfile).
-  #
-  # The Opscode Platform uses HTTPS. Substitute your organization for
-  # ORGNAME in the URL and validation key.
-  #
-  # If you have your own Chef Server, use the appropriate URL, which may be
-  # HTTP instead of HTTPS depending on your configuration. Also change the
-  # validation key to validation.pem.
-  #
-  # config.vm.provision :chef_client do |chef|
-  #   chef.chef_server_url = "https://api.opscode.com/organizations/ORGNAME"
-  #   chef.validation_key_path = "ORGNAME-validator.pem"
-  # end
-  #
-  # If you're using the Opscode platform, your validator client is
-  # ORGNAME-validator, replacing ORGNAME with your organization name.
-  #
-  # IF you have your own Chef Server, the default validation client name is
-  # chef-validator, unless you changed the configuration.
-  #
-  #   chef.validation_client_name = "ORGNAME-validator"
 end

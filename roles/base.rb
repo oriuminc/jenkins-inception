@@ -24,7 +24,7 @@ default_attributes({
     "sudo" => {
       # Note: Overridden in Vagrantfile so vagrant user never locked out.
       "passwordless" => true,
-      "users" => data_bag("users"),
+      "groups" => ["sysadmin"],
     },
   },
   "ohmyzsh" => {
