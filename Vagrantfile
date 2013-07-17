@@ -5,6 +5,7 @@ require 'yaml'
 current_dir = File.dirname(__FILE__)
 yml = YAML.load_file "#{current_dir}/roles/config.yml"
 
+Vagrant.require_plugin "vagrant-cachier"
 Vagrant.require_plugin "vagrant-rackspace"
 Vagrant.require_plugin "vagrant-librarian-chef"
 Vagrant.require_plugin "vagrant-omnibus"
@@ -50,6 +51,7 @@ Vagrant.configure("2") do |config|
   config.vm.provider :virtualbox do |vb, override|
     vb.customize ["modifyvm", :id, "--memory", "3000"]
     override.vm.hostname = yml['domain'].gsub('.com', '.local')
+    override.cache.auto_detect = true
   end
 
   config.vm.provider :rackspace do |rs, override|

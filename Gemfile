@@ -13,6 +13,7 @@ gem "system_timer", :platform => :ruby_18
 gem "vagrant",
   :git => "https://github.com/mitchellh/vagrant",
   :ref => "v1.2.3"
+gem "vagrant-cachier"
 gem "vagrant-librarian-chef"
 gem "vagrant-managed-servers"
 gem "vagrant-omnibus"
