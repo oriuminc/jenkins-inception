@@ -128,6 +128,7 @@ namespace :team do
           :id => user_data['login'].downcase,
           :comment => user_data['name'] || '',
           :shell => "/bin/zsh",
+          :groups => ["sysadmin"],
           :ssh_keys => user_keys_data.collect { |entry| entry['key'] },
         }
         file.puts JSON.pretty_generate(user_data_bag_item)
