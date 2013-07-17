@@ -63,6 +63,7 @@ Vagrant.configure("2") do |config|
     rs.flavor   = /512MB/
     rs.image    = /Lucid/
 
+    override.ssh.username = "root"
     override.ssh.private_key_path = Dir.glob(File.expand_path "~/.ssh/id_*").first
     override.vm.box_url = "https://github.com/mitchellh/vagrant-rackspace/raw/master/dummy.box"
   end
