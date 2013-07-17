@@ -1,8 +1,8 @@
 SITE
   remote: http://community.opscode.com/api/v1
   specs:
-    apache2 (1.6.0)
-    apt (1.9.0)
+    apache2 (1.6.6)
+    apt (2.0.0)
     ark (0.1.0)
     build-essential (1.4.0)
     chef_handler (1.1.4)
@@ -16,12 +16,12 @@ SITE
       windows (>= 0.0.0)
       yum (>= 0.0.0)
     iptables (0.12.0)
-    java (1.10.2)
+    java (1.12.0)
       windows (>= 0.0.0)
     mysql (2.1.2)
       build-essential (>= 0.0.0)
       openssl (>= 0.0.0)
-    nginx (1.6.0)
+    nginx (1.7.0)
       apt (>= 0.0.0)
       build-essential (>= 0.0.0)
       ohai (>= 1.1.4)
@@ -31,7 +31,7 @@ SITE
       git (>= 0.0.0)
       user (>= 0.0.0)
       zsh (>= 0.0.0)
-    ohai (1.1.8)
+    ohai (1.1.10)
     openssh (1.1.4)
     openssl (1.0.2)
     php (1.1.8)
@@ -39,11 +39,12 @@ SITE
       mysql (>= 0.0.0)
       xml (>= 0.0.0)
     postfix (2.1.4)
-    runit (1.1.0)
+    runit (1.1.6)
       build-essential (>= 0.0.0)
+      yum (>= 0.0.0)
     sudo (2.0.4)
     vim (1.0.2)
-    windows (1.8.4)
+    windows (1.10.0)
       chef_handler (>= 0.0.0)
     xml (1.1.2)
       build-essential (>= 0.0.0)
@@ -123,7 +124,7 @@ GIT
 GIT
   remote: https://github.com/opscode-cookbooks/jenkins.git
   ref: master
-  sha: 7f3e6e6a3f750234d3371353245780e99392f64a
+  sha: 0ff2a4e20e5ca0646a112b3bc11c22af87a9f3ad
   specs:
     jenkins (0.8.0)
       apache2 (>= 0.0.0)
