@@ -68,6 +68,7 @@ Quickstart
         bundle exec rake team:generate_users
         bundle exec rake team:fork_skeletor
         bundle exec vagrant up
+        bundle exec rake admin:write_ip
         bundle exec rake admin:create_subdomain
         # Temporary fixed until GH-27 solved.
         bundle exec vagrant ssh -c "sudo -iujenkins ssh-keygen -t rsa -C jenkins@localhost"

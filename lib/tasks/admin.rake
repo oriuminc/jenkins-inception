@@ -31,4 +31,17 @@ namespace :admin do
     puts "Successfully created DNS A-record pointing #{project_fqdn} to #{project_ip}!"
 
   end
+
+  desc "Write IP address to config file."
+  task :write_ip do
+    Rake::Task["load_config"].invoke
+    ip_address = `vagrant ssh-config | grep -i hostname`.split.last
+
+    puts "Writing IP address to config file."
+    @config['ip_address'] = ip_address
+    File.open(@config_file, 'w') do |out|
+      YAML::dump(@config, out)
+    end
+
+  end
 end
