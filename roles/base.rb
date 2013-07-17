@@ -9,6 +9,7 @@ name "base"
 description "The base role for servers."
 run_list(
   "recipe[apt]",
+  "recipe[inception::profiler_handler]",
   "recipe[fail2ban]",
   "recipe[chef-solo-search]",
   "recipe[sudo]",

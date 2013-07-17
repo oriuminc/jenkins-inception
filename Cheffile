@@ -10,6 +10,7 @@ cookbook "bash",
   :git => "https://github.com/myplanetdigital/chef-bash.git",
   # PR: https://github.com/mszoernyi/chef-bash/pull/1
   :ref => "feature/bash_profile-resource"
+cookbook "chef_handler"
 cookbook "chef-solo-search",
   :git => "https://github.com/edelight/chef-solo-search.git",
   :ref => "0.4.0"

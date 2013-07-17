@@ -7,3 +7,4 @@ version          "0.0.1"
 
 depends "jenkins"
 depends "jenkins-job-builder"
+depends "chef_handler"

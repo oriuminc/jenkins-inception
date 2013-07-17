@@ -81,6 +81,8 @@ Vagrant.configure("2") do |config|
 
     chef.add_role "jenkins"
 
+    chef.log_level = :debug unless ENV['INCEPTION_DEBUG'].nil?
+
     chef.json = {
       :authorization => {
         :sudo => {

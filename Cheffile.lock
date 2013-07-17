@@ -148,6 +148,7 @@ DEPENDENCIES
   ark (>= 0)
   bash (>= 0)
   chef-solo-search (>= 0)
+  chef_handler (>= 0)
   drush (>= 0)
   fail2ban (>= 0)
   git (>= 0)
