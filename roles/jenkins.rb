@@ -1,6 +1,6 @@
 current_dir = File.dirname(__FILE__)
 # Import configs from YAML file.
-yml = YAML.load_file "#{current_dir}/config.yml"
+yml = YAML.load_file("#{current_dir}/config.yml")['inception']
 
 name "jenkins"
 description "The base role for setting up the jenkins master with appropriate initial settings."

@@ -75,7 +75,7 @@ namespace :team do
 
     # Write config.yml
     File.open(@config_file, 'w') do |out|
-      YAML::dump(@config, out)
+      YAML::dump({'inception' => @config}, out)
     end
   end
 

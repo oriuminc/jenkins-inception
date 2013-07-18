@@ -3,7 +3,8 @@
 
 require 'yaml'
 current_dir = File.dirname(__FILE__)
-yml = YAML.load_file "#{current_dir}/roles/config.yml"
+config_file = File.join(current_dir, "roles/config.yml")
+yml_config = YAML.load_file(config_file)
 
 Vagrant.require_plugin "vagrant-cachier"
 Vagrant.require_plugin "vagrant-rackspace"
@@ -23,11 +24,10 @@ end
 # Move librarian scratch space out of project root so it doesn't rsync.
 ENV['LIBRARIAN_CHEF_TMP'] = File.expand_path("~/.librarian")
 
-
 Vagrant.configure("2") do |config|
   config.vm.define "inception"
 
-  config.vm.hostname = yml['domain']
+  config.vm.hostname = yml_config['domain']
 
   config.vm.box = "lucid64"
 
@@ -69,7 +69,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provider :managed do |mngd, override|
-    mngd.server = YAML.load_file(File.expand_path "roles/config.yml")['ip_address']
+    mngd.server = yml_config['ip_address']
     override.ssh.username = `git config --get github.user`.chomp
     override.vm.box_url = "https://github.com/tknerr/vagrant-managed-servers/raw/master/dummy.box"
   end
@@ -95,5 +95,7 @@ Vagrant.configure("2") do |config|
         },
       },
     }
+
+    chef.json.merge!(yml_config)
   end
 end

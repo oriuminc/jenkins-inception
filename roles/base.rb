@@ -1,6 +1,6 @@
 current_dir = File.dirname(__FILE__)
 # Import configs from YAML file.
-yml = YAML.load_file "#{current_dir}/config.yml"
+yml = YAML.load_file("#{current_dir}/config.yml")['inception']
 
 # Allow databag search in role file.
 ::Chef::Role.send(:include, Chef::DSL::DataQuery)

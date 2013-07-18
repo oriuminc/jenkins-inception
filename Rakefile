@@ -11,7 +11,7 @@ end
 
 task :load_config do
   @config_file = ENV['INCEPTION_CONFIG'] || 'roles/config.yml'
-  @config = load_yaml(@config_file) || {}
+  @config = load_yaml(@config_file)['inception'] || {}
 end
 
 Dir.glob('lib/tasks/*.rake').each { |r| import r }

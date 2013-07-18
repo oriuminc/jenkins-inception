@@ -40,7 +40,7 @@ namespace :admin do
     puts "Writing IP address to config file."
     @config['ip_address'] = ip_address
     File.open(@config_file, 'w') do |out|
-      YAML::dump(@config, out)
+      YAML::dump({'inception' => @config}, out)
     end
 
   end
