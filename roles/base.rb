@@ -16,7 +16,7 @@ run_list(
   "recipe[git]",
   "recipe[zsh]",
   "recipe[openssh]",
-  "recipe[user::data_bag]",
+  "recipe[inception-user::data_bag]",
   "recipe[oh-my-zsh::shared]",
   "recipe[vim]"
 )
@@ -40,11 +40,4 @@ default_attributes({
       "permit_root_login" => "no",
     },
   },
-  "user" => {
-    "default_shell" => "/bin/zsh",
-    "ssh_keygen" => false,
-    "password" => yml['password'],
-    "use_plaintext" => true,
-  },
-  "users" => data_bag("users"),
 })
