@@ -27,7 +27,7 @@ ENV['LIBRARIAN_CHEF_TMP'] = File.expand_path("~/.librarian")
 Vagrant.configure("2") do |config|
   config.vm.define "inception"
 
-  config.vm.hostname = yml_config['domain']
+  config.vm.hostname = yml_config['inception']['domain']
 
   config.vm.box = "lucid64"
 
@@ -69,7 +69,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provider :managed do |mngd, override|
-    mngd.server = yml_config['ip_address']
+    mngd.server = yml_config['inception']['ip_address']
     override.ssh.username = `git config --get github.user`.chomp
     override.vm.box_url = "https://github.com/tknerr/vagrant-managed-servers/raw/master/dummy.box"
   end
