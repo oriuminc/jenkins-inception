@@ -1,0 +1,7 @@
+[
+  {"vagrant-cachier":         "0.3.2"},
+  {"vagrant-librarian-chef":  "0.1.2"},
+  {"vagrant-managed-servers": "0.1.0"},
+  {"vagrant-omnibus":         "1.1.0"},
+  {"vagrant-rackspace":       "0.1.2"}
+]

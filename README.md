@@ -62,12 +62,18 @@ Quickstart
 
         git clone https://github.com/myplanetdigital/jenkins-inception.git
         cd jenkins-inception
+
         [sudo] gem install bundler
         bundle install
         bundle exec rake team:configure
         bundle exec rake team:generate_users
         bundle exec rake team:fork_skeletor
-        bundle exec vagrant up
+
+        vagrant plugin install bindler
+        vagrant bindler setup
+        vagrant plugin bundle
+        vagrant up
+
         bundle exec rake admin:write_ip
         bundle exec rake admin:create_subdomain
         bundle exec rake team:add_deploy_key
