@@ -45,6 +45,8 @@ end.run_action(:run)
   end.run_action(:install)
 end
 
+gem_package "acapi"
+
 chef_gem "ruby-shadow"
 
 group "shadow" do
