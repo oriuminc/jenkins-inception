@@ -101,6 +101,7 @@ Known Issues
   - Generally, both ruby and its gems should be compiled using the same
     version of Xcode. If you get odd errors, remove ruby and its gems
     and recompile.
+  - On June 10, 2015 - @timfernihough decommissioned the Myplanet DynDNS account.  While any       account can be used as long as the appropriate environment variables are set, this will no     longer work.  mpdagile.com DNS has been moved to Verisign where an API for subdomain           creation is not setup.
 
 To Do
 -----
