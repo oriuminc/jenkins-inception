@@ -44,8 +44,6 @@ GEM
     docopt (0.5.0)
     dynect_rest (0.4.3)
       json
-      json
-      rest-client
       rest-client
     erubis (2.7.0)
     excon (0.25.1)
@@ -129,7 +127,7 @@ GEM
       librarian-chef
     vagrant-managed-servers (0.1.0)
     vagrant-omnibus (1.1.0)
-    yajl-ruby (1.1.0)
+    yajl-ruby (1.4.2)
 
 PLATFORMS
   ruby
