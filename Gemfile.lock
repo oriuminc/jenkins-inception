@@ -44,8 +44,6 @@ GEM
     docopt (0.5.0)
     dynect_rest (0.4.3)
       json
-      json
-      rest-client
       rest-client
     erubis (2.7.0)
     excon (0.25.1)
@@ -69,7 +67,7 @@ GEM
     hashie (2.0.5)
     highline (1.6.19)
     hub (1.10.6)
-    i18n (0.6.4)
+    i18n (0.6.11)
     ipaddress (0.8.0)
     json (1.7.7)
     librarian (0.1.0)
